@@ -53,6 +53,8 @@ window.onData = function (data) {
         for ( const dial of dials ) {
             running = false;
             dial.stop();
+
+            PostData("progress_stop");
         }
     }
 };

@@ -10,6 +10,7 @@ version '0.1.0'
 
 client_scripts {
     'config.lua',
+    'utils.lua',
     'client.lua',
 }
 
