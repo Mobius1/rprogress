@@ -66,12 +66,9 @@ exports.rprogress:Custom(options)
 ##### Start the progress bar
 
 ```lua
-exports.rprogress:Start({
-    Duration = 2000, -- progress bar will take 2 seconds to complete
-    onComplete = function(data, callback)
-        -- do something when progress is complete
-    end
-})
+exports.rprogress:Start(2000, function()
+    -- do something when progress is complete
+end)
 ```
 
 ##### Stop the progress bar early
