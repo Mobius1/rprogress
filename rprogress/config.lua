@@ -3,6 +3,8 @@ Config = {}
 Config.From         = 0     -- Starting progress percentage
 Config.To           = 100   -- Ending progress percentage
 
+Async               = true  -- Whether to run the progress bar asyncronously
+
 Config.Duration     = 5000
 Config.Label        = "Loading..."
 

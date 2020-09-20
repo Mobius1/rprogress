@@ -1,94 +1,95 @@
 @font-face {
-        font-family: "ChaletComprime";
-        src: url("../fonts/ChaletComprimeCologneSixty.ttf");
-        }
-        
+    font-family: "ChaletComprime";
+    src: url("../fonts/ChaletComprimeCologneSixty.ttf");
+}
 
 body {
-        margin: 0;
-        width: 100vw;
-        height: 100vh;
-        display: -webkit-box;
-        display: flex;
-        -webkit-box-align: center;
-        align-items: center;
-        -webkit-box-pack: center;
-        justify-content: center;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-        flex-direction: column;
-        font-family: "ChaletComprime";
-        font-size: 30px;
-        overflow: hidden;
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    font-family: "ChaletComprime";
+    font-size: 30px;
+    overflow: hidden;
 }
 
 .ui-dial {
-        position: absolute;
-        opacity: 1;
-        -webkit-transform: scale(1);
-                transform: scale(1);
-        display: -webkit-box;
-        display: flex;
-        -webkit-box-align: center;
-                align-items: center;
-        -webkit-box-pack: center;
-                justify-content: center;
-        }
+    position: absolute;
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
 
 .ui-dial svg {
-        -webkit-transform: rotate(-90deg);
-        transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
 }
 
 .ui-dial svg circle {
-        fill: transparent;
+    fill: transparent;
 }
 
 .ui-dial svg circle:last-child {
-        z-index: 10;
+    z-index: 10;
 }
 
 .ui-dial.done {
-        -webkit-animation: done 200ms ease 0ms forwards;
-        animation: done 200ms ease 0ms forwards;
+    -webkit-animation: done 200ms ease 0ms forwards;
+    animation: done 200ms ease 0ms forwards;
 }
 
 .ui-dial .ui-indicator {
-        position: absolute;
-        color: #fff;
-        font-family: "Roboto Mono";
-        font-size: 20px;
-        }
-        .ui-dial .ui-label {
-                position: absolute;
-                color: #fff;
-                top: 100%;
-                margin: 20px 0;
-                }
-@-webkit-keyframes done {
-        from {
-                opacity: 1;
-                -webkit-transform: scale(1);
-                transform: scale(1);
-        }
+    position: absolute;
+    color: #fff;
+    font-family: "Roboto Mono";
+    font-size: 20px;
+}
 
-        to {
-                opacity: 0;
-                -webkit-transform: scale(1.2);
-                transform: scale(1.2);
-        }
+.ui-dial .ui-label {
+    position: absolute;
+    color: #fff;
+    top: 100%;
+    margin: 20px 0;
+}
+
+@-webkit-keyframes done {
+    from {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+
+    to {
+        opacity: 0;
+        -webkit-transform: scale(1.2);
+        transform: scale(1.2);
+    }
 }
 
 @keyframes done {
-        from {
-                opacity: 1;
-                -webkit-transform: scale(1);
-                transform: scale(1);
-        }
+    from {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
 
-        to {
-                opacity: 0;
-                -webkit-transform: scale(1.2);
-                transform: scale(1.2);
-        }
+    to {
+        opacity: 0;
+        -webkit-transform: scale(1.2);
+        transform: scale(1.2);
+    }
 }

@@ -1,5 +1,10 @@
 OnStart = nil
 OnComplete = nil
+Run = false
+
+------------------------------------------------------------
+--                     MAIN FUNCTIONS                     --
+------------------------------------------------------------
 
 function Start(duration, cb)
     if tonumber(duration) == nil then
@@ -10,20 +15,31 @@ function Start(duration, cb)
         print(s)
     end
 
-    if cb ~= nil then
-        OnComplete = cb
-    end
-
     local options = MergeConfig(Config, {
         display = true,
         Duration = duration
     })
+
+    if cb ~= nil then
+        if type(cb) == "function" then
+            OnComplete = cb
+        end
+    else
+        options.Async = false
+    end
 
     -- CAN'T SEND FUNCTIONS TO NUI
     options.onStart = nil
     options.onComplete = nil    
 
     SendNUIMessage(options)
+
+    if options.Async == false then
+        Run = true
+        while Run do
+            Citizen.Wait(1)
+        end
+    end    
 end
 
 function Custom(options) 
@@ -49,18 +65,14 @@ function Custom(options)
     options.onComplete = nil
 
     SendNUIMessage(options) 
-end
 
-RegisterNUICallback('progress_start', function()
-    if OnStart ~= nil then
-        OnStart()
+    if options.Async == false then
+        Run = true
+        while Run do
+            Citizen.Wait(1)
+        end
     end
-end)
-RegisterNUICallback('progress_complete', function()
-    if OnComplete ~= nil then
-        OnComplete()
-    end
-end)
+end
 
 function Stop()
     SendNUIMessage({
@@ -68,16 +80,46 @@ function Stop()
     })
 end
 
+
+------------------------------------------------------------
+--                     NUI CALLBACKS                      --
+------------------------------------------------------------
+
+RegisterNUICallback('progress_start', function()
+    if OnStart ~= nil then
+        OnStart()
+    end
+end)
+RegisterNUICallback('progress_complete', function()
+    Run = false
+    if OnComplete ~= nil then
+        OnComplete()
+    end
+end)
+
+
+------------------------------------------------------------
+--                        EXPORTS                         --
+------------------------------------------------------------
+
 exports('Start', Start)
 exports('Custom', Custom)
 exports('Stop', Stop)
 
--- DEMO --
-TriggerEvent('chat:addSuggestion', '/rprogressStart', 'rprogress Demo', {
+
+------------------------------------------------------------
+--                          DEMO                          --
+------------------------------------------------------------
+
+TriggerEvent('chat:addSuggestion', '/rprogressStart', 'rprogress Async Demo', {
     { name="Duration (ms)", help="Duration of progress" }
 })
 
-TriggerEvent('chat:addSuggestion', '/rprogressCustom', 'rprogress Demo', {
+TriggerEvent('chat:addSuggestion', '/rprogressSync', 'rprogress Sync Demo', {
+    { name="Duration (ms)", help="Duration of progress" }
+})
+
+TriggerEvent('chat:addSuggestion', '/rprogressCustom', 'rprogress Custom Demo', {
     { name="From (0-100)", help="Percentage to start from" },
     { name="To (0-100)", help="Percentage to stop at" },
     { name="Duration (ms)", help="Duration of progress" },
@@ -89,9 +131,16 @@ TriggerEvent('chat:addSuggestion', '/rprogressCustom', 'rprogress Demo', {
 
 RegisterCommand("rprogressStart", function(source, args, raw)
     Start(tonumber(args[1]), function(data, cb)
-        exports.FeedM:ShowNotification("~g~Event: onComplete")
+        ShowNotification("~g~Event: onComplete")
     end) 
 end)
+
+RegisterCommand("rprogressSync", function(source, args, raw)
+    ShowNotification("~b~Event: onStart")
+    Start(tonumber(args[1]))
+    ShowNotification("~g~Event: onComplete")
+end)
+
 
 RegisterCommand("rprogressCustom", function(source, args, raw)
     Custom({
@@ -103,13 +152,19 @@ RegisterCommand("rprogressCustom", function(source, args, raw)
         MaxAngle = tonumber(args[6]) or Config.MaxAngle,
         Rotation = tonumber(args[7]) or Config.Rotation,
         onStart = function(data, cb)
-            exports.FeedM:ShowNotification("~b~Event: onStart")
+            ShowNotification("~b~Event: onStart")
         end,
         onComplete = function(data, cb)
-            exports.FeedM:ShowNotification("~g~Event: onComplete")
+            ShowNotification("~g~Event: onComplete")
         end
     }) 
 end)
+
+function ShowNotification(msg)
+    SetNotificationTextEntry('STRING')
+    AddTextComponentSubstringPlayerName(msg)
+    DrawNotification(false, true)
+end
 
 function MergeConfig(t1, t2)
     for k,v in pairs(t2) do
@@ -138,7 +193,7 @@ function ErrorCheck(options)
     for k, v in pairs(options) do
         local error = false
         if k ~= "onStart" and k ~= "onComplete" then
-            if k == "ShowTimer" or k == "ShowProgress" then
+            if k == "ShowTimer" or k == "ShowProgress" or k == "Async" then
                 if type(v) ~= "boolean" then
                     error = "boolean"
                 end
