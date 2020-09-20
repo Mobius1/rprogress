@@ -43,7 +43,7 @@ Config.MaxAngle     = 360   -- Max arc in degrees - 360 = full circle, 90 = quar
 Config.Radius       = 60    -- Radius of the dial in pixels
 Config.Stroke       = 10    -- stroke width of the dial in pixels
 
-Config.ShowTimer    = true  -- Shows the timer countdown withing the dial
+Config.ShowTimer    = true  -- Shows the timer countdown within the dial
 Config.ShowProgress = false -- Shows the progress within the dial
 ```
 NOTE: `Config.Position` is based on screen size so setting `Config.Position.x = 0.5` will be the center of the screen, `Config.Position.x = 1.0` with be right-side of the screen, `Config.Position.x = 0.0` will be the left-side of the screen, etc.
