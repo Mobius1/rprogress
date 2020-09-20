@@ -22,7 +22,7 @@ Customisable radial progress bars for FiveM.
 ## Configuration
 
 ```lua
-Async               = true  -- Whether to run the progress bar asyncronously
+Config.Async        = true  -- Whether to run the progress bar asyncronously
 
 Config.From         = 0     -- Starting progress percentage
 Config.To           = 100   -- Ending progress percentage
