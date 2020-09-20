@@ -112,42 +112,42 @@ By setting `Async` to `false`, the resource will run syncronously and any code a
 
 ##### Async
 ```lua
-print("first")
+print("before")
 
 exports.rprogress:Custom({
     Async = true,
     Duration = 3000,
     onComplete = function()
-        print("second")
+        print("during")
     end    
 })
 
-print("third")
+print("after")
 ```
 
 Output
 ```lua
-first
-third
-second
+before
+after
+during
 ```
 
 ##### Sync
 ```lua
-print("first")
+print("before")
+
 exports.rprogress:Custom({
     Async = false,
     Duration = 3000
 })
 
--- this will run 2000ms after
-print("second")
+print("after")
 ```
 
 Output
 ```lua
-first
-second
+before
+after
 ```
 
 ## Contributing
