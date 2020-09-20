@@ -1,5 +1,5 @@
 # rprogress
-Customisable radial progress bars for FiveM . 
+Customisable radial progress bars for FiveM. 
 
 ## Demo Videos
 * [Default](https://streamable.com/85j3gt)
@@ -22,6 +22,8 @@ Customisable radial progress bars for FiveM .
 ## Configuration
 
 ```lua
+Async               = true  -- Whether to run the progress bar asyncronously
+
 Config.From         = 0     -- Starting progress percentage
 Config.To           = 100   -- Ending progress percentage
 
@@ -66,9 +68,13 @@ exports.rprogress:Custom(options)
 ##### Start the progress bar
 
 ```lua
+-- async
 exports.rprogress:Start(2000, function()
     -- do something when progress is complete
 end)
+
+-- sync
+exports.rprogress:Start(2000)
 ```
 
 ##### Stop the progress bar early
@@ -79,6 +85,7 @@ exports.rprogress:Stop()
 ##### Override `config.lua` values
 ```lua
 exports.rprogress:Custom({
+    Async = false,
     From = 0,
     To = 100,
     Duration = 1000,
@@ -88,26 +95,73 @@ exports.rprogress:Custom({
     Rotation = 0,
     Color = "rgba(255, 255, 255, 1.0)",
     BGColor = "rgba(0, 0, 0, 0.4)",
-    onStart = function(data, callback)
+    onStart = function()
         -- do something when progress starts
     end	
-    onComplete = function(data, callback)
+    onComplete = function()
         -- do something when progress is complete
     end
 })
+```
+
+## Sync vs Async
+
+By default, `rprogress` runs asyncronously with callbacks available to call when the progress bar is complete.
+
+By setting `Async` to `false`, the resource will run syncronously and any code after the progress bar function will not run until the progress bar is complete.
+
+##### Async
+```lua
+print("first")
+
+exports.rprogress:Custom({
+    Async = true,
+    Duration = 3000,
+    onComplete = function()
+        print("second")
+    end    
+})
+
+print("third")
+```
+
+Output
+```lua
+first
+third
+second
+```
+
+##### Sync
+```lua
+print("first")
+exports.rprogress:Custom({
+    Async = false,
+    Duration = 3000
+})
+
+-- this will run 2000ms after
+print("second")
+```
+
+Output
+```lua
+first
+second
 ```
 
 ## Contributing
 Pull requests welcome.
 
 ## To Do
-- [ ] Allow bar colour customisation in `config.lua`
+- [x] Allow sync and async
+- [x] Allow bar colour customisation in `config.lua`
 
 ## Legal
 
 ### License
 
-esx_collectables - Enable collectable items on an ESX-enabled FiveM server
+rprogress - Customisable radial progress bars for FiveM.
 
 Copyright (C) 2020 Karl Saunders
 
