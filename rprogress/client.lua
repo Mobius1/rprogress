@@ -113,7 +113,11 @@ RegisterNetEvent("rprogress:custom")
 
 AddEventHandler("rprogress:start", Start)
 AddEventHandler("rprogress:stop", Stop)
-AddEventHandler("rprogress:custom", Custom)
+AddEventHandler("rprogress:custom", function(options)
+    options.Async = false
+
+    Custom(options)
+end)
 
 
 ------------------------------------------------------------
