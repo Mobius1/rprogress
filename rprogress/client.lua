@@ -115,6 +115,8 @@ AddEventHandler("rprogress:start", Start)
 AddEventHandler("rprogress:stop", Stop)
 AddEventHandler("rprogress:custom", function(options)
     options.Async = false
+    options.onStart = nil
+    options.onComplete = nil
 
     Custom(options)
 end)
