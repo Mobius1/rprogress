@@ -104,6 +104,19 @@ end)
 
 
 ------------------------------------------------------------
+--                         EVENTS                         --
+------------------------------------------------------------
+
+RegisterNetEvent("rprogress:start")
+RegisterNetEvent("rprogress:stop")
+RegisterNetEvent("rprogress:custom")
+
+AddEventHandler("rprogress:start", Start)
+AddEventHandler("rprogress:stop", Stop)
+AddEventHandler("rprogress:custom", Custom)
+
+
+------------------------------------------------------------
 --                        EXPORTS                         --
 ------------------------------------------------------------
 
