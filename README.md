@@ -6,6 +6,7 @@ Customisable radial progress bars for FiveM.
 * [Custom MaxAngle and Rotation](https://streamable.com/i6lhxx)
 * [Without Timer](https://streamable.com/d7qil2)
 * [Demo with esx_doorlock](https://streamable.com/94b0ph)
+* [Custom Label Position](https://streamable.com/4mqwgx)
 
 ## Requirements
 
