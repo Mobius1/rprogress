@@ -120,6 +120,14 @@ exports.rprogress:Custom({
 })
 ```
 
+## Server Triggers
+These won't run in async due to not being able to pass callbacks from server to client.
+```lua
+TriggerClientEvent('rprogress:start', source, duration)
+TriggerClientEvent('rprogress:stop', source)
+TriggerClientEvent('rprogress:custom', source, options)
+```
+
 ## Sync vs Async
 
 By default, `rprogress` runs asyncronously with callbacks available to call when the progress bar is complete.
