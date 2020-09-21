@@ -6,7 +6,15 @@ Run = false
 --                     MAIN FUNCTIONS                     --
 ------------------------------------------------------------
 
-function Start(duration, cb)
+function Start(label, duration, cb)
+    if type(duration) ~= "string" then
+        local msg = "======== rprogress ERROR: param 'Label' must be type:string ========"
+        local s = string.rep("=", string.len(msg))
+        print(s)
+        print(msg)
+        print(s)
+    end
+
     if tonumber(duration) == nil then
         local msg = "======== rprogress ERROR: param 'duration' must be type:number ========"
         local s = string.rep("=", string.len(msg))
@@ -14,10 +22,12 @@ function Start(duration, cb)
         print(msg)
         print(s)
     end
+    
 
     local options = MergeConfig(Config, {
         display = true,
-        Duration = duration
+        Duration = duration,
+        Label = label
     })
 
     if cb ~= nil then

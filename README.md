@@ -68,7 +68,7 @@ Available exports:
 
 ```lua
 -- starts the progress bar for the defined duration and fires an optional callback when finished
-exports.rprogress:Start(duration, cb)
+exports.rprogress:Start(text, duration, cb)
 
 -- stops the progress bar early
 exports.rprogress:Stop()
@@ -81,12 +81,12 @@ exports.rprogress:Custom(options)
 
 ```lua
 -- async
-exports.rprogress:Start(2000, function()
+exports.rprogress:Start(text, duration, function()
     -- do something when progress is complete
 end)
 
 -- sync
-exports.rprogress:Start(2000)
+exports.rprogress:Start(text, duration)
 ```
 
 ##### Stop the progress bar early
@@ -123,7 +123,7 @@ exports.rprogress:Custom({
 ## Server Triggers
 These won't run in async due to not being able to pass callbacks from server to client.
 ```lua
-TriggerClientEvent('rprogress:start', source, duration)
+TriggerClientEvent('rprogress:start', source, text, duration)
 TriggerClientEvent('rprogress:stop', source)
 TriggerClientEvent('rprogress:custom', source, options)
 ```

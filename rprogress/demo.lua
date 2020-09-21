@@ -2,7 +2,8 @@
 --                          DEMO                          --
 ------------------------------------------------------------
 
-TriggerEvent('chat:addSuggestion', '/rprogressStart', 'rprogress Async Demo', {
+TriggerEvent('chat:addSuggestion', '/rprogressStart', 'rprogress Start Demo', {
+    { name="Label", help="The label to show" },
     { name="Duration (ms)", help="Duration of progress" }
 })
 
@@ -25,7 +26,7 @@ TriggerEvent('chat:addSuggestion', '/rprogressCustom', 'rprogress Custom Demo', 
 })
 
 RegisterCommand("rprogressStart", function(source, args, raw)
-    Start(tonumber(args[1]), function(data, cb)
+    Start(args[1], tonumber(args[2]), function(data, cb)
         ShowNotification("~g~Event: onComplete")
     end) 
 end)
