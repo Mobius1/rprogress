@@ -121,8 +121,11 @@ print("before")
 exports.rprogress:Custom({
     Async = true,
     Duration = 3000,
+    onStart = function()
+        print("start")
+    end      
     onComplete = function()
-        print("during")
+        print("complete")
     end    
 })
 
@@ -133,7 +136,8 @@ Output
 ```lua
 before
 after
-during
+start
+complete
 ```
 
 ##### Sync
@@ -142,7 +146,13 @@ print("before")
 
 exports.rprogress:Custom({
     Async = false,
-    Duration = 3000
+    Duration = 3000,
+    onStart = function()
+        print("start")
+    end      
+    onComplete = function()
+        print("complete")
+    end     
 })
 
 print("after")
@@ -151,8 +161,21 @@ print("after")
 Output
 ```lua
 before
+start
+complete
 after
 ```
+
+## Demo Commands
+
+```lua
+/rprogressStart [duration]
+/rprogressCustom [from] [to] [duration] [radius] [stroke] [MaxAngle] [rotation]
+/rprogressSync [duration]
+/rprogressAsync [duration]
+```
+
+You can delete the `demo.lua` file and remove it's entry from `fxmanifest.lua` if these are not required.
 
 ## Contributing
 Pull requests welcome.
