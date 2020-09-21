@@ -189,7 +189,7 @@ after
 ## Demo Commands
 
 ```lua
-/rprogressStart [duration]
+/rprogressStart [text] [duration]
 /rprogressCustom [from] [to] [duration] [radius] [stroke] [MaxAngle] [rotation]
 /rprogressSync [duration]
 /rprogressAsync [duration]
