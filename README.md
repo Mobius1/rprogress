@@ -38,6 +38,7 @@ Config.BGColor      = "rgba(0, 0, 0, 0.4)"          -- Progress background colou
 Config.x            = 0.5 -- Horizontal position
 Config.y            = 0.5 -- Vertical position
 
+
 Config.Rotation     = 0     -- Rotation angle of dial in degrees
 Config.MaxAngle     = 360   -- Max arc in degrees - 360 = full circle, 90 = quarter of a circle, etc
 Config.Radius       = 60    -- Radius of the dial in pixels
@@ -132,7 +133,7 @@ exports.rprogress:Custom({
 print("after")
 ```
 
-Output
+##### Output
 ```lua
 before
 after
@@ -158,7 +159,7 @@ exports.rprogress:Custom({
 print("after")
 ```
 
-Output
+###### Output
 ```lua
 before
 start
