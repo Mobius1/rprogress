@@ -1,9 +1,10 @@
 const ui = document.getElementById('radial_progress');
 let running = false;
+let customDial = false
 
 window.onData = function (data) {
     if (data.display && !running) {
-        const customDial = new RadialProgress({
+        customDial = new RadialProgress({
             r: data.Radius,
             s: data.Stroke,
             x: data.x,
@@ -50,13 +51,11 @@ window.onData = function (data) {
         customDial.start(data.To, data.From, data.Duration);
     }
 
-    if (data.stop) {
-        for ( const dial of dials ) {
-            running = false;
-            dial.stop();
+    if (data.stop && customDial) {
+        running = false;
+        customDial.stop();
 
-            PostData("progress_stop");
-        }
+        PostData("progress_stop");
     }
 };
 
