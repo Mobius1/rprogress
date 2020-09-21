@@ -1,6 +1,17 @@
 # rprogress
 Customisable radial progress bars for FiveM. 
 
+## Table of contents
+* [Demo Videos](#demo-videos)
+* [Requirements](#requirements)
+* [Download & Installation](#download--installation)
+* [Configuration](#configuration)
+* [Client Functions](#client-functions)
+* [Sync vs Async](#sync-vs-async)
+* [Demo Commands](#demo-commands)
+* [Contributing](#contributing)
+* [To Do](#to-do)
+
 ## Demo Videos
 * [Default](https://streamable.com/85j3gt)
 * [Custom MaxAngle and Rotation](https://streamable.com/i6lhxx)
