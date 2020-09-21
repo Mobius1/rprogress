@@ -120,6 +120,10 @@ TriggerEvent('chat:addSuggestion', '/rprogressStart', 'rprogress Async Demo', {
     { name="Duration (ms)", help="Duration of progress" }
 })
 
+TriggerEvent('chat:addSuggestion', '/rprogressAsync', 'rprogress Async Demo', {
+    { name="Duration (ms)", help="Duration of progress" }
+})
+
 TriggerEvent('chat:addSuggestion', '/rprogressSync', 'rprogress Sync Demo', {
     { name="Duration (ms)", help="Duration of progress" }
 })
@@ -141,10 +145,34 @@ RegisterCommand("rprogressStart", function(source, args, raw)
 end)
 
 RegisterCommand("rprogressSync", function(source, args, raw)
-    ShowNotification("~b~Event: onStart")
-    Start(tonumber(args[1]))
-    ShowNotification("~g~Event: onComplete")
+    ShowNotification("~b~Event: before")
+    Custom({
+        Async = false,
+        Duration = tonumber(args[1]),
+        onStart = function(data, cb)
+            ShowNotification("~b~Event: onStart")
+        end,
+        onComplete = function(data, cb)
+            ShowNotification("~g~Event: onComplete")
+        end
+    }) 
+    ShowNotification("~g~Event: after")
 end)
+
+RegisterCommand("rprogressAsync", function(source, args, raw)
+    ShowNotification("~b~Event: before")
+    Custom({
+        Duration = tonumber(args[1]),
+        onStart = function(data, cb)
+            ShowNotification("~b~Event: onStart")
+        end,
+        onComplete = function(data, cb)
+            ShowNotification("~g~Event: onComplete")
+        end
+    }) 
+    ShowNotification("~g~Event: after")
+end)
+
 
 
 RegisterCommand("rprogressCustom", function(source, args, raw)
