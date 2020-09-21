@@ -62,8 +62,15 @@ body {
 .ui-dial .ui-label {
     position: absolute;
     color: #fff;
+}
+
+.ui-dial.label-bottom .ui-label {
     top: 100%;
     margin: 20px 0;
+}
+.ui-dial.label-right .ui-label {
+    left: 100%;
+    margin: 0 20px;
 }
 
 @-webkit-keyframes done {

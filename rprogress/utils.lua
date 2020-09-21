@@ -4,19 +4,26 @@ function ShowNotification(msg)
     DrawNotification(false, true)
 end
 
-function DeepCopy(t)
-    local copy = {}
-    for k, v in pairs(t) do
-        if type(v) == "table" then
-            v = DeepCopy(v)
+function clone(object)
+    local lookup_table = {}
+    local function copy(object) 
+        if type(object) ~= "table" then
+            return object
+        elseif lookup_table[object] then
+            return lookup_table[object]
         end
-        copy[k] = v
+        local new_table = {}
+        lookup_table[object] = new_table
+        for key, value in pairs(object) do
+            new_table[copy(key)] = copy(value)
+        end
+        return setmetatable(new_table, getmetatable(object))
     end
-    return copy
+    return copy(object)
 end
 
 function MergeConfig(t1, t2)
-    local copy = DeepCopy(t1)
+    local copy = clone(t1)
     for k,v in pairs(t2) do
         if type(v) == "table" then
             if type(copy[k] or false) == "table" then
@@ -47,11 +54,7 @@ function ErrorCheck(options)
                 if type(v) ~= "boolean" then
                     error = "boolean"
                 end
-            elseif k == "Position" then
-                if type(v) ~= "table" then
-                    error = "table"
-                end
-            elseif k == "Label" or k == "Color" or k == "BGColor" then
+            elseif k == "Label" or k == "Color" or k == "BGColor" or k == "LabelPosition" then
                 if type(v) ~= "string" then
                     error = "string"
                 end

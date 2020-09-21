@@ -6,8 +6,8 @@ window.onData = function (data) {
         const customDial = new RadialProgress({
             r: data.Radius,
             s: data.Stroke,
-            x: data.Position.x,
-            y: data.Position.y,
+            x: data.x,
+            y: data.y,
             color: data.Color,
             bgColor: data.BGColor,
             rotation: data.Rotation,
@@ -16,6 +16,7 @@ window.onData = function (data) {
             onStart: function() {
                 running = true;
 
+                this.container.classList.add(`label-${data.LabelPosition}`);
                 this.label.textContent = data.Label;
 
                 PostData("progress_start")
