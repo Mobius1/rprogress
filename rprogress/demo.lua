@@ -84,14 +84,16 @@ RegisterCommand("rprogressStatic", function(source, args, raw)
         ShowProgress = true
     })
 
+    print("local ProgressBar = NewStaticProgress({ Label = 'My Custom Label', ShowProgress = true })")
 
-    local last = 0
+    Citizen.Wait(1000)
 
     math.randomseed(GetGameTimer())
 
     ProgressBar.Show()
     print("ProgressBar.Show()")
 
+    local last = 0
     for i = 1, 6 do
         Citizen.Wait(1000)
 
