@@ -7,7 +7,9 @@ Customisable radial progress bars for FiveM.
 * [Download & Installation](#download--installation)
 * [Configuration](#configuration)
 * [Client Functions](#client-functions)
+* [Server Triggers](#server-triggers)
 * [Sync vs Async](#sync-vs-async)
+* [Static Progress Bars](#static-progress-bars)
 * [Demo Commands](#demo-commands)
 * [Contributing](#contributing)
 * [To Do](#to-do)
@@ -18,6 +20,7 @@ Customisable radial progress bars for FiveM.
 * [Without Timer](https://streamable.com/d7qil2)
 * [Demo with esx_doorlock](https://streamable.com/94b0ph)
 * [Custom Label Position](https://streamable.com/4mqwgx)
+* [Static Progress Bar](https://streamable.com/xbbf57)
 
 ## Requirements
 
@@ -184,6 +187,29 @@ before
 start
 complete
 after
+```
+
+## Static Progress Bars
+
+As well as animated progress bars, you can also create static progress bars and set their progress in real-time.
+
+[Demo Video](https://streamable.com/xbbf57)
+
+```lua
+-- Create new static progress bar
+local ProgressBar = NewStaticProgress(options)
+
+-- Show the progress bar
+ProgressBar.Show()
+
+-- Update the progress of the bar (0-100)
+ProgressBar.SetProgress(progress)
+
+-- Hide the progress bar
+ProgressBar.Hide()
+
+-- Destroy the bar (set as no longer needed)
+ProgressBar.Destroy()
 ```
 
 ## Demo Commands

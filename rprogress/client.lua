@@ -95,7 +95,7 @@ function Stop()
     })
 end
 
-function NewRadialProgress(config)
+function NewStaticProgress(config)
     local options = Custom(config, true)
 
     options.display = false
@@ -125,10 +125,10 @@ function NewRadialProgress(config)
             options.hide = true
             SendNUIMessage(options)
         end,
-        Remove = function()
+        Destroy = function()
             options.show = false
             options.hide = false
-            options.remove = true
+            options.destroy = true
             SendNUIMessage(options)            
         end
     }

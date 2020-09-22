@@ -79,19 +79,23 @@ RegisterCommand("rprogressCustom", function(source, args, raw)
 end)
 
 RegisterCommand("rprogressStatic", function(source, args, raw)
-    local ProgressBar = NewRadialProgress({
-        Label = "Foo",
+    local ProgressBar = NewStaticProgress({
+        Label = "My Custom Label",
         ShowProgress = true
     })
+
 
     local last = 0
 
     math.randomseed(GetGameTimer())
 
-    for i = 1, 40 do
-        Citizen.Wait(250)
+    ProgressBar.Show()
+    print("ProgressBar.Show()")
 
-        local max = last + 5
+    for i = 1, 6 do
+        Citizen.Wait(1000)
+
+        local max = last + 20
 
         local progress = math.random (last, max)
 
@@ -99,15 +103,24 @@ RegisterCommand("rprogressStatic", function(source, args, raw)
             progress = 100
         end
 
+        if progress < 100 and i == 6 then
+            progress = 100
+        end        
+
         ProgressBar.SetProgress(progress)
+
+        print("ProgressBar.SetProgress("..progress..")")
     
-        last = last + 5
+        last = last + 20
 
         if progress >= 100 then
+            ProgressBar.Hide()
+            print("ProgressBar.Hide()")
 
             Citizen.Wait(1000)          
 
-            ProgressBar.Remove()
+            ProgressBar.Destroy()
+            print("ProgressBar.Destroy()")
 
             break
         end
