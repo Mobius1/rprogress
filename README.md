@@ -191,7 +191,7 @@ after
 
 ## Static Progress Bars
 
-If you don't just want a progress bar that fills automatically, you can create a static one and update it at you will.
+If you don't just want a progress bar that fills automatically, you can create a static one and update it as required.
 
 [Demo Video](https://streamable.com/uzbfsd)
 

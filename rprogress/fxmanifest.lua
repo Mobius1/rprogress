@@ -6,7 +6,7 @@ description 'Radial Progress'
 
 author 'Karl Saunders'
 
-version '0.2.0'
+version '0.3.0'
 
 client_scripts {
     'config.lua',
@@ -30,3 +30,4 @@ files {
 exports "Start"
 exports "Custom"
 exports "Stop"
+exports "NewStaticProgress"
