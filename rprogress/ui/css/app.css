@@ -62,6 +62,8 @@ body {
 .ui-dial .ui-label {
     position: absolute;
     color: #fff;
+    min-width: 300px;
+    text-align: center;
 }
 
 .ui-dial.label-bottom .ui-label {
