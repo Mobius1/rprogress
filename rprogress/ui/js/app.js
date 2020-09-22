@@ -84,7 +84,7 @@ window.onData = function (data) {
                 staticDial.remove();
             }               
 
-            if ( data.progress ) {
+            if ( data.progress !== false ) {
                 staticDial.setProgress(data.progress)
             }
 

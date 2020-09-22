@@ -107,6 +107,7 @@ function NewStaticProgress(config)
         Show = function()
             options.hide = false
             options.show = true
+            options.progress = false
             SendNUIMessage(options)            
         end,
         SetProgress = function(progress)
@@ -114,7 +115,9 @@ function NewStaticProgress(config)
             options.show = true
             options.progress = tonumber(progress)
 
-            if options.progress > 100 then
+            if options.progress < 0 then
+                options.progress = 0
+            elseif options.progress > 100 then
                 options.progress = 100
             end
 
@@ -123,11 +126,13 @@ function NewStaticProgress(config)
         Hide = function()
             options.show = false
             options.hide = true
+            options.progress = false
             SendNUIMessage(options)
         end,
         Destroy = function()
             options.show = false
             options.hide = false
+            options.progress = false
             options.destroy = true
             SendNUIMessage(options)            
         end
