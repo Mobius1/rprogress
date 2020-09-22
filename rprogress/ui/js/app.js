@@ -1,6 +1,7 @@
 const ui = document.getElementById('radial_progress');
 let running = false;
 let customDial = false
+let staticDial = false
 
 window.onData = function (data) {
     if (data.display && !running) {
@@ -51,9 +52,53 @@ window.onData = function (data) {
         customDial.start(data.To, data.From, data.Duration);
     }
 
+    if ( data.static ) {
+        if ( !staticDial ) {
+            staticDial = new RadialProgress({
+                r: data.Radius,
+                s: data.Stroke,
+                x: data.x,
+                y: data.y,
+                color: data.Color,
+                bgColor: data.BGColor,
+                rotation: data.Rotation,
+                maxAngle: data.MaxAngle,
+                progress: data.From,
+                onChange: function(progress) {
+                    if ( data.ShowProgress ) {
+                        this.indicator.textContent = `${Math.ceil(progress)}%`;
+                    }                
+                },                 
+            });
+
+            staticDial.container.classList.add(`label-${data.LabelPosition}`);
+            staticDial.label.textContent = data.Label;            
+
+            PostData("static", data)
+        } else {
+            if (data.show) {
+                staticDial.render(ui);
+            }
+            
+            if (data.hide) {
+                staticDial.remove();
+            }               
+
+            if ( data.progress ) {
+                staticDial.setProgress(data.progress)
+            }
+
+            if (data.remove) {
+                staticDial.remove();
+                staticDial = false;
+            }             
+        }              
+    }
+
     if (data.stop && customDial) {
         running = false;
         customDial.stop();
+        customDial = false;
 
         PostData("progress_stop");
     }
@@ -65,11 +110,15 @@ window.onload = function (e) {
     });
 };
 
-function PostData(type) {
+function PostData(type, obj) {
+    if ( obj === undefined ) {
+        obj = {}
+    }
     fetch(`https://${GetParentResourceName()}/${type}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json; charset=UTF-8',
-        }
+        },
+        body: JSON.stringify(obj)
     });
 }

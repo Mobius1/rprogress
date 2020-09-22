@@ -216,16 +216,22 @@ class RadialProgress {
     }
 
     render(element) {
-        element =
-            typeof element === "string" ? document.querySelector(element) : element;
+        if ( !this.rendered ) {
+            element =
+                typeof element === "string" ? document.querySelector(element) : element;
 
-        element.appendChild(this.container);
+            element.appendChild(this.container);
+
+            this.rendered = true;
+        }
     }
 
     remove() {
         const parent = this.container.parentNode;
-        if ( parent ) {
+        if ( this.rendered && parent ) {
             parent.removeChild(this.container);
+
+            this.rendered = false;
         }
     }
 

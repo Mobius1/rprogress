@@ -52,7 +52,7 @@ function Start(text, duration, cb)
     end    
 end
 
-function Custom(options) 
+function Custom(options, static) 
     -- ERROR HANDLING --
     if ErrorCheck(options) then
         return
@@ -74,6 +74,11 @@ function Custom(options)
     options.onStart = nil
     options.onComplete = nil
 
+    -- Static Progress
+    if static == true then
+        return options
+    end
+
     SendNUIMessage(options) 
 
     if options.Async == false then
@@ -90,6 +95,44 @@ function Stop()
     })
 end
 
+function NewRadialProgress(config)
+    local options = Custom(config, true)
+
+    options.display = false
+    options.static = true
+
+    SendNUIMessage(options)
+
+    return {
+        Show = function()
+            options.hide = false
+            options.show = true
+            SendNUIMessage(options)            
+        end,
+        SetProgress = function(progress)
+            options.hide = false
+            options.show = true
+            options.progress = tonumber(progress)
+
+            if options.progress > 100 then
+                options.progress = 100
+            end
+
+            SendNUIMessage(options)
+        end,
+        Hide = function()
+            options.show = false
+            options.hide = true
+            SendNUIMessage(options)
+        end,
+        Remove = function()
+            options.show = false
+            options.hide = false
+            options.remove = true
+            SendNUIMessage(options)            
+        end
+    }
+end
 
 ------------------------------------------------------------
 --                     NUI CALLBACKS                      --
@@ -111,7 +154,6 @@ end)
 RegisterNUICallback('progress_stop', function()
     Run = false
 end)
-
 
 ------------------------------------------------------------
 --                         EVENTS                         --
