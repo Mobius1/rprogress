@@ -191,7 +191,7 @@ after
 
 ## Static Progress Bars
 
-As well as animated progress bars, you can also create static progress bars and set their progress in real-time.
+If you don't just want a progress bar that fills automatically, you can create a static one and update it at you will.
 
 [Demo Video](https://streamable.com/uzbfsd)
 
@@ -219,6 +219,7 @@ ProgressBar.Destroy()
 /rprogressCustom [from] [to] [duration] [radius] [stroke] [MaxAngle] [rotation]
 /rprogressSync [duration]
 /rprogressAsync [duration]
+/rprogressStatic
 ```
 
 You can delete the `demo.lua` file and remove it's entry from `fxmanifest.lua` if these are not required.
