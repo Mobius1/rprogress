@@ -116,6 +116,8 @@ RegisterCommand("rprogressStatic", function(source, args, raw)
         last = last + 20
 
         if progress >= 100 then
+            Citizen.Wait(1000) 
+            
             ProgressBar.Hide()
             print("ProgressBar.Hide()")
 

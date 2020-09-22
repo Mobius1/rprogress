@@ -20,7 +20,7 @@ Customisable radial progress bars for FiveM.
 * [Without Timer](https://streamable.com/d7qil2)
 * [Demo with esx_doorlock](https://streamable.com/94b0ph)
 * [Custom Label Position](https://streamable.com/4mqwgx)
-* [Static Progress Bar](https://streamable.com/xbbf57)
+* [Static Progress Bar](https://streamable.com/uzbfsd)
 
 ## Requirements
 
@@ -193,7 +193,7 @@ after
 
 As well as animated progress bars, you can also create static progress bars and set their progress in real-time.
 
-[Demo Video](https://streamable.com/xbbf57)
+[Demo Video](https://streamable.com/uzbfsd)
 
 ```lua
 -- Create new static progress bar
