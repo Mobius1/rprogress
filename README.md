@@ -235,6 +235,7 @@ Pull requests welcome.
 ## To Do
 - [x] Allow sync and async
 - [x] Allow bar colour customisation in `config.lua`
+- [ ] Allow control disable ([Suggested by Korek](https://forum.cfx.re/t/release-standalone-rprogress-customisable-radial-progress-bars/1630655/24?u=mobius01))
 
 ## Legal
 
