@@ -25,3 +25,8 @@ Config.ShowProgress = false -- Shows the progress within the dial
 
 Config.onStart      = function()end
 Config.onComplete   = function()end  
+
+Config.DisableControls = {
+    Mouse = false,
+    Movement = false
+}

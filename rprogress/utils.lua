@@ -52,20 +52,26 @@ function ErrorCheck(options)
         if k ~= "onStart" and k ~= "onComplete" then
             if k == "ShowTimer" or k == "ShowProgress" or k == "Async" then
                 if type(v) ~= "boolean" then
-                    error = "boolean"
+                    error = { prop = k, type = "boolean" }
                 end
             elseif k == "Label" or k == "Color" or k == "BGColor" or k == "LabelPosition" then
                 if type(v) ~= "string" then
-                    error = "string"
+                    error = { prop = k, type = "string" }
+                end
+            elseif k == "DisableControls" then
+                for m, n in pairs(v) do
+                    if type(n) ~= "boolean" then
+                        error = { prop = k .. "." .. m, type = "boolean" }
+                    end
                 end
             else
                 if tonumber(v) == nil then
-                    error = "number"
+                    error = { prop = k, type = "number" }
                 end
             end
     
-            if error then
-                local msg = "======== rprogress ERROR: param '" .. k .. "' must be type:" .. error .. " ========"
+            if error ~= false then
+                local msg = "======== rprogress ERROR: param '" .. error.prop .. "' must be type:" .. error.type .. " ========"
                 local s = string.rep("=", string.len(msg))
                 print(s)
                 print(msg)

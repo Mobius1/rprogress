@@ -23,7 +23,6 @@ function Start(text, duration, cb)
         print(s)
     end
     
-
     local options = MergeConfig(Config, {
         display = true,
         Duration = duration,
@@ -44,11 +43,20 @@ function Start(text, duration, cb)
 
     SendNUIMessage(options)
 
+    Run = true
+
     if options.Async == false then
-        Run = true
         while Run do
+            DisableControls(options)
             Citizen.Wait(1)
         end
+    else
+        Citizen.CreateThread(function()
+            while Run do
+                DisableControls(options)
+                Citizen.Wait(0)
+            end
+        end)
     end    
 end
 
@@ -57,9 +65,17 @@ function Custom(options, static)
     if ErrorCheck(options) then
         return
     end
+    
+    local Controls = {
+        Mouse = options.DisableControls.Mouse,
+        Movement = options.DisableControls.Movement
+    }
+
 
     -- MERGE USER OPTIONS
     options = MergeConfig(Config, options)
+
+    options.DisableControls = MergeConfig(Config.DisableControls, Controls)
 
     options.display = true
 
@@ -81,12 +97,21 @@ function Custom(options, static)
 
     SendNUIMessage(options) 
 
+    Run = true
+
     if options.Async == false then
-        Run = true
         while Run do
+            DisableControls(options)
             Citizen.Wait(1)
         end
-    end
+    else
+        Citizen.CreateThread(function()
+            while Run do
+                DisableControls(options)
+                Citizen.Wait(0)
+            end
+        end)
+    end   
 end
 
 function Stop()
@@ -137,6 +162,21 @@ function NewStaticProgress(config)
             SendNUIMessage(options)            
         end
     }
+end
+
+function DisableControls(options)
+    if options.DisableControls.Mouse then
+        DisableControlAction(1, 1, true)
+        DisableControlAction(1, 2, true)
+        DisableControlAction(1, 106, true)
+    end
+    
+    if options.DisableControls.Movement then
+        DisableControlAction(0, 21, true)
+        DisableControlAction(0, 30, true)
+        DisableControlAction(0, 31, true)
+        DisableControlAction(0, 36, true)
+    end
 end
 
 ------------------------------------------------------------

@@ -31,6 +31,22 @@ RegisterCommand("rprogressStart", function(source, args, raw)
     end) 
 end)
 
+RegisterCommand("rprogressDisableControls", function(source, args, raw)
+    Custom({
+        DisableControls = {
+            Mouse = true,
+            Movement = true
+        },
+        Duration = tonumber(args[1]),
+        onStart = function(data, cb)
+            ShowNotification("~w~Controls: ~r~DISABLED")
+        end,
+        onComplete = function(data, cb)
+            ShowNotification("~w~Controls: ~g~ENABLED")
+        end
+    }) 
+end)
+
 RegisterCommand("rprogressSync", function(source, args, raw)
     ShowNotification("~b~Event: before")
     Custom({
