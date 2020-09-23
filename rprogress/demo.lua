@@ -7,13 +7,16 @@ TriggerEvent('chat:addSuggestion', '/rprogressStart', 'rprogress Start Demo', {
     { name="Duration (ms)", help="Duration of progress" }
 })
 
-TriggerEvent('chat:addSuggestion', '/rprogressAsync', 'rprogress Async Demo', {
+TriggerEvent('chat:addSuggestion', '/rprogressAsync', 'Run rprogress async', {
     { name="Duration (ms)", help="Duration of progress" }
 })
 
-TriggerEvent('chat:addSuggestion', '/rprogressSync', 'rprogress Sync Demo', {
+TriggerEvent('chat:addSuggestion', '/rprogressSync', 'Run rprogress sync', {
     { name="Duration (ms)", help="Duration of progress" }
 })
+
+TriggerEvent('chat:addSuggestion', '/rprogressStatic', 'rprogress static demo')
+TriggerEvent('chat:addSuggestion', '/rprogressDisableControls', 'rprogress with disabled controls')
 
 TriggerEvent('chat:addSuggestion', '/rprogressCustom', 'rprogress Custom Demo', {
     { name="From (0-100)", help="Percentage to start from" },
@@ -29,22 +32,6 @@ RegisterCommand("rprogressStart", function(source, args, raw)
     Start(args[1], tonumber(args[2]), function(data, cb)
         ShowNotification("~g~Event: onComplete")
     end) 
-end)
-
-RegisterCommand("rprogressDisableControls", function(source, args, raw)
-    Custom({
-        DisableControls = {
-            Mouse = true,
-            Movement = true
-        },
-        Duration = tonumber(args[1]),
-        onStart = function(data, cb)
-            ShowNotification("~w~Controls: ~r~DISABLED")
-        end,
-        onComplete = function(data, cb)
-            ShowNotification("~w~Controls: ~g~ENABLED")
-        end
-    }) 
 end)
 
 RegisterCommand("rprogressSync", function(source, args, raw)
@@ -101,6 +88,7 @@ RegisterCommand("rprogressStatic", function(source, args, raw)
     })
 
     print("local ProgressBar = NewStaticProgress({ Label = 'My Custom Label', ShowProgress = true })")
+    ShowNotification("NewStaticProgress()")
 
     Citizen.Wait(1000)
 
@@ -108,6 +96,7 @@ RegisterCommand("rprogressStatic", function(source, args, raw)
 
     ProgressBar.Show()
     print("ProgressBar.Show()")
+    ShowNotification("ProgressBar.Show()")
 
     local last = 0
     for i = 1, 6 do
@@ -128,6 +117,7 @@ RegisterCommand("rprogressStatic", function(source, args, raw)
         ProgressBar.SetProgress(progress)
 
         print("ProgressBar.SetProgress("..progress..")")
+        ShowNotification("ProgressBar.SetProgress("..progress..")")
     
         last = last + 20
 
@@ -136,13 +126,31 @@ RegisterCommand("rprogressStatic", function(source, args, raw)
             
             ProgressBar.Hide()
             print("ProgressBar.Hide()")
+            ShowNotification("ProgressBar.Hide()")
 
             Citizen.Wait(1000)          
 
             ProgressBar.Destroy()
             print("ProgressBar.Destroy()")
+            ShowNotification("ProgressBar.Destroy()")
 
             break
         end
     end  
+end)
+
+RegisterCommand("rprogressDisableControls", function(source, args, raw)
+    Custom({
+        DisableControls = {
+            Mouse = true,
+            Movement = true
+        },
+        Duration = tonumber(args[1]),
+        onStart = function(data, cb)
+            ShowNotification("~w~Controls: ~r~DISABLED")
+        end,
+        onComplete = function(data, cb)
+            ShowNotification("~w~Controls: ~g~ENABLED")
+        end
+    }) 
 end)

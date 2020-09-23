@@ -67,10 +67,13 @@ function Custom(options, static)
     end
     
     local Controls = {
-        Mouse = options.DisableControls.Mouse,
-        Movement = options.DisableControls.Movement
+        Mouse = Config.DisableControls.Mouse,
+        Movement = Config.DisableControls.Movement
     }
 
+    if options.DisableControls ~= nil then
+        Controls = options.DisableControls
+    end
 
     -- MERGE USER OPTIONS
     options = MergeConfig(Config, options)
