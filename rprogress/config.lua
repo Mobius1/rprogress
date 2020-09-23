@@ -23,10 +23,10 @@ Config.Stroke       = 10    -- stroke width of the dial
 Config.ShowTimer    = true  -- Shows the timer countdown withing the dial
 Config.ShowProgress = false -- Shows the progress within the dial
 
+Config.DisableControls = {
+    Mouse           = false,    -- Disable mouse controls until progress is complete
+    Movement        = false     -- Disable movement controls until progress is complete
+}
+
 Config.onStart      = function()end
 Config.onComplete   = function()end  
-
-Config.DisableControls = {
-    Mouse = false,
-    Movement = false
-}
