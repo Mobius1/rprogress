@@ -6,7 +6,7 @@ Run = false
 --                     MAIN FUNCTIONS                     --
 ------------------------------------------------------------
 
-function Start(text, duration, cb)
+function Start(text, duration)
     if type(text) ~= "string" then
         local msg = "======== rprogress ERROR: param 'text' must be type:string ========"
         local s = string.rep("=", string.len(msg))
@@ -33,35 +33,23 @@ function Start(text, duration, cb)
         Label = text
     })
 
-    if cb ~= nil then
-        if type(cb) == "function" then
-            OnComplete = cb
-        end
-    else
-        options.Async = false
-    end
+    options.Async = false
 
     -- CAN'T SEND FUNCTIONS TO NUI
     options.onStart = nil
-    options.onComplete = nil    
+    options.onComplete = nil 
+    
+    OnStart = nil
+    OnComplete = nil
 
     SendNUIMessage(options)
 
     Run = true
 
-    if options.Async == false then
-        while Run do
-            DisableControls(options)
-            Citizen.Wait(1)
-        end
-    else
-        Citizen.CreateThread(function()
-            while Run do
-                DisableControls(options)
-                Citizen.Wait(0)
-            end
-        end)
-    end    
+    while Run do
+        DisableControls(options)
+        Citizen.Wait(1)
+    end
 end
 
 function Custom(options, static) 
@@ -72,7 +60,8 @@ function Custom(options, static)
     
     local Controls = {
         Mouse = Config.DisableControls.Mouse,
-        Player = Config.DisableControls.Player
+        Player = Config.DisableControls.Player,
+        Vehicle = Config.DisableControls.Vehicle,
     }
 
     if options.DisableControls ~= nil then
@@ -89,7 +78,7 @@ function Custom(options, static)
     if options.ShowProgress == true then
         options.ShowTimer = false
     end
-
+    
     OnStart = options.onStart
     OnComplete = options.onComplete
 
