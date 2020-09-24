@@ -76,7 +76,7 @@ NOTE: DO NOT run these in a loop
 Available exports:
 
 ```lua
--- starts the progress bar for the defined duration and fires an optional callback when finished
+-- starts the progress bar for the defined duration
 -- This runs in sync so any code after this call won't be run until the progress is complete
 exports.rprogress:Start(text, duration)
 
