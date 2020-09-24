@@ -77,7 +77,8 @@ Available exports:
 
 ```lua
 -- starts the progress bar for the defined duration and fires an optional callback when finished
-exports.rprogress:Start(text, duration, cb)
+-- This runs in sync so any code after this call won't be run until the progress is complete
+exports.rprogress:Start(text, duration)
 
 -- stops the progress bar early
 exports.rprogress:Stop()
@@ -86,15 +87,9 @@ exports.rprogress:Stop()
 exports.rprogress:Custom(options)
 ```
 
-##### Start the progress bar
+##### Display a progress bar with text for set duration
 
 ```lua
--- async
-exports.rprogress:Start(text, duration, function()
-    -- do something when progress is complete
-end)
-
--- sync
 exports.rprogress:Start(text, duration)
 ```
 
@@ -144,9 +139,7 @@ TriggerClientEvent('rprogress:custom', source, options)
 
 ## Sync vs Async
 
-By default, `rprogress` runs asyncronously with callbacks available to call when the progress bar is complete.
-
-By setting `Async` to `false`, the resource will run syncronously and any code after the progress bar function will not run until the progress bar is complete.
+The `Start()` method runs in sync so any code after the call to the method won't be run until the progress is complete. If you want a progress bar to run asyncronously, you can use the `Custom()` method with `Async` set to `true`
 
 ##### Async
 ```lua
