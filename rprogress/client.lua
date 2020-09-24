@@ -72,7 +72,7 @@ function Custom(options, static)
     
     local Controls = {
         Mouse = Config.DisableControls.Mouse,
-        Movement = Config.DisableControls.Movement
+        Player = Config.DisableControls.Player
     }
 
     if options.DisableControls ~= nil then
@@ -178,7 +178,7 @@ function DisableControls(options)
         DisableControlAction(1, 106, true)
     end
     
-    if options.DisableControls.Movement then
+    if options.DisableControls.Player then
         DisableControlAction(0, 21, true)
         DisableControlAction(0, 30, true)
         DisableControlAction(0, 31, true)

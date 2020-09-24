@@ -63,7 +63,7 @@ Config.ShowProgress = false -- Shows the progress within the dial
 
 Config.DisableControls = {
     Mouse           = false,    -- Disable mouse controls until progress is complete
-    Movement        = false,     -- Disable movement controls until progress is complete
+    Player          = false,    -- Disable player movement until progress is complete
     Vehicle         = false     -- Disable vehicle control until progress is complete    
 }
 ```
@@ -121,9 +121,9 @@ exports.rprogress:Custom({
     Color = "rgba(255, 255, 255, 1.0)",
     BGColor = "rgba(0, 0, 0, 0.4)",
     DisableControls = {
-        Mouse           = false,
-        Movement        = false,
-        Vehicle         = false
+        Mouse = true,
+        Player = true,
+        Vehicle = true
     },    
     onStart = function()
         -- do something when progress starts

@@ -143,7 +143,7 @@ RegisterCommand("rprogressDisableControls", function(source, args, raw)
     Custom({
         DisableControls = {
             Mouse = true,
-            Movement = true,
+            Player = true,
             Vehicle = true
         },
         Duration = tonumber(args[1]),
