@@ -1,6 +1,6 @@
-------------------------------------------------------------
---                          DEMO                          --
-------------------------------------------------------------
+--------------------------------------
+-- DELETE THIS FILE IF NOT REQUIRED --
+--------------------------------------
 
 TriggerEvent('chat:addSuggestion', '/rprogressStart', 'rprogress Start Demo', {
     { name="Label", help="The label to show" },
@@ -143,7 +143,8 @@ RegisterCommand("rprogressDisableControls", function(source, args, raw)
     Custom({
         DisableControls = {
             Mouse = true,
-            Movement = true
+            Movement = true,
+            Vehicle = true
         },
         Duration = tonumber(args[1]),
         onStart = function(data, cb)
@@ -154,3 +155,9 @@ RegisterCommand("rprogressDisableControls", function(source, args, raw)
         end
     }) 
 end)
+
+function ShowNotification(msg)
+    SetNotificationTextEntry('STRING')
+    AddTextComponentSubstringPlayerName(msg)
+    DrawNotification(false, true)
+end

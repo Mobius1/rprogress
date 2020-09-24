@@ -13,6 +13,8 @@ function Start(text, duration, cb)
         print(s)
         print(msg)
         print(s)
+
+        return
     end
 
     if tonumber(duration) == nil then
@@ -21,6 +23,8 @@ function Start(text, duration, cb)
         print(s)
         print(msg)
         print(s)
+
+        return
     end
     
     local options = MergeConfig(Config, {
@@ -180,6 +184,12 @@ function DisableControls(options)
         DisableControlAction(0, 31, true)
         DisableControlAction(0, 36, true)
     end
+
+    if options.DisableControls.Vehicle then
+        DisableControlAction(0, 71, true)
+        DisableControlAction(0, 72, true)
+        DisableControlAction(0, 75, true)
+    end    
 end
 
 ------------------------------------------------------------

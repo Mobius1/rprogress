@@ -1,9 +1,3 @@
-function ShowNotification(msg)
-    SetNotificationTextEntry('STRING')
-    AddTextComponentSubstringPlayerName(msg)
-    DrawNotification(false, true)
-end
-
 function clone(object)
     local lookup_table = {}
     local function copy(object) 

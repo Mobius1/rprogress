@@ -25,7 +25,8 @@ Config.ShowProgress = false -- Shows the progress within the dial
 
 Config.DisableControls = {
     Mouse           = false,    -- Disable mouse controls until progress is complete
-    Movement        = false     -- Disable movement controls until progress is complete
+    Movement        = false,    -- Disable movement controls until progress is complete
+    Vehicle         = false     -- Disable vehicle control until progress is complete
 }
 
 Config.onStart      = function()end

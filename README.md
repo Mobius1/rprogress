@@ -63,7 +63,8 @@ Config.ShowProgress = false -- Shows the progress within the dial
 
 Config.DisableControls = {
     Mouse           = false,    -- Disable mouse controls until progress is complete
-    Movement        = false     -- Disable movement controls until progress is complete
+    Movement        = false,     -- Disable movement controls until progress is complete
+    Vehicle         = false     -- Disable vehicle control until progress is complete    
 }
 ```
 NOTE: `Config.Position` is based on screen size so setting `Config.Position.x = 0.5` will be the center of the screen, `Config.Position.x = 1.0` with be right-side of the screen, `Config.Position.x = 0.0` will be the left-side of the screen, etc.
@@ -119,6 +120,11 @@ exports.rprogress:Custom({
     LabelPosition = "right",
     Color = "rgba(255, 255, 255, 1.0)",
     BGColor = "rgba(0, 0, 0, 0.4)",
+    DisableControls = {
+        Mouse           = false,
+        Movement        = false,
+        Vehicle         = false
+    },    
     onStart = function()
         -- do something when progress starts
     end	
