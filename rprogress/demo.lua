@@ -29,9 +29,7 @@ TriggerEvent('chat:addSuggestion', '/rprogressCustom', 'rprogress Custom Demo', 
 })
 
 RegisterCommand("rprogressStart", function(source, args, raw)
-    Start(args[1], tonumber(args[2]), function(data, cb)
-        ShowNotification("~g~Event: onComplete")
-    end) 
+    Start(args[1], tonumber(args[2])) 
 end)
 
 RegisterCommand("rprogressSync", function(source, args, raw)
