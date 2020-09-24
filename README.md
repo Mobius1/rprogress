@@ -139,7 +139,7 @@ TriggerClientEvent('rprogress:custom', source, options)
 
 ## Sync vs Async
 
-The `Start()` method runs in sync so any code after the call to the method won't be run until the progress is complete. If you want a progress bar to run asyncronously, you can use the `Custom()` method with `Async` set to `true`
+The `Start()` method runs in sync so any code after the call to the method won't be run until the progress is complete. If you want a progress bar to run asyncronously, you can use the `Custom()` method with `Async` set to `true` and utilise the `onStart` and `onComplete` callbacks.
 
 ##### Async
 ```lua
