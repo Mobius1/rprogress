@@ -244,8 +244,8 @@ exports.rprogress:Custom({
 Setting the `radius` and `stroke` properties to equal values will produce a pie chart type progress:
 ```lua
 exports.rprogress:Custom({
-    radius: 60,
-    stroke: 60
+    Radius: 60,
+    Stroke: 60
 })
 ```
 
