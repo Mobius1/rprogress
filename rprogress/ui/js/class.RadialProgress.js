@@ -28,7 +28,7 @@ class Svg {
 */
 class Circle {
     constructor(r, s, min = 0, max = 360, bg = false) {
-        this.radius = r;
+        this.radius = r - (s / 2);
         this.stroke = s;
         this.minAngle = min;
         this.maxAngle = max;
@@ -46,14 +46,14 @@ class Circle {
     render() {
         this.setArc();
 
-        this.node.setAttributeNS(null, "r", this.radius - (this.stroke / 2));
+        this.node.setAttributeNS(null, "r", this.radius);
         this.node.setAttributeNS(null, "cx", this.px + this.stroke * 0.5);
         this.node.setAttributeNS(null, "cy", this.py + this.stroke * 0.5);
         this.node.setAttributeNS(null, "stroke-width", this.stroke);
     }
 
     setArc() {
-        this.arc = 2 * Math.PI * (this.radius - (this.stroke / 2));
+        this.arc = 2 * Math.PI * (this.radius);
         this.gap = this.arc - this.arc * ((this.maxAngle - this.minAngle) / 360);
 
         this.node.setAttributeNS(
