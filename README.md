@@ -10,6 +10,8 @@ Customisable radial progress bars for FiveM.
 * [Server Triggers](#server-triggers)
 * [Sync vs Async](#sync-vs-async)
 * [Static Progress Bars](#static-progress-bars)
+* [Partial Progress Bars](#partial-progress-bars)
+* [Pie Progress](#pie-progress)
 * [Demo Commands](#demo-commands)
 * [Contributing](#contributing)
 * [To Do](#to-do)
@@ -215,6 +217,40 @@ ProgressBar.Hide()
 -- Destroy the bar (set as no longer needed)
 ProgressBar.Destroy()
 ```
+
+## Partial Progress Bars
+
+Too create a partial progress bar set the `maxAngle` property to the desired value:
+```lua
+exports.rprogress:Custom({
+    maxAngle: 240
+})
+```
+#### Result
+![](https://i.imgur.com/CS7kLpw.png)
+
+You can also set `rotation` property to the desired value:
+```lua
+exports.rprogress:Custom({
+    maxAngle: 240,
+    rotation: -120
+})
+```
+
+#### Result
+![](https://i.imgur.com/Jlouv2P.png)
+
+## Pie Progress
+Setting the `radius` and `stroke` properties to equal values will produce a pie chart type progress:
+```lua
+exports.rprogress:Custom({
+    radius: 60,
+    stroke: 60
+})
+```
+
+#### Result
+![](https://i.imgur.com/ZhnkvXs.gif)
 
 ## Demo Commands
 
