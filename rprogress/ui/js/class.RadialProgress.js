@@ -53,7 +53,7 @@ class Circle {
     }
 
     setArc() {
-        this.arc = 2 * Math.PI * this.radius;
+        this.arc = 2 * Math.PI * (this.radius - (this.stroke / 2));
         this.gap = this.arc - this.arc * ((this.maxAngle - this.minAngle) / 360);
 
         this.node.setAttributeNS(
