@@ -46,7 +46,7 @@ class Circle {
     render() {
         this.setArc();
 
-        this.node.setAttributeNS(null, "r", this.radius);
+        this.node.setAttributeNS(null, "r", this.radius - (this.stroke / 2));
         this.node.setAttributeNS(null, "cx", this.px + this.stroke * 0.5);
         this.node.setAttributeNS(null, "cy", this.py + this.stroke * 0.5);
         this.node.setAttributeNS(null, "stroke-width", this.stroke);
