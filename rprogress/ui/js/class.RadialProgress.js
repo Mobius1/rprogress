@@ -146,12 +146,12 @@ class RadialProgress {
 
         const container = document.createElement("div");
         container.classList.add("ui-dial");
-			
+
         const indicator = document.createElement("div");
         indicator.classList.add("ui-indicator");
-			
+
         const label = document.createElement("div");
-        label.classList.add("ui-label");			
+        label.classList.add("ui-label");
 
         this.setRotation(this.config.rotation);
 
@@ -172,7 +172,7 @@ class RadialProgress {
         this.config.y = y;
 
         const size = (this.config.r * 2);
-		
+
         this.container.style.width = `${(this.config.r * 2)}px`;
         this.container.style.height = `${(this.config.r * 2)}px`;
         this.container.style.left = `${
@@ -216,16 +216,21 @@ class RadialProgress {
     }
 
     render(element) {
-        element =
-            typeof element === "string" ? document.querySelector(element) : element;
+        if (!this.rendered) {
+            element = typeof element === "string" ? document.querySelector(element) : element;
 
-        element.appendChild(this.container);
+            element.appendChild(this.container);
+
+            this.rendered = true;
+        }
     }
 
     remove() {
         const parent = this.container.parentNode;
-        if ( parent ) {
+        if (this.rendered && parent) {
             parent.removeChild(this.container);
+
+            this.rendered = false;
         }
     }
 
@@ -257,14 +262,14 @@ class RadialProgress {
                 return;
             }
 
-            if ( easing === undefined ) {
+            if (easing === undefined) {
                 progress = (ct / duration) * to;
             } else {
                 progress = easing(ct, from, to - from, duration);
             }
-			
+
             this.setProgress(progress, false);
-			
+
             this.config.onChange.call(this, progress, ct, duration);
 
             // requestAnimationFrame
