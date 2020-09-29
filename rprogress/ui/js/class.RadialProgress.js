@@ -28,7 +28,7 @@ class Svg {
 */
 class Circle {
     constructor(r, s, min = 0, max = 360, bg = false) {
-        this.radius = r - (s / 2);
+        this.radius = r;
         this.stroke = s;
         this.minAngle = min;
         this.maxAngle = max;
@@ -46,14 +46,14 @@ class Circle {
     render() {
         this.setArc();
 
-        this.node.setAttributeNS(null, "r", this.radius);
-        this.node.setAttributeNS(null, "cx", this.px + this.stroke * 0.5);
-        this.node.setAttributeNS(null, "cy", this.py + this.stroke * 0.5);
+        this.node.setAttributeNS(null, "r", this.radius - (this.stroke / 2));
+        this.node.setAttributeNS(null, "cx", this.px);
+        this.node.setAttributeNS(null, "cy", this.py);
         this.node.setAttributeNS(null, "stroke-width", this.stroke);
     }
 
     setArc() {
-        this.arc = 2 * Math.PI * (this.radius);
+        this.arc = 2 * Math.PI * (this.radius - (this.stroke / 2));
         this.gap = this.arc - this.arc * ((this.maxAngle - this.minAngle) / 360);
 
         this.node.setAttributeNS(
@@ -111,8 +111,8 @@ class RadialProgress {
 
         this.config = Object.assign({}, defaultConfig, config);
 
-        this.config.w = this.config.s + this.config.r * 2;
-        this.config.h = this.config.s + this.config.r * 2;
+        this.config.w = this.config.r * 2;
+        this.config.h = this.config.r * 2;
 
         this.init();
 
@@ -171,10 +171,10 @@ class RadialProgress {
         this.config.x = x;
         this.config.y = y;
 
-        const size = (this.config.r * 2) + this.config.s;
+        const size = (this.config.r * 2);
 		
-        this.container.style.width = `${size}px`;
-        this.container.style.height = `${size}px`;
+        this.container.style.width = `${(this.config.r * 2)}px`;
+        this.container.style.height = `${(this.config.r * 2)}px`;
         this.container.style.left = `${
             (this.config.x * window.innerWidth) - (size / 2)
         }px`;
@@ -216,22 +216,16 @@ class RadialProgress {
     }
 
     render(element) {
-        if ( !this.rendered ) {
-            element =
-                typeof element === "string" ? document.querySelector(element) : element;
+        element =
+            typeof element === "string" ? document.querySelector(element) : element;
 
-            element.appendChild(this.container);
-
-            this.rendered = true;
-        }
+        element.appendChild(this.container);
     }
 
     remove() {
         const parent = this.container.parentNode;
-        if ( this.rendered && parent ) {
+        if ( parent ) {
             parent.removeChild(this.container);
-
-            this.rendered = false;
         }
     }
 
