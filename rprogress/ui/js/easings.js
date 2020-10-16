@@ -1,3 +1,5 @@
+const easeLinear = (t, b, c, d) => c * t / d + b;
+
 // ease-in
 const easeInQuad = (t, b, c, d) =>
     c * (t /= d) * t + b;

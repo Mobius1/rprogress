@@ -235,21 +235,25 @@ class RadialProgress {
     }
 
     start(to, from, duration, easing) {
+        this.frame = false;
+
         if (from === undefined) {
             from = this.config.progress;
         }
-
-        this.frame = false;
 
         // Duration of scroll
         if (duration === undefined) {
             duration = 5000;
         }
 
-        var st = Date.now();
+        if (easing === undefined) {
+            easing = easeLinear;
+        }        
+
+        let st = Date.now();
 
         // Scroll function
-        var animate = () => {
+        const animate = () => {
             let progress, now = Date.now(),
                 ct = now - st;
 
@@ -261,12 +265,8 @@ class RadialProgress {
                 this.config.onComplete.call(this);
                 return;
             }
-
-            if (easing === undefined) {
-                progress = (ct / duration) * to;
-            } else {
-                progress = easing(ct, from, to - from, duration);
-            }
+            
+            progress = easing(ct, from, to - from, duration);
 
             this.setProgress(progress, false);
 
