@@ -260,7 +260,7 @@ class RadialProgress {
             // Cancel after allotted interval
             if (ct > duration) {
                 cancelAnimationFrame(this.frame);
-                this.setProgress(100, false);
+                this.setProgress(to, false);
                 this.config.onChange.call(this, progress, duration, duration);
                 this.config.onComplete.call(this);
                 return;
