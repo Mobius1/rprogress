@@ -12,6 +12,13 @@ TriggerEvent('chat:addSuggestion', '/rprogressEasing', 'rprogress easing animati
     { name="Duration (ms)", help="Duration" },
 })
 
+TriggerEvent('chat:addSuggestion', '/rprogressAnimation', 'rprogress play animation', {
+    { name="animDictionary", help="animDictionary" },
+    { name="animationName", help="animationName" },
+    { name="Duration (ms)", help="Duration" },
+})
+
+
 TriggerEvent('chat:addSuggestion', '/rprogressAsync', 'Run rprogress async', {
     { name="Duration (ms)", help="Duration of progress" }
 })
@@ -43,6 +50,17 @@ RegisterCommand("rprogressEasing", function(source, args, raw)
         Easing = args[1],
         Duration = tonumber(args[2]),
         ShowTimer = false
+    }) 
+end)
+
+RegisterCommand("rprogressAnimation", function(source, args, raw)
+    Custom({
+        -- Label = args[1] .. " / " .. args[2],
+        Duration = tonumber(args[3]),
+        Animation = {
+            animDict = args[1],
+            anim = args[2],
+        },        
     }) 
 end)
 

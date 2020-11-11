@@ -1,6 +1,7 @@
 OnStart = nil
 OnComplete = nil
 Run = false
+Animation = false
 
 ------------------------------------------------------------
 --                     MAIN FUNCTIONS                     --
@@ -82,6 +83,11 @@ function Custom(options, static)
     OnStart = options.onStart
     OnComplete = options.onComplete
 
+    Animation = false
+    if options.Animation ~= nil then
+        Animation = options.Animation
+    end
+
     -- CAN'T SEND FUNCTIONS TO NUI
     options.onStart = nil
     options.onComplete = nil
@@ -95,11 +101,15 @@ function Custom(options, static)
 
     Run = true
 
+    PlayAnimation(options)
+
     if options.Async == false then
         while Run do
             DisableControls(options)
             Citizen.Wait(1)
         end
+
+        StopAnimation()
     else
         Citizen.CreateThread(function()
             while Run do
@@ -181,6 +191,27 @@ function DisableControls(options)
     end    
 end
 
+function PlayAnimation()
+    if Animation ~= nil then
+        local player = PlayerPedId()
+        if DoesEntityExist( player ) and not IsEntityDead( player ) then  
+            Citizen.CreateThread(function()
+                RequestAnimDict( Animation.animDict )
+                TaskPlayAnim( player, Animation.animDict, Animation.anim, 3.0, 1.0, -1, 0 --[[ flag ]], 0, 0, 0, 0 )
+            end)  
+        end
+    end 
+end
+
+function StopAnimation()
+    if Animation ~= nil then
+        local player = PlayerPedId()
+        if DoesEntityExist( player ) and not IsEntityDead( player ) then  
+            StopAnimTask(player, Animation.animDict, Animation.anim, 1.0)
+        end
+    end
+end
+
 ------------------------------------------------------------
 --                     NUI CALLBACKS                      --
 ------------------------------------------------------------
@@ -195,11 +226,13 @@ RegisterNUICallback('progress_complete', function()
     Run = false
     if OnComplete ~= nil then
         OnComplete()
+        StopAnimation()
     end
 end)
 
 RegisterNUICallback('progress_stop', function()
     Run = false
+    StopAnimation()
 end)
 
 ------------------------------------------------------------

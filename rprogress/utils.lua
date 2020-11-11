@@ -58,6 +58,12 @@ function ErrorCheck(options)
                         error = { prop = k .. "." .. m, type = "boolean" }
                     end
                 end
+            elseif k == "Animation" then
+                for m, n in pairs(v) do
+                    if type(n) ~= "string" then
+                        error = { prop = k .. "." .. m, type = "string" }
+                    end
+                end                
             else
                 if tonumber(v) == nil then
                     error = { prop = k, type = "number" }
@@ -77,4 +83,32 @@ function ErrorCheck(options)
     end
     
     return false
+end
+
+function LoadAnimSet(animSet, cb)
+    if not HasAnimSetLoaded(animSet) then
+        RequestAnimSet(animSet)
+
+        while not HasAnimSetLoaded(animSet) do
+            Citizen.Wait(1)
+        end
+    end
+
+    if cb ~= nil then
+        cb()
+    end
+end
+
+function LoadAnimDict(animDict, cb)
+    if not HasAnimDictLoaded(animDict) then
+        RequestAnimDict(animDict)
+
+        while not HasAnimDictLoaded(animDict) do
+            Citizen.Wait(1)
+        end
+    end
+
+    if cb ~= nil then
+        cb()
+    end
 end
