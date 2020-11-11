@@ -8,6 +8,7 @@ Customisable radial progress bars for FiveM.
 * [Configuration](#configuration)
 * [Client Functions](#client-functions)
 * [Server Triggers](#server-triggers)
+* [Scenarios and Animations](#scenarios-and-animations)
 * [Sync vs Async](#sync-vs-async)
 * [Static Progress Bars](#static-progress-bars)
 * [Partial Progress Bars](#partial-progress-bars)
@@ -121,8 +122,9 @@ exports.rprogress:Custom({
     Color = "rgba(255, 255, 255, 1.0)",
     BGColor = "rgba(0, 0, 0, 0.4)",
     Animation = {
-        animDict = "missheistfbisetup1",
-        anim = "unlock_loop_janitor",
+        scenario = "WORLD_HUMAN_AA_SMOKE", -- https://pastebin.com/6mrYTdQv
+        animationDictionary = "missheistfbisetup1", -- https://alexguirre.github.io/animations-list/
+        animationName = "unlock_loop_janitor",
     },
     DisableControls = {
         Mouse = true,
@@ -145,6 +147,35 @@ TriggerClientEvent('rprogress:start', source, text, duration)
 TriggerClientEvent('rprogress:stop', source)
 TriggerClientEvent('rprogress:custom', source, options)
 ```
+
+## Scenarios and Animations
+`rprogress` allows you to run a scenario or play an animation while the progress bar is running.
+
+If you want to run a scenario, then provide the `Animation` table with the `scenario` key:
+
+```lua
+Custom({
+    Animation = {
+        scenario = "WORLD_HUMAN_AA_SMOKE"
+    }
+}) 
+```
+
+You can find a list of scenarios [here](https://pastebin.com/6mrYTdQv)
+
+If you want to play an animation, then provide the `Animation` table with the `animationDictionary` and `animationName` keys:
+```lua
+Custom({
+    Animation = {
+        animationDictionary = "missheistfbisetup1",
+        animationName = "unlock_loop_janitor"
+    }
+}) 
+```
+
+You can find a list of animation dictionaries / names [here](https://alexguirre.github.io/animations-list/).
+
+If `scenario` is set as well as `animationDictionary` and `animationName`, then the `scenario` will take priority.
 
 ## Sync vs Async
 
@@ -267,6 +298,9 @@ exports.rprogress:Custom({
 /rprogressSync [duration]
 /rprogressAsync [duration]
 /rprogressStatic
+/rprogressEasing [functionName] [duration]
+/rprogressAnimation [animDictionary] [animName] [duration]
+/rprogressScenario [scenarioName] [duration]
 ```
 
 You can delete the `demo.lua` file and remove it's entry from `fxmanifest.lua` if these are not required.
