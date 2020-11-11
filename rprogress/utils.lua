@@ -48,7 +48,7 @@ function ErrorCheck(options)
                 if type(v) ~= "boolean" then
                     error = { prop = k, type = "boolean" }
                 end
-            elseif k == "Label" or k == "Color" or k == "BGColor" or k == "LabelPosition" then
+            elseif k == "Label" or k == "Color" or k == "BGColor" or k == "LabelPosition" or k == "Easing" then
                 if type(v) ~= "string" then
                     error = { prop = k, type = "string" }
                 end

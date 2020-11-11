@@ -30,7 +30,7 @@ Customisable radial progress bars for FiveM.
 
 ## Download & Installation
 
-* Download and extract the package: https://github.com/Mobius1/RadialProgress/archive/master.zip
+* Download and extract the package: https://github.com/Mobius1/rprogress/archive/master.zip
 * Drop the `rprogress` directory into you `resources` directory
 * Add `ensure rprogress` in your `server.cfg`
 * Edit `config.lua` to your liking
@@ -54,7 +54,6 @@ Config.BGColor      = "rgba(0, 0, 0, 0.4)"          -- Progress background colou
 Config.x            = 0.5 -- Horizontal position
 Config.y            = 0.5 -- Vertical position
 
-
 Config.Rotation     = 0     -- Rotation angle of dial in degrees
 Config.MaxAngle     = 360   -- Max arc in degrees - 360 = full circle, 90 = quarter of a circle, etc
 Config.Radius       = 60    -- Radius of the dial in pixels
@@ -62,6 +61,8 @@ Config.Stroke       = 10    -- stroke width of the dial in pixels
 
 Config.ShowTimer    = true  -- Shows the timer countdown within the dial
 Config.ShowProgress = false -- Shows the progress within the dial
+
+Config.Easing       = "easeLinear" -- The easing used for the dial animation - see "rprogress/ui/js/easings.js"
 
 Config.DisableControls = {
     Mouse           = false,    -- Disable mouse controls until progress is complete
@@ -113,6 +114,7 @@ exports.rprogress:Custom({
     Stroke = 10,
     MaxAngle = 360,
     Rotation = 0,
+    Easing = "easeLinear",
     Label = "My Custom Label",
     LabelPosition = "right",
     Color = "rgba(255, 255, 255, 1.0)",

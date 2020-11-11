@@ -23,6 +23,8 @@ Config.Stroke       = 10    -- stroke width of the dial
 Config.ShowTimer    = true  -- Shows the timer countdown withing the dial
 Config.ShowProgress = false -- Shows the progress within the dial
 
+Config.Easing       = "easeLinear" -- The easing used for the dial animation - see rprogress/ui/js/easings.js
+
 Config.DisableControls = {
     Mouse           = false,    -- Disable mouse controls until progress is complete
     Player          = false,    -- Disable player movement until progress is complete

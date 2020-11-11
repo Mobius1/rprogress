@@ -15,6 +15,7 @@ window.onData = function (data) {
             rotation: data.Rotation,
             maxAngle: data.MaxAngle,
             progress: data.From,
+            easing: data.Easing,
             onStart: function() {
                 running = true;
 

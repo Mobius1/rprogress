@@ -104,6 +104,7 @@ class RadialProgress {
             rotation: 0,
             color: "rgba(255, 255, 255, 1.0)",
             bgColor: "rgba(0, 0, 0, 0.4)",
+            easing: "easeLinear",
             onStart: () => {},
             onChange: () => {},
             onComplete: () => {}
@@ -234,7 +235,7 @@ class RadialProgress {
         }
     }
 
-    start(to, from, duration, easing) {
+    start(to, from, duration) {
         this.frame = false;
 
         if (from === undefined) {
@@ -244,11 +245,7 @@ class RadialProgress {
         // Duration of scroll
         if (duration === undefined) {
             duration = 5000;
-        }
-
-        if (easing === undefined) {
-            easing = easeLinear;
-        }        
+        }  
 
         let st = Date.now();
 
@@ -260,13 +257,13 @@ class RadialProgress {
             // Cancel after allotted interval
             if (ct > duration) {
                 cancelAnimationFrame(this.frame);
-                this.setProgress(to, false);
+                this.setProgress(100, false);
                 this.config.onChange.call(this, progress, duration, duration);
                 this.config.onComplete.call(this);
                 return;
             }
             
-            progress = easing(ct, from, to - from, duration);
+            progress = easings[this.config.easing](ct, from, to - from, duration);
 
             this.setProgress(progress, false);
 

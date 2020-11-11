@@ -7,6 +7,11 @@ TriggerEvent('chat:addSuggestion', '/rprogressStart', 'rprogress Start Demo', {
     { name="Duration (ms)", help="Duration of progress" }
 })
 
+TriggerEvent('chat:addSuggestion', '/rprogressEasing', 'rprogress easing animations', {
+    { name="Easing", help="Easing function" },
+    { name="Duration (ms)", help="Duration" },
+})
+
 TriggerEvent('chat:addSuggestion', '/rprogressAsync', 'Run rprogress async', {
     { name="Duration (ms)", help="Duration of progress" }
 })
@@ -32,33 +37,44 @@ RegisterCommand("rprogressStart", function(source, args, raw)
     Start(args[1], tonumber(args[2])) 
 end)
 
+RegisterCommand("rprogressEasing", function(source, args, raw)
+    Custom({
+        Label = args[1],
+        Easing = args[1],
+        Duration = tonumber(args[2]),
+        ShowTimer = false
+    }) 
+end)
+
 RegisterCommand("rprogressSync", function(source, args, raw)
-    ShowNotification("~b~Event: before")
+    Citizen.Wait(2000)
+    exports.FeedM:ShowNotification("~b~Event: before")
     Custom({
         Async = false,
         Duration = tonumber(args[1]),
         onStart = function(data, cb)
-            ShowNotification("~b~Event: onStart")
+            exports.FeedM:ShowNotification("~b~Event: onStart")
         end,
         onComplete = function(data, cb)
-            ShowNotification("~g~Event: onComplete")
+            exports.FeedM:ShowNotification("~g~Event: onComplete")
         end
     }) 
-    ShowNotification("~g~Event: after")
+    exports.FeedM:ShowNotification("~g~Event: after")
 end)
 
 RegisterCommand("rprogressAsync", function(source, args, raw)
-    ShowNotification("~b~Event: before")
+    Citizen.Wait(2000)
+    exports.FeedM:ShowNotification("~b~Event: before")
     Custom({
         Duration = tonumber(args[1]),
         onStart = function(data, cb)
-            ShowNotification("~b~Event: onStart")
+            exports.FeedM:ShowNotification("~b~Event: onStart")
         end,
         onComplete = function(data, cb)
-            ShowNotification("~g~Event: onComplete")
+            exports.FeedM:ShowNotification("~g~Event: onComplete")
         end
     }) 
-    ShowNotification("~g~Event: after")
+    exports.FeedM:ShowNotification("~g~Event: after")
 end)
 
 RegisterCommand("rprogressCustom", function(source, args, raw)
@@ -71,10 +87,10 @@ RegisterCommand("rprogressCustom", function(source, args, raw)
         MaxAngle = tonumber(args[6]) or Config.MaxAngle,
         Rotation = tonumber(args[7]) or Config.Rotation,
         onStart = function(data, cb)
-            ShowNotification("~b~Event: onStart")
+            exports.FeedM:ShowNotification("~b~Event: onStart")
         end,
         onComplete = function(data, cb)
-            ShowNotification("~g~Event: onComplete")
+            exports.FeedM:ShowNotification("~g~Event: onComplete")
         end
     }) 
 end)
@@ -86,7 +102,7 @@ RegisterCommand("rprogressStatic", function(source, args, raw)
     })
 
     print("local ProgressBar = NewStaticProgress({ Label = 'My Custom Label', ShowProgress = true })")
-    ShowNotification("NewStaticProgress()")
+    exports.FeedM:ShowNotification("NewStaticProgress()")
 
     Citizen.Wait(1000)
 
@@ -94,7 +110,7 @@ RegisterCommand("rprogressStatic", function(source, args, raw)
 
     ProgressBar.Show()
     print("ProgressBar.Show()")
-    ShowNotification("ProgressBar.Show()")
+    exports.FeedM:ShowNotification("ProgressBar.Show()")
 
     local last = 0
     for i = 1, 6 do
@@ -115,7 +131,7 @@ RegisterCommand("rprogressStatic", function(source, args, raw)
         ProgressBar.SetProgress(progress)
 
         print("ProgressBar.SetProgress("..progress..")")
-        ShowNotification("ProgressBar.SetProgress("..progress..")")
+        exports.FeedM:ShowNotification("ProgressBar.SetProgress("..progress..")")
     
         last = last + 20
 
@@ -124,13 +140,13 @@ RegisterCommand("rprogressStatic", function(source, args, raw)
             
             ProgressBar.Hide()
             print("ProgressBar.Hide()")
-            ShowNotification("ProgressBar.Hide()")
+            exports.FeedM:ShowNotification("ProgressBar.Hide()")
 
             Citizen.Wait(1000)          
 
             ProgressBar.Destroy()
             print("ProgressBar.Destroy()")
-            ShowNotification("ProgressBar.Destroy()")
+            exports.FeedM:ShowNotification("ProgressBar.Destroy()")
 
             break
         end
@@ -146,10 +162,10 @@ RegisterCommand("rprogressDisableControls", function(source, args, raw)
         },
         Duration = tonumber(args[1]),
         onStart = function(data, cb)
-            ShowNotification("~w~Controls: ~r~DISABLED")
+            exports.FeedM:ShowNotification("~w~Controls: ~r~DISABLED")
         end,
         onComplete = function(data, cb)
-            ShowNotification("~w~Controls: ~g~ENABLED")
+            exports.FeedM:ShowNotification("~w~Controls: ~g~ENABLED")
         end
     }) 
 end)
