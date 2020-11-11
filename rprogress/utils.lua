@@ -35,9 +35,7 @@ end
 function ErrorCheck(options)
 
     if type(options) ~= "table" then
-        print("==================================================================")
-        print("======== rprogress ERROR: options must be type:table ========")
-        print("==================================================================")
+        PrintError("options must be type:table")
         return true
     end
 
@@ -71,11 +69,7 @@ function ErrorCheck(options)
             end
     
             if error ~= false then
-                local msg = "======== rprogress ERROR: param '" .. error.prop .. "' must be type:" .. error.type .. " ========"
-                local s = string.rep("=", string.len(msg))
-                print(s)
-                print(msg)
-                print(s)
+                PrintError("param '" .. error.prop .. "' must be type:" .. error.type)
                             
                 return true
             end            
@@ -83,6 +77,16 @@ function ErrorCheck(options)
     end
     
     return false
+end
+
+function PrintError(msg)
+    ShowNotification("~r~RPROGRESS ERROR: ~w~" .. msg)
+
+    msg = "======== RPROGRESS ERROR: " .. msg .. " ========"
+    local s = string.rep("=", string.len(msg))
+    print(s)
+    print(msg)
+    print(s)
 end
 
 function LoadAnimSet(animSet, cb)
@@ -110,5 +114,15 @@ function LoadAnimDict(animDict, cb)
 
     if cb ~= nil then
         cb()
+    end
+end
+
+function ShowNotification(msg)
+    if exports.FeedM ~= nil then
+        exports.FeedM:ShowNotification(msg)
+    else
+        SetNotificationTextEntry('STRING')
+        AddTextComponentSubstringPlayerName(msg)
+        DrawNotification(false, true)
     end
 end

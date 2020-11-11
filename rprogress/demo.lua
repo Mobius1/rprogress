@@ -4,27 +4,31 @@
 
 TriggerEvent('chat:addSuggestion', '/rprogressStart', 'rprogress Start Demo', {
     { name="Label", help="The label to show" },
-    { name="Duration (ms)", help="Duration of progress" }
+    { name="Duration", help="Duration in ms" }
 })
 
 TriggerEvent('chat:addSuggestion', '/rprogressEasing', 'rprogress easing animations', {
     { name="Easing", help="Easing function" },
-    { name="Duration (ms)", help="Duration" },
+    { name="Duration", help="Duration in ms" },
 })
 
 TriggerEvent('chat:addSuggestion', '/rprogressAnimation', 'rprogress play animation', {
     { name="animDictionary", help="animDictionary" },
     { name="animationName", help="animationName" },
-    { name="Duration (ms)", help="Duration" },
+    { name="Duration", help="Duration in ms" },
 })
 
+TriggerEvent('chat:addSuggestion', '/rprogressTask', 'rprogress play task', {
+    { name="scenarioName", help="Scenario Name" },
+    { name="Duration", help="Duration in ms" },
+})
 
 TriggerEvent('chat:addSuggestion', '/rprogressAsync', 'Run rprogress async', {
-    { name="Duration (ms)", help="Duration of progress" }
+    { name="Duration", help="Duration in ms" }
 })
 
 TriggerEvent('chat:addSuggestion', '/rprogressSync', 'Run rprogress sync', {
-    { name="Duration (ms)", help="Duration of progress" }
+    { name="Duration", help="Duration in ms" }
 })
 
 TriggerEvent('chat:addSuggestion', '/rprogressStatic', 'rprogress static demo')
@@ -33,7 +37,7 @@ TriggerEvent('chat:addSuggestion', '/rprogressDisableControls', 'rprogress with 
 TriggerEvent('chat:addSuggestion', '/rprogressCustom', 'rprogress Custom Demo', {
     { name="From (0-100)", help="Percentage to start from" },
     { name="To (0-100)", help="Percentage to stop at" },
-    { name="Duration (ms)", help="Duration of progress" },
+    { name="Duration", help="Duration in ms" },
     { name="Radius (px)", help="Radius of the dial" },
     { name="Stroke (px)", help="Stroke width of bar" },
     { name="MaxAngle (deg)", help="Maximum arc of dial" },
@@ -45,53 +49,99 @@ RegisterCommand("rprogressStart", function(source, args, raw)
 end)
 
 RegisterCommand("rprogressEasing", function(source, args, raw)
+    local easing = args[1]
+    local duration = args[2]
+    if duration == nil then
+        duration = 3000
+    end      
+
+    if easing == nil then
+        easing = "easeLinear"
+    end
+
     Custom({
-        Label = args[1],
-        Easing = args[1],
-        Duration = tonumber(args[2]),
+        Label = easing,
+        Easing = easing,
+        Duration = tonumber(duration),
         ShowTimer = false
     }) 
 end)
 
 RegisterCommand("rprogressAnimation", function(source, args, raw)
+    local animationDictionary = args[1]
+    local animationName = args[2]
+
+    if animationDictionary == nil then
+        return PrintError("Please provide an animationDictionary")
+    end
+
+    if animationName == nil then
+        return PrintError("Please provide an animationName")
+    end
+
+    local duration = args[3]
+    if duration == nil then
+        duration = 3000
+    end    
+
     Custom({
-        Duration = tonumber(args[3]),
         Animation = {
-            animDict = args[1],
-            anim = args[2],
-        },        
+            animDict = animationDictionary,
+            anim = animationName,
+        },
+        Duration = tonumber(duration),              
+    }) 
+end)
+
+RegisterCommand("rprogressScenario", function(source, args, raw)
+
+    if args[1] == nil then
+        return PrintError("Please provide a scenerio name")
+    end
+
+    local duration = args[2]
+    if duration == nil then
+        duration = 3000
+    end    
+
+
+    Custom({
+        Duration = tonumber(duration),
+        Animation = {
+            scenario = args[1]
+        },    
     }) 
 end)
 
 RegisterCommand("rprogressSync", function(source, args, raw)
     Citizen.Wait(2000)
-    exports.FeedM:ShowNotification("~b~Event: before")
+    ShowNotification("~b~Event: before")
     Custom({
         Async = false,
         Duration = tonumber(args[1]),
         onStart = function(data, cb)
-            exports.FeedM:ShowNotification("~b~Event: onStart")
+            ShowNotification("~b~Event: onStart")
         end,
         onComplete = function(data, cb)
-            exports.FeedM:ShowNotification("~g~Event: onComplete")
+            ShowNotification("~g~Event: onComplete")
         end
     }) 
-    exports.FeedM:ShowNotification("~g~Event: after")
+    ShowNotification("~g~Event: after")
 end)
 
 RegisterCommand("rprogressAsync", function(source, args, raw)
     Citizen.Wait(2000)
-    exports.FeedM:ShowNotification("~b~Event: before")
+    ShowNotification("~b~Event: before")
     Custom({
         Duration = tonumber(args[1]),
         onStart = function(data, cb)
-            exports.FeedM:ShowNotification("~b~Event: onStart")
+            ShowNotification("~b~Event: onStart")
         end,
         onComplete = function(data, cb)
-            exports.FeedM:ShowNotification("~g~Event: onComplete")
+            ShowNotification("~g~Event: onComplete")
         end
     }) 
-    exports.FeedM:ShowNotification("~g~Event: after")
+    ShowNotification("~g~Event: after")
 end)
 
 RegisterCommand("rprogressCustom", function(source, args, raw)
@@ -104,10 +154,10 @@ RegisterCommand("rprogressCustom", function(source, args, raw)
         MaxAngle = tonumber(args[6]) or Config.MaxAngle,
         Rotation = tonumber(args[7]) or Config.Rotation,
         onStart = function(data, cb)
-            exports.FeedM:ShowNotification("~b~Event: onStart")
+            ShowNotification("~b~Event: onStart")
         end,
         onComplete = function(data, cb)
-            exports.FeedM:ShowNotification("~g~Event: onComplete")
+            ShowNotification("~g~Event: onComplete")
         end
     }) 
 end)
@@ -119,7 +169,7 @@ RegisterCommand("rprogressStatic", function(source, args, raw)
     })
 
     print("local ProgressBar = NewStaticProgress({ Label = 'My Custom Label', ShowProgress = true })")
-    exports.FeedM:ShowNotification("NewStaticProgress()")
+    ShowNotification("NewStaticProgress()")
 
     Citizen.Wait(1000)
 
@@ -127,7 +177,7 @@ RegisterCommand("rprogressStatic", function(source, args, raw)
 
     ProgressBar.Show()
     print("ProgressBar.Show()")
-    exports.FeedM:ShowNotification("ProgressBar.Show()")
+    ShowNotification("ProgressBar.Show()")
 
     local last = 0
     for i = 1, 6 do
@@ -148,7 +198,7 @@ RegisterCommand("rprogressStatic", function(source, args, raw)
         ProgressBar.SetProgress(progress)
 
         print("ProgressBar.SetProgress("..progress..")")
-        exports.FeedM:ShowNotification("ProgressBar.SetProgress("..progress..")")
+        ShowNotification("ProgressBar.SetProgress("..progress..")")
     
         last = last + 20
 
@@ -157,13 +207,13 @@ RegisterCommand("rprogressStatic", function(source, args, raw)
             
             ProgressBar.Hide()
             print("ProgressBar.Hide()")
-            exports.FeedM:ShowNotification("ProgressBar.Hide()")
+            ShowNotification("ProgressBar.Hide()")
 
             Citizen.Wait(1000)          
 
             ProgressBar.Destroy()
             print("ProgressBar.Destroy()")
-            exports.FeedM:ShowNotification("ProgressBar.Destroy()")
+            ShowNotification("ProgressBar.Destroy()")
 
             break
         end
@@ -179,16 +229,10 @@ RegisterCommand("rprogressDisableControls", function(source, args, raw)
         },
         Duration = tonumber(args[1]),
         onStart = function(data, cb)
-            exports.FeedM:ShowNotification("~w~Controls: ~r~DISABLED")
+            ShowNotification("~w~Controls: ~r~DISABLED")
         end,
         onComplete = function(data, cb)
-            exports.FeedM:ShowNotification("~w~Controls: ~g~ENABLED")
+            ShowNotification("~w~Controls: ~g~ENABLED")
         end
     }) 
 end)
-
-function ShowNotification(msg)
-    SetNotificationTextEntry('STRING')
-    AddTextComponentSubstringPlayerName(msg)
-    DrawNotification(false, true)
-end

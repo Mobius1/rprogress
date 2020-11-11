@@ -9,22 +9,12 @@ Animation = false
 
 function Start(text, duration)
     if type(text) ~= "string" then
-        local msg = "======== rprogress ERROR: param 'text' must be type:string ========"
-        local s = string.rep("=", string.len(msg))
-        print(s)
-        print(msg)
-        print(s)
-
+        PrintError("param 'text' must be type:string")
         return
     end
 
     if tonumber(duration) == nil then
-        local msg = "======== rprogress ERROR: param 'duration' must be type:number ========"
-        local s = string.rep("=", string.len(msg))
-        print(s)
-        print(msg)
-        print(s)
-
+        PrintError("param 'duration' must be type:number")
         return
     end
     
@@ -196,9 +186,15 @@ function PlayAnimation()
         local player = PlayerPedId()
         if DoesEntityExist( player ) and not IsEntityDead( player ) then  
             Citizen.CreateThread(function()
-                RequestAnimDict( Animation.animDict )
-                TaskPlayAnim( player, Animation.animDict, Animation.anim, 3.0, 1.0, -1, 0 --[[ flag ]], 0, 0, 0, 0 )
-            end)  
+                if Animation.scenario ~= nil then
+                    TaskStartScenarioInPlace(player, Animation.scenario, 0, true)
+                else
+                    if Animation.animDict ~= nil and Animation.anim ~= nil then
+                        RequestAnimDict( Animation.animDict )
+                        TaskPlayAnim( player, Animation.animDict, Animation.anim, 3.0, 1.0, -1, 0 --[[ flag ]], 0, 0, 0, 0 )
+                    end
+                end
+            end)
         end
     end 
 end
@@ -206,8 +202,14 @@ end
 function StopAnimation()
     if Animation ~= nil then
         local player = PlayerPedId()
-        if DoesEntityExist( player ) and not IsEntityDead( player ) then  
-            StopAnimTask(player, Animation.animDict, Animation.anim, 1.0)
+        if DoesEntityExist( player ) and not IsEntityDead( player ) then
+            if Animation.scenario ~= nil then
+                ClearPedTasks(player)
+            else
+                if Animation.animDict ~= nil and Animation.anim ~= nil then
+                    StopAnimTask(player, Animation.animDict, Animation.anim, 1.0)
+                end
+            end
         end
     end
 end
