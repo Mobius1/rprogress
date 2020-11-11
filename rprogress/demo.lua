@@ -55,7 +55,6 @@ end)
 
 RegisterCommand("rprogressAnimation", function(source, args, raw)
     Custom({
-        -- Label = args[1] .. " / " .. args[2],
         Duration = tonumber(args[3]),
         Animation = {
             animDict = args[1],
