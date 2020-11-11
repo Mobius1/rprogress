@@ -119,6 +119,10 @@ exports.rprogress:Custom({
     LabelPosition = "right",
     Color = "rgba(255, 255, 255, 1.0)",
     BGColor = "rgba(0, 0, 0, 0.4)",
+    Animation = {
+        animDict = "missheistfbisetup1",
+        anim = "unlock_loop_janitor",
+    },
     DisableControls = {
         Mouse = true,
         Player = true,
