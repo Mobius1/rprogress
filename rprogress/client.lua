@@ -181,6 +181,7 @@ function DisableControls(options)
     end    
 end
 
+-- Start the scenario / animation
 function PlayAnimation()
     if Animation ~= nil then
         local player = PlayerPedId()
@@ -190,8 +191,13 @@ function PlayAnimation()
                     TaskStartScenarioInPlace(player, Animation.scenario, 0, true)
                 else
                     if Animation.animationDictionary ~= nil and Animation.animationName ~= nil then
+                        
+                        if Animation.flag == nil then
+                            Animation.flag = 1
+                        end
+
                         RequestAnimDict( Animation.animationDictionary )
-                        TaskPlayAnim( player, Animation.animationDictionary, Animation.animationName, 3.0, 1.0, -1, 0 --[[ flag ]], 0, 0, 0, 0 )
+                        TaskPlayAnim( player, Animation.animationDictionary, Animation.animationName, 3.0, 1.0, -1, Animation.flag, 0, 0, 0, 0 )
                     end
                 end
             end)
@@ -199,6 +205,7 @@ function PlayAnimation()
     end 
 end
 
+-- Stop the scenario / animation
 function StopAnimation()
     if Animation ~= nil then
         local player = PlayerPedId()
