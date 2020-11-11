@@ -121,5 +121,5 @@ function PostData(type, obj) {
             'Content-Type': 'application/json; charset=UTF-8',
         },
         body: JSON.stringify(obj)
-    });
+    }).then(resp => resp.json()).then(resp => resp).catch(error => console.log('RPROGRESS FETCH ERROR! ' + error.message));  
 }
