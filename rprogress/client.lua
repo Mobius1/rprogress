@@ -189,9 +189,9 @@ function PlayAnimation()
                 if Animation.scenario ~= nil then
                     TaskStartScenarioInPlace(player, Animation.scenario, 0, true)
                 else
-                    if Animation.animDict ~= nil and Animation.anim ~= nil then
-                        RequestAnimDict( Animation.animDict )
-                        TaskPlayAnim( player, Animation.animDict, Animation.anim, 3.0, 1.0, -1, 0 --[[ flag ]], 0, 0, 0, 0 )
+                    if Animation.animationDictionary ~= nil and Animation.animationName ~= nil then
+                        RequestAnimDict( Animation.animationDictionary )
+                        TaskPlayAnim( player, Animation.animationDictionary, Animation.animationName, 3.0, 1.0, -1, 0 --[[ flag ]], 0, 0, 0, 0 )
                     end
                 end
             end)
@@ -206,8 +206,8 @@ function StopAnimation()
             if Animation.scenario ~= nil then
                 ClearPedTasks(player)
             else
-                if Animation.animDict ~= nil and Animation.anim ~= nil then
-                    StopAnimTask(player, Animation.animDict, Animation.anim, 1.0)
+                if Animation.animationDictionary ~= nil and Animation.animationName ~= nil then
+                    StopAnimTask(player, Animation.animationDictionary, Animation.animationName, 1.0)
                 end
             end
         end

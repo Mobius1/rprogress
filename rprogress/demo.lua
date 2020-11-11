@@ -18,7 +18,7 @@ TriggerEvent('chat:addSuggestion', '/rprogressAnimation', 'rprogress play animat
     { name="Duration", help="Duration in ms" },
 })
 
-TriggerEvent('chat:addSuggestion', '/rprogressTask', 'rprogress play task', {
+TriggerEvent('chat:addSuggestion', '/rprogressScenario', 'rprogress play task', {
     { name="scenarioName", help="Scenario Name" },
     { name="Duration", help="Duration in ms" },
 })
@@ -86,8 +86,8 @@ RegisterCommand("rprogressAnimation", function(source, args, raw)
 
     Custom({
         Animation = {
-            animDict = animationDictionary,
-            anim = animationName,
+            animationDictionary = animationDictionary,
+            animationName = animationName,
         },
         Duration = tonumber(duration),              
     }) 

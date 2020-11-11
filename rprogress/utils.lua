@@ -89,31 +89,13 @@ function PrintError(msg)
     print(s)
 end
 
-function LoadAnimSet(animSet, cb)
-    if not HasAnimSetLoaded(animSet) then
-        RequestAnimSet(animSet)
-
-        while not HasAnimSetLoaded(animSet) do
-            Citizen.Wait(1)
-        end
-    end
-
-    if cb ~= nil then
-        cb()
-    end
-end
-
-function LoadAnimDict(animDict, cb)
+function LoadAnimDict(animDict)
     if not HasAnimDictLoaded(animDict) then
         RequestAnimDict(animDict)
 
         while not HasAnimDictLoaded(animDict) do
             Citizen.Wait(1)
         end
-    end
-
-    if cb ~= nil then
-        cb()
     end
 end
 
