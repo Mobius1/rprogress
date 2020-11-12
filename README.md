@@ -151,7 +151,7 @@ TriggerClientEvent('rprogress:custom', source, options)
 ## Scenarios and Animations
 `rprogress` allows you to run a scenario or play an animation while the progress bar is running.
 
-If you want to run a scenario, then provide the `Animation` table with the `scenario` key:
+If you want to run a scenario, then provide the `Animation` table with the `scenario` key.
 
 ```lua
 Custom({
@@ -163,12 +163,13 @@ Custom({
 
 You can find a list of scenarios [here](https://pastebin.com/6mrYTdQv)
 
-If you want to play an animation, then provide the `Animation` table with the `animationDictionary` and `animationName` keys:
+If you want to play an animation, then provide the `Animation` table with the required `animationDictionary` and `animationName` keys. You can also provide the optional `flag` key (see [`TaskPlayAnim`](https://wiki.rage.mp/index.php?title=Player::taskPlayAnim)).
 ```lua
 Custom({
     Animation = {
         animationDictionary = "missheistfbisetup1",
-        animationName = "unlock_loop_janitor"
+        animationName = "unlock_loop_janitor",
+        flag = 1, -- optional
     }
 }) 
 ```
