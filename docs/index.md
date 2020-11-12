@@ -24,7 +24,7 @@ exports.rprogress:Stop()
 ```lua
 exports.rprogress:Custom(options --[[table]])
 ```
----
+
 ### NewStaticProgress()
 ---
 Creates a static progress dial
@@ -45,3 +45,44 @@ staticProgress.Hide()
 -- Destroy the bar (set as no longer needed)
 staticProgress.Destroy()
 ```
+
+## Options
+
+### Async
+---
+### x
+---
+### y
+---
+### From
+---
+### To
+---
+### Duration
+---
+### Radius
+---
+### Stroke
+---
+### MaxAngle
+---
+### Rotation
+---
+### Easing
+---
+### Label
+---
+### LabelPosition
+---
+### Color
+---
+### BGColor
+---
+### Animation
+---
+### DisableControls   
+---
+### onStart
+---
+### onComplete
+---
