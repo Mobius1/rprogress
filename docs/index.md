@@ -3,30 +3,30 @@
 Customisable radial progress bars for FiveM.
 
 ## API
----
-### Start()
 
+### Start()
+---
 ##### Usage
 ```lua
 exports.rprogress:Start(text --[[string]], duration --[[number]])
 ```
----
-### Stop()
 
+### Stop()
+---
 ##### Usage
 ```lua
 exports.rprogress:Stop()
 ```
----
-### Custom()
 
+### Custom()
+---
 ##### Usage
 ```lua
 exports.rprogress:Custom(options --[[table]])
 ```
 ---
 ### NewStaticProgress()
-
+---
 Creates a static progress dial
 
 ##### Usage
