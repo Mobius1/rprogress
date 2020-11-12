@@ -259,7 +259,7 @@ ProgressBar.Destroy()
 
 ## Partial Progress Bars
 
-Too create a partial progress bar set the `maxAngle` property to the desired value:
+To create a partial progress bar set the `maxAngle` property to the desired value:
 ```lua
 exports.rprogress:Custom({
     maxAngle: 240
