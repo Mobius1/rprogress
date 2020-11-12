@@ -6,21 +6,18 @@ Customisable radial progress bars for FiveM.
 
 ### Start()
 ---
-##### Usage
 ```lua
 exports.rprogress:Start(text --[[string]], duration --[[number]])
 ```
 
 ### Stop()
 ---
-##### Usage
 ```lua
 exports.rprogress:Stop()
 ```
 
 ### Custom()
 ---
-##### Usage
 ```lua
 exports.rprogress:Custom(options --[[table]])
 ```
@@ -29,7 +26,6 @@ exports.rprogress:Custom(options --[[table]])
 ---
 Creates a static progress dial
 
-##### Usage
 ```lua
 local staticProgress = exports.rprogress:NewStaticProgress(options --[[table]])
 
@@ -47,6 +43,8 @@ staticProgress.Destroy()
 ```
 
 ## Options
+
+This are the options that can be passed to the `Custom()` and `NewStaticProgress()` methods.
 
 ### Async
 ---
@@ -149,6 +147,22 @@ Type: `table`
 Default: `nil`
 
 Sets the `animationDictionary` and `animationName` or `scenario` to be used during progress.
+
+```lua
+Animation = {
+    scenario = "WORLD_HUMAN_AA_SMOKE"
+}
+```
+or
+```lua
+Animation = {
+    animationDictionary = "missheistfbisetup1",
+    animationName = "unlock_loop_janitor",
+    flag = 1, -- optional
+}
+```
+
+If `scenario` is set as well as `animationDictionary` and `animationName`, then the `scenario` will take priority.
 
 See [TaskStartScenarioInPlace](https://runtime.fivem.net/doc/natives/?_0x142A02425FF02BD9) and [TaskPlayAnim](https://runtime.fivem.net/doc/natives/?_0xEA47FE3719165B94)
 
