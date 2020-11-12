@@ -44,7 +44,7 @@ staticProgress.Destroy()
 
 ## Options
 
-This are the options that can be passed to the `Custom()` and `NewStaticProgress()` methods.
+These are the options that can be passed to the `Custom()` and `NewStaticProgress()` methods.
 
 ### Async
 ---
