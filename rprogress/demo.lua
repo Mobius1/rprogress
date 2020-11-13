@@ -114,7 +114,6 @@ RegisterCommand("rprogressScenario", function(source, args, raw)
 end)
 
 RegisterCommand("rprogressSync", function(source, args, raw)
-    Citizen.Wait(2000)
     ShowNotification("~b~Event: before")
     Custom({
         Async = false,
@@ -130,7 +129,6 @@ RegisterCommand("rprogressSync", function(source, args, raw)
 end)
 
 RegisterCommand("rprogressAsync", function(source, args, raw)
-    Citizen.Wait(2000)
     ShowNotification("~b~Event: before")
     Custom({
         Duration = tonumber(args[1]),
@@ -163,13 +161,13 @@ RegisterCommand("rprogressCustom", function(source, args, raw)
 end)
 
 RegisterCommand("rprogressStatic", function(source, args, raw)
-    local ProgressBar = NewStaticProgress({
+    local ProgressBar = Static({
         Label = "My Custom Label",
         ShowProgress = true
     })
 
-    print("local ProgressBar = NewStaticProgress({ Label = 'My Custom Label', ShowProgress = true })")
-    ShowNotification("NewStaticProgress()")
+    print("local ProgressBar = Static({ Label = 'My Custom Label', ShowProgress = true })")
+    ShowNotification("Static()")
 
     Citizen.Wait(1000)
 

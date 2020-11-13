@@ -74,8 +74,6 @@ window.onData = function (data) {
 
             staticDial.container.classList.add(`label-${data.LabelPosition}`);
             staticDial.label.textContent = data.Label;            
-
-            PostData("static", data)
         } else {
             if (data.show) {
                 staticDial.render(ui);

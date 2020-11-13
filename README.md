@@ -154,7 +154,7 @@ TriggerClientEvent('rprogress:custom', source, options)
 If you want to run a scenario, then provide the `Animation` table with the `scenario` key.
 
 ```lua
-Custom({
+exports.rprogress:Custom({
     Animation = {
         scenario = "WORLD_HUMAN_AA_SMOKE"
     }
@@ -165,7 +165,7 @@ You can find a list of scenarios [here](https://pastebin.com/6mrYTdQv)
 
 If you want to play an animation, then provide the `Animation` table with the required `animationDictionary` and `animationName` keys. You can also provide the optional `flag` key (see [`TaskPlayAnim`](https://wiki.rage.mp/index.php?title=Player::taskPlayAnim)).
 ```lua
-Custom({
+exports.rprogress:Custom({
     Animation = {
         animationDictionary = "missheistfbisetup1",
         animationName = "unlock_loop_janitor",
@@ -242,19 +242,19 @@ If you don't just want a progress bar that fills automatically, you can create a
 
 ```lua
 -- Create new static progress bar
-local ProgressBar = NewStaticProgress(options)
+local staticDial = exports.rprogress:Static(options)
 
 -- Show the progress bar
-ProgressBar.Show()
+staticDial.Show()
 
 -- Update the progress of the bar (0-100)
-ProgressBar.SetProgress(progress)
+staticDial.SetProgress(progress)
 
 -- Hide the progress bar
-ProgressBar.Hide()
+staticDial.Hide()
 
 -- Destroy the bar (set as no longer needed)
-ProgressBar.Destroy()
+staticDial.Destroy()
 ```
 
 ## Partial Progress Bars

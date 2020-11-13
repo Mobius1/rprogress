@@ -30,4 +30,4 @@ files {
 exports "Start"
 exports "Custom"
 exports "Stop"
-exports "NewStaticProgress"
+exports "Static"

@@ -1,7 +1,7 @@
 OnStart = nil
 OnComplete = nil
 Run = false
-Animation = false
+Animation = nil
 
 ------------------------------------------------------------
 --                     MAIN FUNCTIONS                     --
@@ -73,7 +73,7 @@ function Custom(options, static)
     OnStart = options.onStart
     OnComplete = options.onComplete
 
-    Animation = false
+    Animation = nil
     if options.Animation ~= nil then
         Animation = options.Animation
     end
@@ -116,7 +116,7 @@ function Stop()
     })
 end
 
-function NewStaticProgress(config)
+function Static(config)
     local options = Custom(config, true)
 
     options.display = false
@@ -225,13 +225,13 @@ end
 --                     NUI CALLBACKS                      --
 ------------------------------------------------------------
 
-RegisterNUICallback('progress_start', function()
+RegisterNUICallback('progress_start', function(data)
     if OnStart ~= nil then
         OnStart()
     end
 end)
 
-RegisterNUICallback('progress_complete', function()
+RegisterNUICallback('progress_complete', function(data)
     Run = false
     if OnComplete ~= nil then
         OnComplete()
@@ -239,7 +239,7 @@ RegisterNUICallback('progress_complete', function()
     end
 end)
 
-RegisterNUICallback('progress_stop', function()
+RegisterNUICallback('progress_stop', function(data)
     Run = false
     StopAnimation()
 end)
@@ -270,4 +270,4 @@ end)
 exports('Start', Start)
 exports('Custom', Custom)
 exports('Stop', Stop)
-exports('NewStaticProgress', NewStaticProgress)
+exports('Static', Static)
