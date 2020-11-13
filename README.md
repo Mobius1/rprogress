@@ -6,12 +6,13 @@ Customisable radial progress bars for FiveM.
 * [Requirements](#requirements)
 * [Download & Installation](#download--installation)
 * [Configuration](#configuration)
+* [Upgrading](#upgrading)
 * [Client Functions](#client-functions)
 * [Server Triggers](#server-triggers)
 * [Scenarios and Animations](#scenarios-and-animations)
 * [Sync vs Async](#sync-vs-async)
-* [Static Progress Bars](#static-progress-bars)
-* [Partial Progress Bars](#partial-progress-bars)
+* [Static Progress Dials](#static-progress-dials)
+* [Partial Progress Dials](#partial-progress-dials)
 * [Pie Progress](#pie-progress)
 * [Demo Commands](#demo-commands)
 * [Contributing](#contributing)
@@ -24,7 +25,7 @@ Customisable radial progress bars for FiveM.
 * [Without Timer](https://streamable.com/d7qil2)
 * [Demo with esx_doorlock](https://streamable.com/94b0ph)
 * [Custom Label Position](https://streamable.com/4mqwgx)
-* [Static Progress Bar](https://streamable.com/uzbfsd)
+* [Static Progress Dial](https://streamable.com/uzbfsd)
 
 ## Requirements
 
@@ -41,7 +42,7 @@ Customisable radial progress bars for FiveM.
 ## Configuration
 
 ```lua
-Config.Async        = true  -- Whether to run the progress bar asyncronously
+Config.Async        = true  -- Whether to run the progress dial asyncronously
 
 Config.From         = 0     -- Starting progress percentage
 Config.To           = 100   -- Ending progress percentage
@@ -50,7 +51,7 @@ Config.Duration         = 5000          -- Duration of the progress
 Config.Label            = "Loading..."  -- Text shown with the dial
 Config.LabelPosition    = "bottom"
 
-Config.Color        = "rgba(255, 255, 255, 1.0)"    -- Progress bar colour
+Config.Color        = "rgba(255, 255, 255, 1.0)"    -- Progress dial colour
 Config.BGColor      = "rgba(0, 0, 0, 0.4)"          -- Progress background colour
 
 Config.x            = 0.5 -- Horizontal position
@@ -74,6 +75,11 @@ Config.DisableControls = {
 ```
 NOTE: `Config.Position` is based on screen size so setting `Config.Position.x = 0.5` will be the center of the screen, `Config.Position.x = 1.0` with be right-side of the screen, `Config.Position.x = 0.0` will be the left-side of the screen, etc.
 
+## Upgrading
+
+#### Upgrading to v0.6.0
+Replace all instances of `exports.rprogress:NewStaticProgress` with `exports.rprogress:Static`
+
 ## Client Functions
 
 NOTE: DO NOT run these in a loop
@@ -81,24 +87,27 @@ NOTE: DO NOT run these in a loop
 Available exports:
 
 ```lua
--- starts the progress bar for the defined duration
+-- starts the progress dial for the defined duration
 -- This runs in sync so any code after this call won't be run until the progress is complete
 exports.rprogress:Start(text, duration)
 
--- stops the progress bar early
+-- stops the progress dial early
 exports.rprogress:Stop()
 
--- Display a custom progress bar by overriding config.lua values
+-- Display a custom progress dial by overriding config.lua values
 exports.rprogress:Custom(options)
+
+-- Create a static progress dial
+exports.rprogress:Static(options)
 ```
 
-##### Display a progress bar with text for set duration
+##### Display a progress dial with text for set duration
 
 ```lua
 exports.rprogress:Start(text, duration)
 ```
 
-##### Stop the progress bar early
+##### Stop the progress dial early
 ```lua
 exports.rprogress:Stop()
 ```
@@ -149,7 +158,7 @@ TriggerClientEvent('rprogress:custom', source, options)
 ```
 
 ## Scenarios and Animations
-`rprogress` allows you to run a scenario or play an animation while the progress bar is running.
+`rprogress` allows you to run a scenario or play an animation while the progress dial is running.
 
 If you want to run a scenario, then provide the `Animation` table with the `scenario` key.
 
@@ -180,7 +189,7 @@ If `scenario` is set as well as `animationDictionary` and `animationName`, then 
 
 ## Sync vs Async
 
-The `Start()` method runs in sync so any code after the call to the method won't be run until the progress is complete. If you want a progress bar to run asyncronously, you can use the `Custom()` method with `Async` set to `true` and utilise the `onStart` and `onComplete` callbacks.
+The `Start()` method runs in sync so any code after the call to the method won't be run until the progress is complete. If you want a progress dial to run asyncronously, you can use the `Custom()` method with `Async` set to `true` and utilise the `onStart` and `onComplete` callbacks.
 
 ##### Async
 ```lua
@@ -234,32 +243,32 @@ complete
 after
 ```
 
-## Static Progress Bars
+## Static Progress Dials
 
-If you don't just want a progress bar that fills automatically, you can create a static one and update it as required.
+If you don't just want a progress dial that fills automatically, you can create a static one and update it as required.
 
 [Demo Video](https://streamable.com/uzbfsd)
 
 ```lua
--- Create new static progress bar
+-- Create new static progress dial
 local staticDial = exports.rprogress:Static(options)
 
--- Show the progress bar
+-- Show the progress dial
 staticDial.Show()
 
--- Update the progress of the bar (0-100)
+-- Update the progress of the dial (0-100)
 staticDial.SetProgress(progress)
 
--- Hide the progress bar
+-- Hide the progress dial
 staticDial.Hide()
 
--- Destroy the bar (set as no longer needed)
+-- Destroy the dial (set as no longer needed)
 staticDial.Destroy()
 ```
 
-## Partial Progress Bars
+## Partial Progress Dials
 
-To create a partial progress bar set the `maxAngle` property to the desired value:
+To create a partial progress dial set the `maxAngle` property to the desired value:
 ```lua
 exports.rprogress:Custom({
     maxAngle: 240
@@ -311,14 +320,14 @@ Pull requests welcome.
 
 ## To Do
 - [x] Allow sync and async
-- [x] Allow bar colour customisation in `config.lua`
+- [x] Allow dial colour customisation in `config.lua`
 - [x] Allow control disable ([Suggested by Korek](https://forum.cfx.re/t/release-standalone-rprogress-customisable-radial-progress-bars/1630655/24))
 
 ## Legal
 
 ### License
 
-rprogress - Customisable radial progress bars for FiveM.
+rprogress - Customisable radial progress dials for FiveM.
 
 Copyright (C) 2020 Karl Saunders
 
