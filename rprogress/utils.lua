@@ -42,10 +42,14 @@ function ErrorCheck(options)
     for k, v in pairs(options) do
         local error = false
         if k ~= "onStart" and k ~= "onComplete" then
-            if k == "ShowTimer" or k == "ShowProgress" or k == "Async" then
+            if k == "ShowTimer" or k == "ShowProgress" or k == "Async" or k == "Skill" then
                 if type(v) ~= "boolean" then
                     error = { prop = k, type = "boolean" }
                 end
+            elseif k == "Zone" then
+                if type(v) ~= "table" then
+                    error = { prop = k, type = "table" }
+                end                
             elseif k == "Label" or k == "Color" or k == "BGColor" or k == "LabelPosition" or k == "Easing" then
                 if type(v) ~= "string" then
                     error = { prop = k, type = "string" }
@@ -58,8 +62,14 @@ function ErrorCheck(options)
                 end
             elseif k == "Animation" then
                 for m, n in pairs(v) do
-                    if type(n) ~= "string" then
-                        error = { prop = k .. "." .. m, type = "string" }
+                    if m == "flag" then
+                        if tonumber(n) == nil then
+                            error = { prop = k, type = "number" }
+                        end
+                    else
+                        if type(n) ~= "string" then
+                            error = { prop = k .. "." .. m, type = "string" }
+                        end
                     end
                 end                
             else
@@ -100,8 +110,8 @@ function LoadAnimDict(animDict)
 end
 
 function ShowNotification(msg)
-    if exports.FeedM ~= nil then
-        exports.FeedM:ShowNotification(msg)
+    if exports.FeedM2 ~= nil then
+        exports.FeedM2:ShowNotification(msg)
     else
         SetNotificationTextEntry('STRING')
         AddTextComponentSubstringPlayerName(msg)

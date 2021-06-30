@@ -160,6 +160,12 @@ function Static(config)
     }
 end
 
+function Skill(options)
+    SetNuiFocus(true, true)
+
+    Custom(options)
+end
+
 function DisableControls(options)
     if options.DisableControls.Mouse then
         DisableControlAction(1, 1, true)
@@ -244,6 +250,27 @@ RegisterNUICallback('progress_stop', function(data)
     StopAnimation()
 end)
 
+RegisterNUICallback('progress_skill', function(data)
+    local complete = false
+
+    -- Play was successfull
+    if data.progress >= data.zone[1] and data.progress <= data.zone[2] then
+        complete = true
+    end
+
+    Run = false
+
+    if OnComplete ~= nil then
+        OnComplete(complete)
+    end
+
+    Stop()
+
+    -- Unfocus NUI
+    SetNuiFocus(false, false)
+end)
+
+
 ------------------------------------------------------------
 --                         EVENTS                         --
 ------------------------------------------------------------
@@ -251,6 +278,7 @@ end)
 RegisterNetEvent("rprogress:start")
 RegisterNetEvent("rprogress:stop")
 RegisterNetEvent("rprogress:custom")
+RegisterNetEvent("rprogress:skill")
 
 AddEventHandler("rprogress:start", Start)
 AddEventHandler("rprogress:stop", Stop)
@@ -261,6 +289,7 @@ AddEventHandler("rprogress:custom", function(options)
 
     Custom(options)
 end)
+AddEventHandler("rprogress:skill", Skill)
 
 
 ------------------------------------------------------------
@@ -271,3 +300,4 @@ exports('Start', Start)
 exports('Custom', Custom)
 exports('Stop', Stop)
 exports('Static', Static)
+exports('Skill', Skill)

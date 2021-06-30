@@ -1,0 +1,30 @@
+@font-face {
+    font-family: "RajdhaniRegular";
+    font-style: normal;
+    font-weight: normal;
+    src: url('../fonts/Rajdhani-Regular.ttf');    
+}
+
+@font-face {
+    font-family: "RajdhaniMedium";
+    font-style: medium;
+    font-weight: medium;
+    src: url('../fonts/Rajdhani-Medium.ttf');    
+}
+
+@font-face {
+    font-family: "RajdhaniBold";
+    font-style: bold;
+    font-weight: bold;
+    src: url('../fonts/Rajdhani-Bold.ttf');    
+}
+
+#radial_progress {
+    background: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0.90)), to(rgba(0, 0, 0, 0.50)));
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.90) 0%, rgba(0, 0, 0, 0.50) 100%);
+}
+
+.ui-dial .ui-label {
+    font-family: "RajdhaniBold";
+    font-size: 20px;
+}

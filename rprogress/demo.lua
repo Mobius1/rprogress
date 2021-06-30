@@ -48,6 +48,23 @@ RegisterCommand("rprogressStart", function(source, args, raw)
     Start(args[1], tonumber(args[2])) 
 end)
 
+RegisterCommand("rprogressSkill", function(source, args, raw)
+    Skill({
+        Zone = { 45, 55 },
+        MaxAngle = 240,
+        Rotation = -120,
+        Skill = true,
+        Duration = 400,
+        onComplete = function(complete)
+            if complete then
+                exports.FeedM2:ShowNotification("WON!")
+            else
+                exports.FeedM2:ShowNotification("LOST!")
+            end
+        end
+    })
+end)
+
 RegisterCommand("rprogressEasing", function(source, args, raw)
     local easing = args[1]
     local duration = args[2]
@@ -161,13 +178,12 @@ RegisterCommand("rprogressCustom", function(source, args, raw)
 end)
 
 RegisterCommand("rprogressStatic", function(source, args, raw)
-    local ProgressBar = Static({
+    local ProgressBar = exports.rprogress:Static({
         Label = "My Custom Label",
         ShowProgress = true
     })
 
-    print("local ProgressBar = Static({ Label = 'My Custom Label', ShowProgress = true })")
-    ShowNotification("Static()")
+    print("local ProgressBar = exports.rprogress:Static({ Label = 'My Custom Label', ShowProgress = true })")
 
     Citizen.Wait(1000)
 
@@ -175,7 +191,6 @@ RegisterCommand("rprogressStatic", function(source, args, raw)
 
     ProgressBar.Show()
     print("ProgressBar.Show()")
-    ShowNotification("ProgressBar.Show()")
 
     local last = 0
     for i = 1, 6 do
@@ -196,7 +211,6 @@ RegisterCommand("rprogressStatic", function(source, args, raw)
         ProgressBar.SetProgress(progress)
 
         print("ProgressBar.SetProgress("..progress..")")
-        ShowNotification("ProgressBar.SetProgress("..progress..")")
     
         last = last + 20
 
@@ -205,13 +219,11 @@ RegisterCommand("rprogressStatic", function(source, args, raw)
             
             ProgressBar.Hide()
             print("ProgressBar.Hide()")
-            ShowNotification("ProgressBar.Hide()")
 
             Citizen.Wait(1000)          
 
             ProgressBar.Destroy()
             print("ProgressBar.Destroy()")
-            ShowNotification("ProgressBar.Destroy()")
 
             break
         end

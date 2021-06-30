@@ -27,7 +27,7 @@ class Svg {
 * Circle Class
 */
 class Circle {
-    constructor(r, s, min = 0, max = 360, bg = false) {
+    constructor(r, s, min = 0, max = 360, bg = false, zone = false) {
         this.radius = r;
         this.stroke = s;
         this.minAngle = min;
@@ -35,6 +35,7 @@ class Circle {
         this.px = this.radius;
         this.py = this.radius;
         this.bg = bg;
+        this.zone = zone;
         this.offset = 0;
         this.progress = 0;
 
@@ -121,6 +122,8 @@ class RadialProgress {
     }
 
     init() {
+        const arc = this.config.maxAngle - this.config.minAngle
+
         this.svg = new Svg(this.config.w, this.config.h);
 
         this.dials = {
@@ -139,11 +142,36 @@ class RadialProgress {
             )
         };
 
+        if ( this.config.zone ) {
+            this.dials.zone = new Circle(
+                this.config.r,
+                this.config.s,
+                (this.config.zone[0] / 100) * arc,
+                (this.config.zone[1] / 100) * arc,
+                true
+            )
+        }        
+
         this.svg.getNode().appendChild(this.dials.bg.getNode());
+
+        if ( this.dials.zone ) {
+            this.svg.getNode().appendChild(this.dials.zone.getNode());
+            this.dials.zone.getNode().setAttributeNS(null, "stroke", "rgba(51, 105, 30, 1)"); 
+
+            const per = ((this.config.zone[1] - this.config.zone[0]) / 100) * arc;
+            const offset = (arc - per) / 2
+
+            this.dials.zone.getNode().style.transform = `rotate(${
+                offset
+            }deg)`;
+
+            this.dials.zone.getNode().style.transformOrigin = `50% 50% 0`;
+        }
+
         this.svg.getNode().appendChild(this.dials.fg.getNode());
 
         this.dials.bg.getNode().setAttributeNS(null, "stroke", this.config.bgColor);
-        this.dials.fg.getNode().setAttributeNS(null, "stroke", this.config.color);
+        this.dials.fg.getNode().setAttributeNS(null, "stroke", this.config.color);     
 
         const container = document.createElement("div");
         container.classList.add("ui-dial");
@@ -211,6 +239,8 @@ class RadialProgress {
 
         this.dials.fg.setProgress(progress / 100);
 
+        this.progress = progress;
+
         if (e === undefined) {
             this.config.onChange.call(this, progress);
         }
@@ -257,12 +287,12 @@ class RadialProgress {
             // Cancel after allotted interval
             if (ct > duration) {
                 cancelAnimationFrame(this.frame);
-                this.setProgress(100, false);
-                this.config.onChange.call(this, progress, duration, duration);
-                this.config.onComplete.call(this);
+                this.setProgress(to, false);
+                this.config.onChange.call(this, progress, ct, duration);
+                this.config.onComplete.call(this, to);
                 return;
             }
-            
+
             progress = easings[this.config.easing](ct, from, to - from, duration);
 
             this.setProgress(progress, false);

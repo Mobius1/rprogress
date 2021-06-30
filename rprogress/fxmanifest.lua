@@ -19,9 +19,8 @@ ui_page 'ui/ui.html'
 
 files {
     'ui/ui.html',
-    'ui/fonts/ChaletComprimeCologneSixty.ttf',
-    'ui/fonts/ChaletLondonNineteenSixty.ttf',
-    'ui/css/app.css',
+    'ui/fonts/*.ttf',
+    'ui/css/*.css',
     'ui/js/easings.js',
     'ui/js/class.RadialProgress.js',
     'ui/js/app.js',
@@ -31,3 +30,4 @@ exports "Start"
 exports "Custom"
 exports "Stop"
 exports "Static"
+exports "Skill"

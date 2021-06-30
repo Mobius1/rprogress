@@ -73,6 +73,7 @@ body {
 .ui-dial.label-right .ui-label {
     left: 100%;
     margin: 0 20px;
+    text-align: left;
 }
 
 @-webkit-keyframes done {
