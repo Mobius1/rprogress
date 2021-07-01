@@ -26,6 +26,7 @@ Customisable radial progress bars for FiveM.
 * [Demo with esx_doorlock](https://streamable.com/94b0ph)
 * [Custom Label Position](https://streamable.com/4mqwgx)
 * [Static Progress Dial](https://streamable.com/uzbfsd)
+* [Mini Game](https://streamable.com/azhzhz)
 
 ## Requirements
 
