@@ -296,7 +296,7 @@ end)
 RegisterNetEvent("rprogress:start")
 RegisterNetEvent("rprogress:stop")
 RegisterNetEvent("rprogress:custom")
-RegisterNetEvent("rprogress:skill")
+RegisterNetEvent("rprogress:minigame")
 
 AddEventHandler("rprogress:start", Start)
 AddEventHandler("rprogress:stop", Stop)
@@ -307,6 +307,7 @@ AddEventHandler("rprogress:custom", function(options)
 
     Custom(options)
 end)
+AddEventHandler("rprogress:minigame", MiniGame)
 
 
 ------------------------------------------------------------
