@@ -146,16 +146,19 @@ class RadialProgress {
             this.zoneMin = 50 - (this.config.zone / 2)
             this.zoneMax = 50 + (this.config.zone / 2)
 
+            console.log(this.config.zone)
+
             this.dials.zone = new Circle(
                 this.config.r,
                 this.config.s,
-                this.zoneMin,
-                this.zoneMax,
+                0,
+                (this.config.zone / 100) * arc,
                 true
             )
         }        
 
         this.svg.getNode().appendChild(this.dials.bg.getNode());
+        this.svg.getNode().appendChild(this.dials.fg.getNode());
 
         if ( this.dials.zone ) {
             this.svg.getNode().appendChild(this.dials.zone.getNode());
@@ -165,13 +168,12 @@ class RadialProgress {
             const offset = (arc - per) / 2
 
             this.dials.zone.getNode().style.transform = `rotate(${
-                offset + (per * 0.25)
+                offset
             }deg)`;
 
             this.dials.zone.getNode().style.transformOrigin = `50% 50% 0`;
         }
 
-        this.svg.getNode().appendChild(this.dials.fg.getNode());
 
         this.dials.bg.getNode().setAttributeNS(null, "stroke", this.config.bgColor);
         this.dials.fg.getNode().setAttributeNS(null, "stroke", this.config.color);     

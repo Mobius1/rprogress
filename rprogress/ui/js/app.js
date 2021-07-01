@@ -144,9 +144,7 @@ window.onload = function (e) {
                 miniGame.pause();
                 
                 PostData("progress_skill", {
-                    progress: miniGame.progress,
-                    min: miniGame.zoneMin,
-                    max: miniGame.zoneMax,
+                    success: miniGame.progress > miniGame.zoneMin && miniGame.progress < miniGame.zoneMax
                 })
 
                 setTimeout(() => {

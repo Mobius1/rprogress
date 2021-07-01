@@ -269,17 +269,10 @@ RegisterNUICallback('progress_stop', function(data)
 end)
 
 RegisterNUICallback('progress_skill', function(data)
-    local complete = false
-    print(data.progress, data.min, data.max)
-    -- Player was successful
-    if data.progress >= data.min and data.progress <= data.max then
-        complete = true
-    end
-
     Run = false
 
     if OnComplete ~= nil then
-        OnComplete(complete)
+        OnComplete(data.success == true)
     end
 
     Stop()
