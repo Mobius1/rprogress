@@ -8,7 +8,6 @@ Customisable radial progress bars for FiveM.
 * [Configuration](#configuration)
 * [Upgrading](#upgrading)
 * [Client Functions](#client-functions)
-* [Server Triggers](#server-triggers)
 * [Scenarios and Animations](#scenarios-and-animations)
 * [MiniGame](#minigame)
 * [Sync vs Async](#sync-vs-async)
@@ -148,14 +147,6 @@ exports.rprogress:Custom({
         -- do something when progress is complete
     end
 })
-```
-
-## Server Triggers
-These won't run in async due to not being able to pass callbacks from server to client.
-```lua
-TriggerClientEvent('rprogress:start', source, text, duration)
-TriggerClientEvent('rprogress:stop', source)
-TriggerClientEvent('rprogress:custom', source, options)
 ```
 
 ## Scenarios and Animations

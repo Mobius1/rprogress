@@ -307,7 +307,6 @@ AddEventHandler("rprogress:custom", function(options)
 
     Custom(options)
 end)
-AddEventHandler("rprogress:skill", Skill)
 
 
 ------------------------------------------------------------
