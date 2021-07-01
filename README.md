@@ -14,7 +14,6 @@ Customisable radial progress bars for FiveM.
 * [Sync vs Async](#sync-vs-async)
 * [Static Progress Dials](#static-progress-dials)
 * [Partial Progress Dials](#partial-progress-dials)
-* 
 * [Pie Progress](#pie-progress)
 * [Demo Commands](#demo-commands)
 * [Contributing](#contributing)
