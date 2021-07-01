@@ -2,12 +2,12 @@ const ui = document.getElementById('radial_progress');
 let running = false;
 let customDial = false
 let staticDial = false
-let skillDial = false
+let miniGame = false
 
 window.onData = function (data) {
-    if ( data.Skill ) {
-        if ( !skillDial && !running ) {
-            skillDial = new RadialProgress({
+    if ( data.MiniGame ) {
+        if ( !miniGame && !running ) {
+            miniGame = new RadialProgress({
                 r: data.Radius,
                 s: data.Stroke,
                 x: data.x,
@@ -19,31 +19,17 @@ window.onData = function (data) {
                 progress: data.From,
                 zone: data.Zone,
                 onComplete: function(progress) {
-                    console.log(progress)
                     if ( progress >= 100 ) {
                         this.start(0, 100, data.Duration);
                     } else {
                         this.start(100, 0, data.Duration);
                     }               
                 },                 
-            });
+            });         
 
-            window.addEventListener("keydown", e => {
-                console.log(e.key)
-                if ( e.key == " " ) {
-                    PostData("progress_skill", {
-                        progress: skillDial.progress, zone: data.Zone
-                    })
+            miniGame.render(ui);
 
-                    running = false;
-                    skillDial.stop();
-                    skillDial = false;                    
-                } 
-            })            
-
-            skillDial.render(ui);
-
-            skillDial.start(data.To, data.From, data.Duration);
+            miniGame.start(data.To, data.From, data.Duration);
         }
     } else {
         if (data.display && !running) {
@@ -78,7 +64,7 @@ window.onData = function (data) {
                 onComplete: function () {
                     this.indicator.textContent = "";
                     this.label.textContent = "";
-                    this.container.classList.add("done");
+                    this.hide();
 
                     setTimeout(() => {
                         this.remove();
@@ -151,6 +137,29 @@ window.onload = function (e) {
     window.addEventListener('message', function (event) {
         onData(event.data);
     });
+
+    window.addEventListener("keydown", e => {
+        if ( e.key == " " ) {
+            if ( miniGame ) {
+                miniGame.pause();
+                
+                PostData("progress_skill", {
+                    progress: miniGame.progress,
+                    min: miniGame.zoneMin,
+                    max: miniGame.zoneMax,
+                })
+
+                setTimeout(() => {
+                    miniGame.hide();
+                    setTimeout(() => {
+                        running = false;
+                        miniGame.stop();
+                        miniGame = false;
+                    }, 1000)
+                }, 2000)
+            }                 
+        } 
+    });     
 };
 
 function PostData(type, obj) {

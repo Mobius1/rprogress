@@ -25,6 +25,7 @@ function Start(text, duration)
     })
 
     options.Async = false
+    options.MiniGame = false
 
     -- CAN'T SEND FUNCTIONS TO NUI
     options.onStart = nil
@@ -43,7 +44,7 @@ function Start(text, duration)
     end
 end
 
-function Custom(options, static) 
+function Custom(options, static)
     -- ERROR HANDLING --
     if ErrorCheck(options) then
         return
@@ -160,8 +161,25 @@ function Static(config)
     }
 end
 
-function Skill(options)
+function MiniGame(options)
     SetNuiFocus(true, true)
+
+    -- MERGE USER OPTIONS
+    options = MergeConfig(Config.MiniGameOptions, options)
+    
+    if options.Zone == nil and options.Duration == nil then
+        local difficulty = "Easy"
+
+        if options.Difficulty ~= nil then
+            difficulty = options.Difficulty
+        end
+    
+        options.Zone = Config.MiniGameOptions.Difficulty[difficulty].Zone
+        options.Duration = Config.MiniGameOptions.Difficulty[difficulty].Duration
+    end
+    
+    options.Difficulty = nil
+    options.MiniGame = true
 
     Custom(options)
 end
@@ -252,9 +270,9 @@ end)
 
 RegisterNUICallback('progress_skill', function(data)
     local complete = false
-
-    -- Play was successfull
-    if data.progress >= data.zone[1] and data.progress <= data.zone[2] then
+    print(data.progress, data.min, data.max)
+    -- Player was successful
+    if data.progress >= data.min and data.progress <= data.max then
         complete = true
     end
 
@@ -300,4 +318,4 @@ exports('Start', Start)
 exports('Custom', Custom)
 exports('Stop', Stop)
 exports('Static', Static)
-exports('Skill', Skill)
+exports('MiniGame', MiniGame)

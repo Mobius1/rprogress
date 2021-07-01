@@ -6,7 +6,7 @@ description 'Radial Progress'
 
 author 'Karl Saunders'
 
-version '0.6.0'
+version '0.7.0'
 
 client_scripts {
     'config.lua',
@@ -30,4 +30,4 @@ exports "Start"
 exports "Custom"
 exports "Stop"
 exports "Static"
-exports "Skill"
+exports "MiniGame"

@@ -10,9 +10,11 @@ Customisable radial progress bars for FiveM.
 * [Client Functions](#client-functions)
 * [Server Triggers](#server-triggers)
 * [Scenarios and Animations](#scenarios-and-animations)
+* [MiniGame](#minigame)
 * [Sync vs Async](#sync-vs-async)
 * [Static Progress Dials](#static-progress-dials)
 * [Partial Progress Dials](#partial-progress-dials)
+* 
 * [Pie Progress](#pie-progress)
 * [Demo Commands](#demo-commands)
 * [Contributing](#contributing)
@@ -187,6 +189,86 @@ You can find a list of animation dictionaries / names [here](https://alexguirre.
 
 If `scenario` is set as well as `animationDictionary` and `animationName`, then the `scenario` will take priority.
 
+## MiniGame
+`rProgress` can be set up to allow a minigame to test player reflexes by utilising the `MiniGame()` method.
+
+The progress bar will flip back and forth and display a trigger zone for the player to hit the `SpaceBar` when the progress bar is within it.
+
+As with the `Custom()` method, you can pass a variety of options. The `onComplete` callback will return the `success` parameter to indicate whether the player was successful or not.
+
+```lua
+exports.rprogress:MiniGame({
+    Difficulty = "Easy",
+    onComplete = function(success)
+            if success then
+                -- Player was successful
+            else
+                -- Player was unsuccessful
+            end    
+    end
+})
+```
+
+You can define the defficulties in the `config.lua` file:
+```lua
+Config.MiniGameOptions = {
+    MaxAngle = 240,
+    Rotation = -120,    
+    Difficulty = {
+        Easy = {
+            Zone = 30,
+            Speed = 500
+        },
+        Medium = {
+            Zone = 25,
+            Speed = 450
+        },
+        Hard = {
+            Zone = 20,
+            Speed = 400
+        }      
+    }      
+}
+```
+
+To add you own difficulty you can define it in the `Config.MiniGameOptions.Difficulty` table and add the `Zone` and `Duration` values:
+
+```lua
+Config.MiniGameOptions = {
+    MaxAngle = 240,
+    Rotation = -120,    
+    Difficulty = {
+        Custom = {
+            Zone = 40,         -- The percentage of the dial that is the trigger zone (lower = harder)
+            Duration = 1000    -- Time in milliseconds for the dial to fill in one direction (lower = harder)
+        }
+    }
+}
+```
+
+Then use it in the `MiniGame()` method:
+
+```lua
+exports.rprogress:MiniGame({
+    Difficulty = "Custom",
+    onComplete = function(success)
+
+    end
+})
+```
+
+You can also pass the `Zone` and `Duration` values instead of `Difficulty` for on-the-fly difficulty settings:
+
+```lua
+exports.rprogress:MiniGame({
+    Zone = 40,
+    Duration = 750,
+    onComplete = function(success)
+    
+    end
+})
+```
+
 ## Sync vs Async
 
 The `Start()` method runs in sync so any code after the call to the method won't be run until the progress is complete. If you want a progress dial to run asyncronously, you can use the `Custom()` method with `Async` set to `true` and utilise the `onStart` and `onComplete` callbacks.
@@ -305,6 +387,7 @@ exports.rprogress:Custom({
 ```lua
 /rprogressStart [text] [duration]
 /rprogressCustom [from] [to] [duration] [radius] [stroke] [MaxAngle] [rotation]
+/rprogressMiniGame [difficulty]
 /rprogressSync [duration]
 /rprogressAsync [duration]
 /rprogressStatic
@@ -318,10 +401,6 @@ You can delete the `demo.lua` file and remove it's entry from `fxmanifest.lua` i
 ## Contributing
 Pull requests welcome.
 
-## To Do
-- [x] Allow sync and async
-- [x] Allow dial colour customisation in `config.lua`
-- [x] Allow control disable ([Suggested by Korek](https://forum.cfx.re/t/release-standalone-rprogress-customisable-radial-progress-bars/1630655/24))
 
 ## Legal
 

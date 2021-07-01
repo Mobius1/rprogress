@@ -32,4 +32,27 @@ Config.DisableControls = {
 }
 
 Config.onStart      = function()end
-Config.onComplete   = function()end  
+Config.onComplete   = function()end
+
+Config.MiniGameOptions = {
+    MaxAngle = 240,
+    Rotation = -120,    
+    Difficulty = {
+        Custom = {
+            Zone = 40,         -- The percentage of the dial that is the trigger zone (lower = harder)
+            Duration = 1000    -- Time in milliseconds for the dial to fill in one direction (lower = harder)
+        },
+        Easy = {
+            Zone = 30,
+            Speed = 500
+        },
+        Medium = {
+            Zone = 25,
+            Speed = 450
+        },
+        Hard = {
+            Zone = 20,
+            Speed = 400
+        }      
+    }      
+}

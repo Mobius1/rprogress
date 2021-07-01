@@ -7,6 +7,10 @@ TriggerEvent('chat:addSuggestion', '/rprogressStart', 'rprogress Start Demo', {
     { name="Duration", help="Duration in ms" }
 })
 
+TriggerEvent('chat:addSuggestion', '/rprogressMiniGame', 'rprogress MiniGame Demo', {
+    { name="Difficulty", help="Easy, Medium, Hard or Custom" }
+})
+
 TriggerEvent('chat:addSuggestion', '/rprogressEasing', 'rprogress easing animations', {
     { name="Easing", help="Easing function" },
     { name="Duration", help="Duration in ms" },
@@ -48,18 +52,16 @@ RegisterCommand("rprogressStart", function(source, args, raw)
     Start(args[1], tonumber(args[2])) 
 end)
 
-RegisterCommand("rprogressSkill", function(source, args, raw)
-    Skill({
-        Zone = { 45, 55 },
-        MaxAngle = 240,
-        Rotation = -120,
-        Skill = true,
-        Duration = 400,
-        onComplete = function(complete)
-            if complete then
-                exports.FeedM2:ShowNotification("WON!")
+RegisterCommand("rprogressMiniGame", function(source, args, raw)
+    MiniGame({
+        -- Zone = 25,
+        -- Duration = 2000,
+        Difficulty = args[1] or "Easy",
+        onComplete = function(success)           
+            if success then
+                ShowNotification("~g~SUCCESS!")
             else
-                exports.FeedM2:ShowNotification("LOST!")
+                ShowNotification("~r~FAILED!")
             end
         end
     })

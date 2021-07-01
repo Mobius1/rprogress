@@ -3,6 +3,11 @@
     src: url("../fonts/ChaletComprimeCologneSixty.ttf");
 }
 
+@font-face {
+    font-family: "RobotoMono-Regular";
+    src: url("../fonts/RobotoMono-Regular.ttf");
+}
+
 body {
     margin: 0;
     width: 100vw;
@@ -55,7 +60,7 @@ body {
 .ui-dial .ui-indicator {
     position: absolute;
     color: #fff;
-    font-family: "Roboto Mono";
+    font-family: "RobotoMono-Regular";
     font-size: 20px;
 }
 
