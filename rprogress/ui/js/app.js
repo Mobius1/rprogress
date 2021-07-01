@@ -18,6 +18,9 @@ window.onData = function (data) {
                 maxAngle: data.MaxAngle,
                 progress: data.From,
                 zone: data.Zone,
+                onStart: function() {
+                    running = true;
+                },                
                 onComplete: function(progress) {
                     if ( progress >= 100 ) {
                         this.start(0, 100, data.Duration);
@@ -140,10 +143,10 @@ window.onload = function (e) {
 
     window.addEventListener("keydown", e => {
         if ( e.key == " " ) {
-            if ( miniGame ) {
+            if ( miniGame && running ) {
                 miniGame.pause();
                 
-                PostData("progress_skill", {
+                PostData("progress_minigame_input", {
                     success: miniGame.progress > miniGame.zoneMin && miniGame.progress < miniGame.zoneMax
                 })
 
@@ -153,6 +156,8 @@ window.onload = function (e) {
                         running = false;
                         miniGame.stop();
                         miniGame = false;
+
+                        PostData("progress_minigame_complete");
                     }, 1000)
                 }, 2000)
             }                 

@@ -54,10 +54,6 @@ end)
 
 RegisterCommand("rprogressMiniGame", function(source, args, raw)
     MiniGame({
-        -- Zone = 40,
-        -- Duration = 4000,
-        Radius = 100,
-        Stroke = 30,
         Difficulty = args[1] or "Easy",
         onComplete = function(success)           
             if success then

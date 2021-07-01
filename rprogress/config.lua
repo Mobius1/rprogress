@@ -36,23 +36,25 @@ Config.onComplete   = function()end
 
 Config.MiniGameOptions = {
     MaxAngle = 240,
-    Rotation = -120,    
+    Rotation = -120,
+    Radius = 100,
+    Stroke = 30,    
     Difficulty = {
         Custom = {
             Zone = 40,         -- The percentage of the dial that is the trigger zone (lower = harder)
             Duration = 1000    -- Time in milliseconds for the dial to fill in one direction (lower = harder)
         },
         Easy = {
-            Zone = 40,
-            Duration = 500
+            Zone = 30,
+            Duration = 550
         },
         Medium = {
-            Zone = 25,
-            Duration = 450
+            Zone = 20,
+            Duration = 250
         },
         Hard = {
-            Zone = 20,
-            Duration = 400
+            Zone = 10,
+            Duration = 200
         }      
     }      
 }

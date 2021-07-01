@@ -3,6 +3,8 @@ OnComplete = nil
 Run = false
 Animation = nil
 
+Reset()
+
 ------------------------------------------------------------
 --                     MAIN FUNCTIONS                     --
 ------------------------------------------------------------
@@ -88,6 +90,10 @@ function Custom(options, static)
         return options
     end
 
+    if options.MiniGame then
+        SetNuiFocus(true, true)
+    end
+
     SendNUIMessage(options) 
 
     Run = true
@@ -162,7 +168,10 @@ function Static(config)
 end
 
 function MiniGame(options)
-    SetNuiFocus(true, true)
+
+    if Run then
+        return
+    end
 
     -- MERGE USER OPTIONS
     options = MergeConfig(Config.MiniGameOptions, options)
@@ -245,6 +254,12 @@ function StopAnimation()
     end
 end
 
+function Reset()
+    Run = false
+
+    SetNuiFocus(false, false)    
+end
+
 ------------------------------------------------------------
 --                     NUI CALLBACKS                      --
 ------------------------------------------------------------
@@ -256,7 +271,8 @@ RegisterNUICallback('progress_start', function(data)
 end)
 
 RegisterNUICallback('progress_complete', function(data)
-    Run = false
+    Reset()
+
     if OnComplete ~= nil then
         OnComplete()
         StopAnimation()
@@ -264,21 +280,19 @@ RegisterNUICallback('progress_complete', function(data)
 end)
 
 RegisterNUICallback('progress_stop', function(data)
-    Run = false
+    Reset()
+
     StopAnimation()
 end)
 
-RegisterNUICallback('progress_skill', function(data)
-    Run = false
-
+RegisterNUICallback('progress_minigame_input', function(data)
     if OnComplete ~= nil then
         OnComplete(data.success == true)
     end
+end)
 
-    Stop()
-
-    -- Unfocus NUI
-    SetNuiFocus(false, false)
+RegisterNUICallback('progress_minigame_complete', function(data)
+    Reset()
 end)
 
 
