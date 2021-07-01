@@ -206,16 +206,16 @@ Config.MiniGameOptions = {
     Rotation = -120,    
     Difficulty = {
         Easy = {
-            Zone = 30,
-            Speed = 500
+            Zone = 40,
+            Duration = 500
         },
         Medium = {
             Zone = 25,
-            Speed = 450
+            Duration = 450
         },
         Hard = {
             Zone = 20,
-            Speed = 400
+            Duration = 400
         }      
     }      
 }
