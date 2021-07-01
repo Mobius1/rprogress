@@ -146,8 +146,6 @@ class RadialProgress {
             this.zoneMin = 50 - (this.config.zone / 2)
             this.zoneMax = 50 + (this.config.zone / 2)
 
-            console.log(this.config.zone)
-
             this.dials.zone = new Circle(
                 this.config.r,
                 this.config.s,

@@ -46,15 +46,15 @@ Config.MiniGameOptions = {
         },
         Easy = {
             Zone = 30,
-            Duration = 550
+            Duration = 500
         },
         Medium = {
             Zone = 20,
-            Duration = 250
+            Duration = 500
         },
         Hard = {
             Zone = 10,
-            Duration = 200
+            Duration = 500
         }      
     }      
 }

@@ -42,7 +42,7 @@ function ErrorCheck(options)
     for k, v in pairs(options) do
         local error = false
         if k ~= "onStart" and k ~= "onComplete" then
-            if k == "ShowTimer" or k == "ShowProgress" or k == "Async" or k == "MiniGame" then
+            if k == "ShowTimer" or k == "ShowProgress" or k == "Async" or k == "MiniGame" or k == "Loop" then
                 if type(v) ~= "boolean" then
                     error = { prop = k, type = "boolean" }
                 end              

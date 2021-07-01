@@ -3,8 +3,6 @@ OnComplete = nil
 Run = false
 Animation = nil
 
-Reset()
-
 ------------------------------------------------------------
 --                     MAIN FUNCTIONS                     --
 ------------------------------------------------------------
@@ -259,6 +257,8 @@ function Reset()
 
     SetNuiFocus(false, false)    
 end
+
+Reset()
 
 ------------------------------------------------------------
 --                     NUI CALLBACKS                      --
