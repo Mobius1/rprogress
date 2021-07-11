@@ -85,6 +85,15 @@ body {
     margin: 0 20px;
     text-align: left;
 }
+.ui-dial.label-left .ui-label {
+    right: 100%;
+    margin: 0 20px;
+    text-align: right;
+}
+.ui-dial.label-top .ui-label {
+    bottom: 100%;
+    margin: 20px 0;
+}
 
 @-webkit-keyframes done {
     from {
