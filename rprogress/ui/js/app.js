@@ -1,8 +1,9 @@
 const ui = document.getElementById('radial_progress');
 let running = false;
-let customDial = false
+let customDial = []
 let staticDial = false
 let miniGame = false
+let Runner = [];
 
 window.onData = function (data) {
     if ( data.MiniGame ) {
@@ -36,7 +37,7 @@ window.onData = function (data) {
         }
     } else {
         if (data.display && !running) {
-            customDial = new RadialProgress({
+            customDial[data.customId] = new RadialProgress({
                 r: data.Radius,
                 s: data.Stroke,
                 x: data.x,
@@ -48,12 +49,12 @@ window.onData = function (data) {
                 progress: data.From,
                 easing: data.Easing,
                 onStart: function() {
-                    running = true;
+                    Runner[data.customId] = true;
 
                     this.container.classList.add(`label-${data.LabelPosition}`);
                     this.label.textContent = data.Label;
 
-                    PostData("progress_start")
+                    PostData("progress_start", data)
                 },
                 onChange: function(progress, t, duration) {
                     if ( data.ShowTimer ) {
@@ -73,15 +74,14 @@ window.onData = function (data) {
                         this.remove();
                     }, 1000)
   
-                    PostData("progress_complete");
-                
-                    running = false;
+                    PostData("progress_complete", data);
+                    Runner[data.customId] = false;
                 }
             });
 
-            customDial.render(ui);
+            customDial[data.customId].render(ui);
 
-            customDial.start(data.To, data.From, data.Duration);
+            customDial[data.customId].start(data.To, data.From, data.Duration);
         }
 
         if ( data.static ) {
@@ -124,14 +124,23 @@ window.onData = function (data) {
                 }             
             }              
         }
-
     }
 
     if (data.stop && customDial) {
         running = false;
-        customDial.stop();
-        customDial = false;
-
+        if (data.customId != null)
+        {
+            Runner[data.customId] = false
+            customDial[data.customId].stop();
+            customDial[data.customId] = null
+        }
+        else
+        {
+            customDial.forEach(element => {
+                element.stop();
+            });
+            customDial = [];
+        }
         PostData("progress_stop");
     }
 };

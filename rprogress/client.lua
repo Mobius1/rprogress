@@ -3,9 +3,21 @@ OnComplete = nil
 Run = false
 Animation = nil
 
+Runnable = {}
+RunnerId = 0
 ------------------------------------------------------------
 --                     MAIN FUNCTIONS                     --
 ------------------------------------------------------------
+
+function InsertIntoRunner(type, options, onStart, onComplete)
+    Runnable['runner' .. RunnerId] = {runnerType = type, runnerData = options, runnerId = RunnerId, running = true, callbackOnStart = onStart, callbackOnComplete = onComplete}
+    RunnerId = RunnerId + 1
+    return RunnerId - 1
+end
+
+function isSameRunnerId(key, runnerId)
+    return Runnable[key] ~= nil and Runnable[key].runnerId == runnerId
+end
 
 function Start(text, duration)
     if type(text) ~= "string" then
@@ -91,15 +103,22 @@ function Custom(options, static)
     if options.MiniGame then
         SetNuiFocus(true, true)
     end
-
+    local customId = InsertIntoRunner('custom', options, OnStart, OnComplete)
+    local customKey = nil
+    for k,v in pairs(Runnable) do
+        if v.runnerId == customId then
+            customKey = k
+            break
+        end
+    end
+    options.customId = customId
+    options.customKey = customKey
     SendNUIMessage(options) 
-
-    Run = true
-
     PlayAnimation(options)
 
+
     if options.Async == false then
-        while Run do
+        while isSameRunnerId(customKey, customId) and Runnable[customKey].running do
             DisableControls(options)
             Citizen.Wait(1)
         end
@@ -107,7 +126,7 @@ function Custom(options, static)
         StopAnimation()
     else
         Citizen.CreateThread(function()
-            while Run do
+            while isSameRunnerId(customKey, customId) and Runnable[customKey].running do
                 DisableControls(options)
                 Citizen.Wait(0)
             end
@@ -254,7 +273,6 @@ end
 
 function Reset()
     Run = false
-
     SetNuiFocus(false, false)    
 end
 
@@ -265,17 +283,45 @@ Reset()
 ------------------------------------------------------------
 
 RegisterNUICallback('progress_start', function(data)
-    if OnStart ~= nil then
-        OnStart()
+    if data ~= nil then
+        if isSameRunnerId(data.customKey, data.customId) then
+            if Runnable[data.customKey].callbackOnStart ~= nil then
+                Runnable[data.customKey].callbackOnStart()
+            end
+        end
+    else
+        if OnStart ~= nil then
+            OnStart()
+        end
     end
 end)
 
 RegisterNUICallback('progress_complete', function(data)
-    Reset()
-
-    if OnComplete ~= nil then
-        OnComplete()
-        StopAnimation()
+    if data ~= nil then
+        print(isSameRunnerId(data.customKey, data.customId))
+        if isSameRunnerId(data.customKey, data.customId) then
+            if Runnable[data.customKey].callbackOnComplete ~= nil then
+                Runnable[data.customKey].callbackOnComplete()
+                StopAnimation()
+                Runnable[data.customKey] = nil
+            end
+        end
+        local count = 0
+        for k,v in pairs(Runnable) do
+            count = count + 1
+            if count > 0 then
+                break 
+            end
+        end
+        if count == 0 then
+            Reset()
+        end
+    else
+        Reset()
+        if OnComplete ~= nil then
+            OnComplete()
+            StopAnimation()
+        end
     end
 end)
 

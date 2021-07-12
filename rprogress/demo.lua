@@ -246,3 +246,118 @@ RegisterCommand("rprogressDisableControls", function(source, args, raw)
         end
     }) 
 end)
+
+RegisterCommand("rprogressTestingMultipleCustom", function(source, args, raw)
+    Custom({
+        DisableControls = {
+            Mouse = true,
+            Player = true,
+            Vehicle = true
+        },
+		x = 0.80,
+		y = 0.90,
+		From = 0,
+		To = 100,
+		Duration = 5000,
+		Radius = 60,
+		Stroke = 5,
+		MaxAngle = 360,
+		Rotation = 0,
+		Easing = "easeLinear",
+		Label = 'Label Top',
+		LabelPosition = "top",
+		Color = "rgba(118, 28, 138, 0.73)",
+		BGColor = "rgba(0, 0, 0, 0.4)",  
+		ShowProgress = true,
+        onStart = function(data, cb)
+           print("Started one")
+        end,
+        onComplete = function(data, cb)
+            print("Ending one")
+        end
+    }) 
+    Custom({
+        DisableControls = {
+            Mouse = true,
+            Player = true,
+            Vehicle = true
+        },
+		x = 0.80,
+		y = 0.10,
+		From = 100,
+		To = 0,
+		Duration = 5000,
+		Radius = 60,
+		Stroke = 5,
+		MaxAngle = 360,
+		Rotation = 0,
+		Easing = "easeLinear",
+		Label = 'Label Bottom',
+		LabelPosition = "bottom",
+		Color = "rgba(118, 28, 138, 0.73)",
+		BGColor = "rgba(0, 0, 0, 0.4)",  
+		ShowProgress = true,
+        onStart = function(data, cb)
+           print("Started two")
+        end,
+        onComplete = function(data, cb)
+            print("Ending two")
+        end
+    }) 
+    Custom({
+        DisableControls = {
+            Mouse = true,
+            Player = true,
+            Vehicle = true
+        },
+		x = 0.10,
+		y = 0.80,
+		From = 50,
+		To = 100,
+		Duration = 5000,
+		Radius = 60,
+		Stroke = 5,
+		MaxAngle = 360,
+		Rotation = 0,
+		Easing = "easeLinear",
+		Label = 'Label Left',
+		LabelPosition = "left",
+		Color = "rgba(118, 28, 138, 0.73)",
+		BGColor = "rgba(0, 0, 0, 0.4)",  
+		ShowProgress = true,
+        onStart = function(data, cb)
+           print("Started three")
+        end,
+        onComplete = function(data, cb)
+            print("Ending three")
+        end
+    }) 
+    Custom({
+        DisableControls = {
+            Mouse = true,
+            Player = true,
+            Vehicle = true
+        },
+		x = 0.10,
+		y = 0.10,
+		From = 100,
+		To = 50,
+		Duration = 5000,
+		Radius = 60,
+		Stroke = 5,
+		MaxAngle = 360,
+		Rotation = 0,
+		Easing = "easeLinear",
+		Label = 'Label Right',
+		LabelPosition = "right",
+		Color = "rgba(118, 28, 138, 0.73)",
+		BGColor = "rgba(0, 0, 0, 0.4)",  
+		ShowProgress = true,
+        onStart = function(data, cb)
+           print("Started fourth")
+        end,
+        onComplete = function(data, cb)
+            print("Ending fourth")
+        end
+    }) 
+end)
