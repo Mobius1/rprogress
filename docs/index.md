@@ -129,6 +129,12 @@ Type: `string`
 Default: `"bottom"`
 
 Sets the position of the label relative to the dial
+### LabelIncrement
+---
+Type: `string`
+Default: `"Kg"`
+
+Sets the text to show after progress in dial (Display when ShowIncrementer is enabled)
 ### Color
 ---
 Type: `string`
@@ -193,3 +199,22 @@ Type: `function`
 Default: `nil`
 
 Callback fired when progress completes
+
+### ShowIncrementer
+---
+Type: `boolean`
+Default: `false`
+
+When enabled display (From-To) in number followed by LabelIncrement (Replace ShowProgress and ShowTimer)
+### ShowProgress
+---
+Type: `boolean`
+Default: `false`
+
+When enabled display (From-To) in number percent (Replace ShowIncrementer and ShowTimer)
+### ShowTimer
+---
+Type: `boolean`
+Default: `true`
+
+When enabled display remaining time (Replace ShowIncrementer and ShowProgress)
