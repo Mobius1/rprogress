@@ -81,6 +81,10 @@ function Custom(options, static)
 
     if options.ShowProgress == true then
         options.ShowTimer = false
+        options.ShowIncrementer = false
+    elseif options.ShowIncrementer == true then
+        options.ShowTimer = false
+        options.ShowProgress = false
     end
     
     OnStart = options.onStart

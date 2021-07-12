@@ -340,8 +340,8 @@ RegisterCommand("rprogressTestingMultipleCustom", function(source, args, raw)
         },
 		x = 0.10,
 		y = 0.10,
-		From = 100,
-		To = 50,
+		From = 0,
+		To = 200,
 		Duration = 5000,
 		Radius = 60,
 		Stroke = 5,
@@ -349,10 +349,11 @@ RegisterCommand("rprogressTestingMultipleCustom", function(source, args, raw)
 		Rotation = 0,
 		Easing = "easeLinear",
 		Label = 'Label Right',
+        LabelIncrement = 'L',
 		LabelPosition = "right",
 		Color = "rgba(118, 28, 138, 0.73)",
 		BGColor = "rgba(0, 0, 0, 0.4)",  
-		ShowProgress = true,
+		ShowIncrementer = true,
         onStart = function(data, cb)
            print("Started fourth")
         end,

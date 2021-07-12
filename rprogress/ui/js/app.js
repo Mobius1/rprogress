@@ -63,7 +63,11 @@ window.onData = function (data) {
 
                     if ( data.ShowProgress ) {
                         this.indicator.textContent = `${Math.ceil(progress)}%`;
-                    }                
+                    }
+
+                    if ( data.ShowIncrementer ) {
+                        this.indicator.textContent = `${Math.ceil(progress)} ${data.LabelIncrement}`;
+                    }
                 },     
                 onComplete: function () {
                     this.indicator.textContent = "";

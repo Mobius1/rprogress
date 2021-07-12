@@ -8,6 +8,7 @@ Config.Async            = true  -- Whether to run the progress bar asyncronously
 Config.Duration         = 5000
 Config.Label            = "Loading..."
 Config.LabelPosition    = "bottom"
+Config.LabelIncrement   = 'Kg'
 
 Config.Color            = "rgba(255, 255, 255, 1.0)"    -- Progress bar colour
 Config.BGColor          = "rgba(0, 0, 0, 0.4)"          -- Progress background colour
@@ -20,8 +21,9 @@ Config.MaxAngle     = 360   -- Max arc in degrees - 360 will be a full circle, 9
 Config.Radius       = 60    -- Radius of the dial
 Config.Stroke       = 10    -- stroke width of the dial
 
-Config.ShowTimer    = true  -- Shows the timer countdown withing the dial
-Config.ShowProgress = false -- Shows the progress within the dial
+Config.ShowTimer       = true  -- Shows the timer countdown withing the dial
+Config.ShowProgress    = false -- Shows the progress within the dial
+Config.ShowIncrementer = false -- Shows the progress within the dial with label
 
 Config.Easing       = "easeLinear" -- The easing used for the dial animation - see rprogress/ui/js/easings.js
 
