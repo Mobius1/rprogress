@@ -106,11 +106,7 @@ function LoadAnimDict(animDict)
 end
 
 function ShowNotification(msg)
-    if exports.FeedM2 ~= nil then
-        exports.FeedM2:ShowNotification(msg)
-    else
-        SetNotificationTextEntry('STRING')
-        AddTextComponentSubstringPlayerName(msg)
-        DrawNotification(false, true)
-    end
+    SetNotificationTextEntry('STRING')
+    AddTextComponentSubstringPlayerName(msg)
+    DrawNotification(false, true)
 end
