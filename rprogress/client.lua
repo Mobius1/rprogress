@@ -264,35 +264,45 @@ Reset()
 --                     NUI CALLBACKS                      --
 ------------------------------------------------------------
 
-RegisterNUICallback('progress_start', function(data)
+RegisterNUICallback('progress_start', function(data, cb)
     if OnStart ~= nil then
         OnStart()
     end
+
+    cb('ok')
 end)
 
-RegisterNUICallback('progress_complete', function(data)
+RegisterNUICallback('progress_complete', function(data, cb)
     Reset()
 
     if OnComplete ~= nil then
         OnComplete()
         StopAnimation()
     end
+
+    cb('ok')
 end)
 
-RegisterNUICallback('progress_stop', function(data)
+RegisterNUICallback('progress_stop', function(data, cb)
     Reset()
 
     StopAnimation()
+
+    cb('ok')
 end)
 
-RegisterNUICallback('progress_minigame_input', function(data)
+RegisterNUICallback('progress_minigame_input', function(data, cb)
     if OnComplete ~= nil then
         OnComplete(data.success == true)
     end
+
+    cb('ok')
 end)
 
-RegisterNUICallback('progress_minigame_complete', function(data)
+RegisterNUICallback('progress_minigame_complete', function(data, cb)
     Reset()
+
+    cb('ok')
 end)
 
 
