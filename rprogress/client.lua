@@ -296,6 +296,8 @@ RegisterNUICallback('progress_minigame_input', function(data, cb)
         OnComplete(data.success == true)
     end
 
+    StopAnimation()
+
     cb('ok')
 end)
 

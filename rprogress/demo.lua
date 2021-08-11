@@ -246,3 +246,9 @@ RegisterCommand("rprogressDisableControls", function(source, args, raw)
         end
     }) 
 end)
+
+function ShowNotification()
+    SetNotificationTextEntry('STRING')
+    AddTextComponentString(msg)
+    DrawNotification(0,1)
+end
