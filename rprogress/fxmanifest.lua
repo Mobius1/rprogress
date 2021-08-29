@@ -6,7 +6,7 @@ description 'Radial Progress'
 
 author 'Karl Saunders'
 
-version '0.7.3'
+version '0.7.4'
 
 client_scripts {
     'config.lua',
