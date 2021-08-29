@@ -54,7 +54,7 @@ end)
 
 RegisterCommand("rprogressMiniGame", function(source, args, raw)
     MiniGame({
-        Difficulty = args[1] or "Easy",
+        Difficulty = args[1] or "Easy",      
         onComplete = function(success)           
             if success then
                 ShowNotification("~g~SUCCESS!")

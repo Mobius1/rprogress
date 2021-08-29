@@ -99,6 +99,8 @@ class RadialProgress {
             s: 10,
             x: 0,
             y: 0,
+            cap: "butt",
+            padding: 0,
             progress: 0,
             minAngle: 0,
             maxAngle: 360,
@@ -113,23 +115,25 @@ class RadialProgress {
 
         this.config = Object.assign({}, defaultConfig, config);
 
-        this.config.w = this.config.r * 2;
-        this.config.h = this.config.r * 2;
-
         this.init();
 
         return this;
     }
 
     init() {
-        const arc = this.config.maxAngle - this.config.minAngle
+        const arc = this.config.maxAngle - this.config.minAngle;
+
+        this.config.padding *= 2;
+				
+        this.config.w = (this.config.r * 2) + this.config.padding;
+        this.config.h = (this.config.r * 2) + this.config.padding;
 
         this.svg = new Svg(this.config.w, this.config.h);
 
         this.dials = {
             bg: new Circle(
-                this.config.r,
-                this.config.s,
+                this.config.r + (this.config.padding / 2),
+                this.config.s + this.config.padding,
                 this.config.minAngle,
                 this.config.maxAngle,
                 true
@@ -159,11 +163,18 @@ class RadialProgress {
         this.svg.getNode().appendChild(this.dials.fg.getNode());
 
         if ( this.dials.zone ) {
+            function getRandomInt(min, max) {
+                min = Math.ceil(min);
+                max = Math.floor(max);
+                return Math.floor(Math.random() * (max - min) + min);
+            }
+
             this.svg.getNode().appendChild(this.dials.zone.getNode());
             this.dials.zone.getNode().setAttributeNS(null, "stroke", "rgba(51, 105, 30, 1)"); 
 
             const per = (this.config.zone / 100) * arc;
             const offset = (arc - per) / 2
+            const randPos = getRandomInt(0, arc - per)
 
             this.dials.zone.getNode().style.transform = `rotate(${
                 offset
@@ -173,8 +184,14 @@ class RadialProgress {
         }
 
 
+        const fgNode = this.dials.fg.getNode();
+        fgNode.setAttributeNS(null, "cx", (this.config.w / 2));
+        fgNode.setAttributeNS(null, "cy", (this.config.h / 2));
+        fgNode.setAttributeNS(null, "stroke-linecap", this.config.cap);
+        fgNode.setAttributeNS(null, "stroke", this.config.color);   
+         
         this.dials.bg.getNode().setAttributeNS(null, "stroke", this.config.bgColor);
-        this.dials.fg.getNode().setAttributeNS(null, "stroke", this.config.color);     
+
 
         const container = document.createElement("div");
         container.classList.add("ui-dial");
@@ -205,13 +222,13 @@ class RadialProgress {
 
         const size = (this.config.r * 2);
 
-        this.container.style.width = `${(this.config.r * 2)}px`;
-        this.container.style.height = `${(this.config.r * 2)}px`;
+        this.container.style.width = `${(this.config.r * 2) + this.config.padding}px`;
+        this.container.style.height = `${(this.config.r * 2) + this.config.padding}px`;
         this.container.style.left = `${
-            (this.config.x * window.innerWidth) - (size / 2)
+            (this.config.x * window.innerWidth) - (size / 2) - (this.config.padding / 2)
         }px`;
         this.container.style.top = `${
-            (this.config.y * window.innerHeight) - (size / 2)
+            (this.config.y * window.innerHeight) - (size / 2) - (this.config.padding / 2)
         }px`;
     }
 

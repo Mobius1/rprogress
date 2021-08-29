@@ -91,6 +91,8 @@ window.onData = function (data) {
                     s: data.Stroke,
                     x: data.x,
                     y: data.y,
+                    padding: data.Padding,
+                    cap: data.Cap,
                     color: data.Color,
                     bgColor: data.BGColor,
                     rotation: data.Rotation,
