@@ -46,6 +46,8 @@ TriggerEvent('chat:addSuggestion', '/rprogressCustom', 'rprogress Custom Demo', 
     { name="Stroke (px)", help="Stroke width of bar" },
     { name="MaxAngle (deg)", help="Maximum arc of dial" },
     { name="Rotation (deg)", help="Rotation angle of dial" },
+    { name="Padding (px)", help="Background bar padding" },
+    { name="Cap", help="Foreground bar cap" },
 })
 
 RegisterCommand("rprogressStart", function(source, args, raw)
@@ -168,6 +170,8 @@ RegisterCommand("rprogressCustom", function(source, args, raw)
         Stroke = tonumber(args[5]) or Config.Stroke,
         MaxAngle = tonumber(args[6]) or Config.MaxAngle,
         Rotation = tonumber(args[7]) or Config.Rotation,
+        Padding = tonumber(args[8]) or Config.Padding,
+        Cap = args[9] or Config.Cap,
         onStart = function(data, cb)
             ShowNotification("~b~Event: onStart")
         end,
