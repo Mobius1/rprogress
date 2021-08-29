@@ -58,10 +58,12 @@ Config.BGColor      = "rgba(0, 0, 0, 0.4)"          -- Progress background colou
 Config.x            = 0.5 -- Horizontal position
 Config.y            = 0.5 -- Vertical position
 
-Config.Rotation     = 0     -- Rotation angle of dial in degrees
-Config.MaxAngle     = 360   -- Max arc in degrees - 360 = full circle, 90 = quarter of a circle, etc
-Config.Radius       = 60    -- Radius of the dial in pixels
-Config.Stroke       = 10    -- stroke width of the dial in pixels
+Config.Rotation     = 0         -- Rotation angle of dial in degrees
+Config.MaxAngle     = 360       -- Max arc in degrees - 360 = full circle, 90 = quarter of a circle, etc
+Config.Radius       = 60        -- Radius of the dial in pixels
+Config.Stroke       = 10        -- stroke width of the dial in pixels
+Config.Cap          = 'butt'    -- or 'round'
+Config.Padding      = 0         -- Backgound bar padding
 
 Config.ShowTimer    = true  -- Shows the timer countdown within the dial
 Config.ShowProgress = false -- Shows the progress within the dial
@@ -124,6 +126,8 @@ exports.rprogress:Custom({
     Duration = 1000,
     Radius = 60,
     Stroke = 10,
+    Cap = 'butt',
+    Padding = 0,
     MaxAngle = 360,
     Rotation = 0,
     Easing = "easeLinear",
@@ -377,7 +381,7 @@ exports.rprogress:Custom({
 
 ```lua
 /rprogressStart [text] [duration]
-/rprogressCustom [from] [to] [duration] [radius] [stroke] [MaxAngle] [rotation]
+/rprogressCustom [from] [to] [duration] [radius] [stroke] [MaxAngle] [rotation] [padding] [cap]
 /rprogressMiniGame [difficulty]
 /rprogressSync [duration]
 /rprogressAsync [duration]
