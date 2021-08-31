@@ -7,7 +7,7 @@ Animation = nil
 --                     MAIN FUNCTIONS                     --
 ------------------------------------------------------------
 
-function Start(text, duration)
+function Start(text, duration, linear)
     if type(text) ~= "string" then
         PrintError("param 'text' must be type:string")
         return
@@ -23,6 +23,10 @@ function Start(text, duration)
         Duration = duration,
         Label = text
     })
+
+    if linear ~= nil then
+        options.Type = 'linear'
+    end
 
     options.Async = false
     options.MiniGame = false
@@ -115,6 +119,10 @@ function Custom(options, static)
     end   
 end
 
+function Linear(text, duration)
+    Start(text, duration, true)
+end
+
 function Stop()
     SendNUIMessage({
         stop = true
@@ -166,7 +174,6 @@ function Static(config)
 end
 
 function MiniGame(options)
-
     if Run then
         return
     end
@@ -315,6 +322,7 @@ end)
 RegisterNetEvent("rprogress:start")
 RegisterNetEvent("rprogress:stop")
 RegisterNetEvent("rprogress:custom")
+RegisterNetEvent("rprogress:linear")
 RegisterNetEvent("rprogress:minigame")
 
 AddEventHandler("rprogress:start", Start)
@@ -326,6 +334,7 @@ AddEventHandler("rprogress:custom", function(options)
 
     Custom(options)
 end)
+AddEventHandler("rprogress:linear", Linear)
 AddEventHandler("rprogress:minigame", MiniGame)
 
 
@@ -337,4 +346,5 @@ exports('Start', Start)
 exports('Custom', Custom)
 exports('Stop', Stop)
 exports('Static', Static)
+exports('Linear', Linear)
 exports('MiniGame', MiniGame)

@@ -58,15 +58,17 @@ Config.BGColor      = "rgba(0, 0, 0, 0.4)"          -- Progress background colou
 Config.x            = 0.5 -- Horizontal position
 Config.y            = 0.5 -- Vertical position
 
-Config.Rotation     = 0         -- Rotation angle of dial in degrees
-Config.MaxAngle     = 360       -- Max arc in degrees - 360 = full circle, 90 = quarter of a circle, etc
-Config.Radius       = 60        -- Radius of the dial in pixels
-Config.Stroke       = 10        -- stroke width of the dial in pixels
+Config.Rotation     = 0         -- Rotation angle of dial
+Config.MaxAngle     = 360       -- Max arc in degrees - 360 will be a full circle, 90 will be a quarter of a circle, etc
+Config.Radius       = 60        -- Radius of the radial dial
+Config.Stroke       = 10        -- stroke width of the radial dial
+Config.Width        = 300       -- Width of the linear bar
+Config.Height       = 40        -- Height of the linear bar
 Config.Cap          = 'butt'    -- or 'round'
-Config.Padding      = 0         -- Backgound bar padding
+Config.Padding      = 0         -- Background bar padding
 
-Config.ShowTimer    = true  -- Shows the timer countdown within the dial
-Config.ShowProgress = false -- Shows the progress within the dial
+Config.ShowTimer    = true  -- Shows the timer countdown within the radial dial
+Config.ShowProgress = false -- Shows the progress within the radial dial
 
 Config.Easing       = "easeLinear" -- The easing used for the dial animation - see "rprogress/ui/js/easings.js"
 
@@ -102,6 +104,19 @@ exports.rprogress:Custom(options)
 
 -- Create a static progress dial
 exports.rprogress:Static(options)
+
+-- Create a linear progress bar
+exports.rprogress:Linear(text, duration)
+
+-- or
+
+exports.rprogress:Custom({
+    Type = 'linear'
+    Duration = 3000,
+    Width = 400,
+    Height = 50,
+    y = 0.75
+})
 ```
 
 ##### Display a progress dial with text for set duration

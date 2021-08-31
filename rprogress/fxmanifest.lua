@@ -25,8 +25,11 @@ files {
     'ui/js/app.js',
 }
 
-exports "Start"
-exports "Custom"
-exports "Stop"
-exports "Static"
-exports "MiniGame"
+exports {
+    "Start",
+    "Custom",
+    "Stop",
+    "Static",
+    "Linear",
+    "MiniGame"
+}
