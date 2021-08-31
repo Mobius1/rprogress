@@ -6,13 +6,12 @@ description 'Radial Progress'
 
 author 'Karl Saunders'
 
-version '0.7.4'
+version '0.7.5'
 
 client_scripts {
     'config.lua',
     'utils.lua',
     'client.lua',
-    'demo.lua' -- remove if not needed
 }
 
 ui_page 'ui/ui.html'

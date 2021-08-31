@@ -1,4 +1,4 @@
-const ui = document.getElementById('radial_progress');
+const ui = document.getElementById('rprogress');
 let running = false;
 let customDial = false
 let staticDial = false
@@ -36,50 +36,85 @@ window.onData = function (data) {
         }
     } else {
         if (data.display && !running) {
-            customDial = new RadialProgress({
-                r: data.Radius,
-                s: data.Stroke,
-                x: data.x,
-                y: data.y,
-                padding: data.Padding,
-                cap: data.Cap,                
-                color: data.Color,
-                bgColor: data.BGColor,
-                rotation: data.Rotation,
-                maxAngle: data.MaxAngle,
-                progress: data.From,
-                easing: data.Easing,
-                onStart: function() {
-                    running = true;
+            if ( data.Type == 'linear' ) {
+                customDial = new LinearProgress({
+                    w: data.Width,
+                    h: data.Height,
+                    x: data.x,
+                    y: data.y,
+                    padding: data.Padding,
+                    cap: data.Cap,                
+                    color: data.Color,
+                    bgColor: data.BGColor,
+                    progress: data.From,
+                    easing: data.Easing,
+                    onStart: function() {
+                        running = true;
 
-                    this.container.classList.add(`label-${data.LabelPosition}`);
-                    this.label.textContent = data.Label;
+                        this.label.textContent = data.Label;
 
-                    PostData("progress_start")
-                },
-                onChange: function(progress, t, duration) {
-                    if ( data.ShowTimer ) {
-                        this.indicator.textContent = `${((duration - t) / 1000).toFixed(2)}s`;
+                        PostData("progress_start")
+                    },    
+                    onComplete: function () {
+                        this.label.textContent = "";
+
+                        PostData("progress_complete");
+
+                        this.hide();
+
+                        setTimeout(() => {
+                            this.remove();
+                        }, 1000)
+                    
+                        running = false;
+                    }                    
+                });
+            } else if ( data.Type == 'radial' || !data.Type ) {
+                customDial = new RadialProgress({
+                    r: data.Radius,
+                    s: data.Stroke,
+                    x: data.x,
+                    y: data.y,
+                    padding: data.Padding,
+                    cap: data.Cap,                
+                    color: data.Color,
+                    bgColor: data.BGColor,
+                    rotation: data.Rotation,
+                    maxAngle: data.MaxAngle,
+                    progress: data.From,
+                    easing: data.Easing,
+                    onStart: function() {
+                        running = true;
+
+                        this.container.classList.add(`label-${data.LabelPosition}`);
+                        this.label.textContent = data.Label;
+
+                        PostData("progress_start")
+                    },
+                    onChange: function(progress, t, duration) {
+                        if ( data.ShowTimer ) {
+                            this.indicator.textContent = `${((duration - t) / 1000).toFixed(2)}s`;
+                        }
+
+                        if ( data.ShowProgress ) {
+                            this.indicator.textContent = `${Math.ceil(progress)}%`;
+                        }                
+                    },     
+                    onComplete: function () {
+                        PostData("progress_complete");
+
+                        this.indicator.textContent = "";
+                        this.label.textContent = "";
+                        this.hide();
+
+                        setTimeout(() => {
+                            this.remove();
+                        }, 1000)
+                    
+                        running = false;
                     }
-
-                    if ( data.ShowProgress ) {
-                        this.indicator.textContent = `${Math.ceil(progress)}%`;
-                    }                
-                },     
-                onComplete: function () {
-                    this.indicator.textContent = "";
-                    this.label.textContent = "";
-                    this.hide();
-
-                    setTimeout(() => {
-                        this.remove();
-                    }, 1000)
-  
-                    PostData("progress_complete");
-                
-                    running = false;
-                }
-            });
+                });
+            }
 
             customDial.render(ui);
 
@@ -128,7 +163,6 @@ window.onData = function (data) {
                 }             
             }              
         }
-
     }
 
     if (data.stop && customDial) {

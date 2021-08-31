@@ -89,11 +89,98 @@ class Circle {
     }
 }
 
+class RProgress {
+    start(to, from, duration) {
+        this.frame = false;
+
+        if (from === undefined) {
+            from = this.config.progress;
+        }
+
+        // Duration of scroll
+        if (duration === undefined) {
+            duration = 5000;
+        }
+
+        let st = Date.now();
+
+        // Scroll function
+        const animate = () => {
+            let progress,
+                now = Date.now(),
+                ct = now - st;
+
+            // Cancel after allotted interval
+            if (ct > duration) {
+                cancelAnimationFrame(this.frame);
+                this.setProgress(to, false);
+                this.config.onChange.call(this, 100, ct, duration);
+                this.config.onComplete.call(this, to);
+                return;
+            }
+
+            progress = easings[this.config.easing](ct, from, to - from, duration);
+
+            this.setProgress(progress, false);
+
+            this.config.onChange.call(this, progress, ct, duration);
+
+            // requestAnimationFrame
+            this.frame = requestAnimationFrame(animate);
+        };
+
+        this.config.onStart.call(this);
+        animate();
+    }	
+	
+    pause() {
+        cancelAnimationFrame(this.frame);
+    }
+
+    stop() {
+        cancelAnimationFrame(this.frame);
+        this.remove();
+    }	
+
+    render(element) {
+        if (!this.rendered) {
+            element =
+                typeof element === "string" ? document.querySelector(element) : element;
+
+            element.appendChild(this.container);
+			
+            this.setPosition();
+
+            this.rendered = true;
+        }
+    }
+
+    remove() {
+        const parent = this.container.parentNode;
+        if (this.rendered && parent) {
+            parent.removeChild(this.container);
+
+            this.rendered = false;
+        }
+    }
+
+    show() {
+        this.container.classList.remove("done");
+    }
+
+    hide() {
+        this.container.classList.add("done");
+    }    
+}
+
 /**
 * RadialProgress Class
 */
-class RadialProgress {
+class RadialProgress extends RProgress {
     constructor(config) {
+        super();
+
+
         const defaultConfig = {
             r: 50,
             s: 10,
@@ -265,82 +352,93 @@ class RadialProgress {
             this.config.onChange.call(this, progress);
         }
     }
+}
 
-    render(element) {
-        if (!this.rendered) {
-            element = typeof element === "string" ? document.querySelector(element) : element;
-
-            element.appendChild(this.container);
-
-            this.rendered = true;
-        }
-    }
-
-    remove() {
-        const parent = this.container.parentNode;
-        if (this.rendered && parent) {
-            parent.removeChild(this.container);
-
-            this.rendered = false;
-        }
-    }
-
-    start(to, from, duration) {
-        this.frame = false;
-
-        if (from === undefined) {
-            from = this.config.progress;
-        }
-
-        // Duration of scroll
-        if (duration === undefined) {
-            duration = 5000;
-        }  
-
-        let st = Date.now();
-
-        // Scroll function
-        const animate = () => {
-            let progress, now = Date.now(),
-                ct = now - st;
-
-            // Cancel after allotted interval
-            if (ct > duration) {
-                cancelAnimationFrame(this.frame);
-                this.setProgress(to, false);
-                this.config.onChange.call(this, progress, ct, duration);
-                this.config.onComplete.call(this, to);
-                return;
-            }
-
-            progress = easings[this.config.easing](ct, from, to - from, duration);
-
-            this.setProgress(progress, false);
-
-            this.config.onChange.call(this, progress, ct, duration);
-
-            // requestAnimationFrame
-            this.frame = requestAnimationFrame(animate);
+class LinearProgress extends RProgress {
+    constructor(config) {
+        super();
+		
+        const defaultConfig = {
+            w: 300,
+            h: 10,
+            s: 10,
+            x: 0,
+            y: 0,
+            cap: "butt",
+            padding: 0,
+            progress: 0,
+            color: "rgba(255, 255, 255, 1.0)",
+            bgColor: "rgba(0, 0, 0, 0.4)",
+            easing: "easeLinear",
+            onStart: () => {},
+            onChange: () => {},
+            onComplete: () => {}
         };
 
-        this.config.onStart.call(this);
-        animate();
+        this.config = Object.assign({}, defaultConfig, config);
+        this.progress = 0;
+
+        this.init();
+
+        return this;
     }
 
-    show() {
-        this.container.classList.remove("done");
-    }
+    init() {
+        this.container = document.createElement("div");
+        this.container.classList.add("linear-progress");
 
-    hide() {
-        this.container.classList.add("done");
-    }
+        this.bg = document.createElement("div");
+        this.fg = document.createElement("div");
+		
+        this.bg.classList.add("linear-progress-bg");
+        this.fg.classList.add("linear-progress-fg");
 
-    pause() {
-        cancelAnimationFrame(this.frame);
+        this.label = document.createElement("div");
+        this.label.classList.add("linear-progress-label");
+		
+        this.container.appendChild(this.bg);
+        this.container.appendChild(this.fg);
+        this.container.appendChild(this.label);
     }
+	
+    setPosition() {
+        let contCss = `width:${this.config.w}px;height:${this.config.h}px;left:${this.config.x * window.innerWidth - this.config.w / 2}px;top:${this.config.y * window.innerHeight - this.config.h / 2}px;`;
+        let bgCss = `background-color:${this.config.bgColor};padding:${this.config.padding}px;left:${-this.config.padding}px;top:${-this.config.padding}px;`;
+		
+        this.container.style.cssText = contCss;
+		
+        this.fg.style.backgroundColor = this.config.color;
+		
+        if ( this.config.cap == 'round' ) {
+            this.fg.style.borderRadius = `${this.config.h / 2}px`
+            this.fg.style.transform = "scale(1, 1)";
+			
+            bgCss += `border-radius:${this.config.h / 2 + this.config.padding}px;`;
+        } else {
+            this.fg.style.width = "100%";
+        }
+		
 
-    stop() {
-        cancelAnimationFrame(this.frame);
-        this.remove();
+        this.bg.style.cssText = bgCss;
+    }
+	
+    setProgress(progress, e) {
+        if (progress === undefined) {
+            progress = this.config.progress;
+        }
+		
+        const p = (progress / 100);
+		
+        if ( this.config.cap == 'round' ) {
+            this.fg.style.width = `${progress}%`;
+        } else {
+            this.fg.style.transform = `scale(${p}, 1)`;
+        }
+		
+        this.progress = progress;
+
+        if (e === undefined) {
+            this.config.onChange.call(this, progress);
+        }
     }
 }
