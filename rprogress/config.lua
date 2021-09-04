@@ -15,10 +15,14 @@ Config.BGColor          = "rgba(0, 0, 0, 0.4)"          -- Progress background c
 Config.x            = 0.5 -- Horizontal position
 Config.y            = 0.5 -- Vertical position
 
-Config.Rotation     = 0     -- Rotation angle of dial
-Config.MaxAngle     = 360   -- Max arc in degrees - 360 will be a full circle, 90 will be a quarter of a circle, etc
-Config.Radius       = 60    -- Radius of the dial
-Config.Stroke       = 10    -- stroke width of the dial
+Config.Rotation     = 0         -- Rotation angle of dial
+Config.MaxAngle     = 360       -- Max arc in degrees - 360 will be a full circle, 90 will be a quarter of a circle, etc
+Config.Radius       = 60        -- Radius of the radial dial
+Config.Stroke       = 10        -- stroke width of the radial dial
+Config.Width        = 300       -- Width of the linear bar
+Config.Height       = 40        -- Height of the linear bar
+Config.Cap          = 'butt'    -- or 'round'
+Config.Padding      = 0         -- Backgound bar padding
 
 Config.ShowTimer    = true  -- Shows the timer countdown withing the dial
 Config.ShowProgress = false -- Shows the progress within the dial

@@ -86,7 +86,7 @@ function ErrorCheck(options)
 end
 
 function PrintError(msg)
-    ShowNotification("~r~RPROGRESS ERROR: ~w~" .. msg)
+    -- ShowNotification("~r~RPROGRESS ERROR: ~w~" .. msg)
 
     msg = "======== RPROGRESS ERROR: " .. msg .. " ========"
     local s = string.rep("=", string.len(msg))
