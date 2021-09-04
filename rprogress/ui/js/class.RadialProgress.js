@@ -235,10 +235,11 @@ class RadialProgress extends RProgress {
 
         if ( this.config.zone ) {
             this.zoneArc = (this.config.zone / 100) * arc;
-            this.zonePos = getRandomInt(this.zoneArc, arc - this.zoneArc);
+            this.zonePos = getRandomInt(0, arc - this.zoneArc);
 
-            this.zoneMin = ((this.zonePos / arc) * 100)
-            this.zoneMax = ((this.zonePos / arc) * 100) + (this.config.zone)
+            const startPos = (this.zonePos / arc) * 100;
+            this.zoneMin = startPos;
+            this.zoneMax = startPos + this.config.zone;
 
             this.dials.zone = new Circle(
                 this.config.r,
