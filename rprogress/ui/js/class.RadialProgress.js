@@ -234,14 +234,17 @@ class RadialProgress extends RProgress {
         };
 
         if ( this.config.zone ) {
-            this.zoneMin = 50 - (this.config.zone / 2)
-            this.zoneMax = 50 + (this.config.zone / 2)
+            this.zoneArc = (this.config.zone / 100) * arc;
+            this.zonePos = getRandomInt(this.zoneArc, arc - this.zoneArc);
+
+            this.zoneMin = ((this.zonePos / arc) * 100)
+            this.zoneMax = ((this.zonePos / arc) * 100) + (this.config.zone)
 
             this.dials.zone = new Circle(
                 this.config.r,
                 this.config.s,
                 0,
-                (this.config.zone / 100) * arc,
+                this.zoneArc,
                 true
             )
         }        
@@ -250,21 +253,12 @@ class RadialProgress extends RProgress {
         this.svg.getNode().appendChild(this.dials.fg.getNode());
 
         if ( this.dials.zone ) {
-            function getRandomInt(min, max) {
-                min = Math.ceil(min);
-                max = Math.floor(max);
-                return Math.floor(Math.random() * (max - min) + min);
-            }
 
             this.svg.getNode().appendChild(this.dials.zone.getNode());
             this.dials.zone.getNode().setAttributeNS(null, "stroke", "rgba(51, 105, 30, 1)"); 
 
-            const per = (this.config.zone / 100) * arc;
-            const offset = (arc - per) / 2
-            const randPos = getRandomInt(0, arc - per)
-
             this.dials.zone.getNode().style.transform = `rotate(${
-                offset
+                this.zonePos
             }deg)`;
 
             this.dials.zone.getNode().style.transformOrigin = `50% 50% 0`;
@@ -441,4 +435,10 @@ class LinearProgress extends RProgress {
             this.config.onChange.call(this, progress);
         }
     }
+}
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min);
 }
