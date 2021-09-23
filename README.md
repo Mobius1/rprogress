@@ -209,12 +209,16 @@ As with the `Custom()` method, you can pass a variety of options. The `onComplet
 ```lua
 exports.rprogress:MiniGame({
     Difficulty = "Easy",
+    Timeout = 5000, -- Duration before minigame is cancelled
     onComplete = function(success)
             if success then
                 -- Player was successful
             else
                 -- Player was unsuccessful
             end    
+    end,
+    onTimeout = function()
+        -- Player took too long to respond
     end
 })
 ```
