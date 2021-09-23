@@ -97,7 +97,6 @@ class RProgress {
             from = this.config.progress;
         }
 
-        // Duration of scroll
         if (duration === undefined) {
             duration = 5000;
         }
@@ -197,7 +196,8 @@ class RadialProgress extends RProgress {
             easing: "easeLinear",
             onStart: () => {},
             onChange: () => {},
-            onComplete: () => {}
+            onComplete: () => {},
+            onTimeout: () => {},
         };
 
         this.config = Object.assign({}, defaultConfig, config);

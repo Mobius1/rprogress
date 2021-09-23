@@ -1,7 +1,9 @@
 OnStart = nil
 OnComplete = nil
+OnTimeout = nil
 Run = false
 Animation = nil
+MiniGameCompleted = false
 
 ------------------------------------------------------------
 --                     MAIN FUNCTIONS                     --
@@ -77,6 +79,7 @@ function Custom(options, static)
     
     OnStart = options.onStart
     OnComplete = options.onComplete
+    OnTimeout = options.onTimeout
 
     Animation = nil
     if options.Animation ~= nil then
@@ -86,6 +89,7 @@ function Custom(options, static)
     -- CAN'T SEND FUNCTIONS TO NUI
     options.onStart = nil
     options.onComplete = nil
+    options.onTimeout = nil
 
     -- Static Progress
     if static == true then
@@ -178,6 +182,8 @@ function MiniGame(options)
         return
     end
 
+    MiniGameCompleted = false
+
     -- MERGE USER OPTIONS
     options = MergeConfig(Config.MiniGameOptions, options)
     
@@ -196,6 +202,17 @@ function MiniGame(options)
     options.MiniGame = true
 
     Custom(options)
+
+    if options.Timeout ~= nil and options.Timeout > 0 then
+        Citizen.SetTimeout(options.Timeout, function()
+            if OnTimeout ~= nil and type(OnTimeout) == 'function' then
+                if not MiniGameCompleted then
+                    Stop()
+                    OnTimeout()
+                end
+            end
+        end)
+    end
 end
 
 function DisableControls(options)
@@ -299,6 +316,8 @@ RegisterNUICallback('progress_stop', function(data, cb)
 end)
 
 RegisterNUICallback('progress_minigame_input', function(data, cb)
+    MiniGameCompleted = true
+
     if OnComplete ~= nil then
         OnComplete(data.success == true)
     end

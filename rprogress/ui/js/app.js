@@ -27,7 +27,7 @@ window.onData = function (data) {
                     } else {
                         this.start(100, 0, data.Duration);
                     }               
-                },                 
+                }          
             });         
 
             miniGame.render(ui);
@@ -165,10 +165,16 @@ window.onData = function (data) {
         }
     }
 
-    if (data.stop && customDial) {
+    if (data.stop) {
         running = false;
-        customDial.stop();
-        customDial = false;
+
+        if ( miniGame ) {
+            miniGame.stop();
+            miniGame = false
+        } else if ( customDial ) {
+            customDial.stop();
+            customDial = false
+        }
 
         PostData("progress_stop");
     }
@@ -197,7 +203,7 @@ window.onload = function (e) {
 
                         PostData("progress_minigame_complete");
                     }, 1000)
-                }, 2000)
+                }, 1000)
             }                 
         } 
     });     
