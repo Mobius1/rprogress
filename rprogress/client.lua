@@ -1,9 +1,9 @@
-OnStart = nil
-OnComplete = nil
-OnTimeout = nil
-Run = false
-Animation = nil
-MiniGameCompleted = false
+local OnStart = nil
+local OnComplete = nil
+local OnTimeout = nil
+local Run = false
+local Animation = nil
+local MiniGameCompleted = false
 
 ------------------------------------------------------------
 --                     MAIN FUNCTIONS                     --
@@ -110,6 +110,7 @@ function Custom(options, static)
         while Run do
 
             if IsControlJustPressed(0, Config.CancelKey) and options.canCancel then
+                OnComplete(true)
                 TriggerEvent("rprogress:stop")
             end
 
@@ -123,6 +124,7 @@ function Custom(options, static)
             while Run do
 
                 if IsControlJustPressed(0, Config.CancelKey) and options.canCancel then
+                    OnComplete(true)
                     TriggerEvent("rprogress:stop")
                 end
 
