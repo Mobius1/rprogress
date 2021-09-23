@@ -108,6 +108,11 @@ function Custom(options, static)
 
     if options.Async == false then
         while Run do
+
+            if IsControlJustPressed(0, Config.CancelKey) and options.canCancel then
+                TriggerEvent("rprogress:stop")
+            end
+
             DisableControls(options)
             Citizen.Wait(1)
         end
@@ -116,6 +121,11 @@ function Custom(options, static)
     else
         Citizen.CreateThread(function()
             while Run do
+
+                if IsControlJustPressed(0, Config.CancelKey) and options.canCancel then
+                    TriggerEvent("rprogress:stop")
+                end
+
                 DisableControls(options)
                 Citizen.Wait(0)
             end
@@ -233,7 +243,7 @@ function DisableControls(options)
         DisableControlAction(0, 71, true)
         DisableControlAction(0, 72, true)
         DisableControlAction(0, 75, true)
-    end    
+    end
 end
 
 -- Start the scenario / animation
