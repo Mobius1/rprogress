@@ -6,7 +6,7 @@ description 'Radial Progress'
 
 author 'Karl Saunders'
 
-version '0.7.7'
+version '0.7.8'
 
 client_scripts {
     'config.lua',
@@ -20,9 +20,7 @@ files {
     'ui/ui.html',
     'ui/fonts/*.ttf',
     'ui/css/*.css',
-    'ui/js/easings.js',
-    'ui/js/class.RadialProgress.js',
-    'ui/js/app.js',
+    'ui/js/*.js',
 }
 
 exports {
