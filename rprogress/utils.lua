@@ -42,10 +42,10 @@ function ErrorCheck(options)
     for k, v in pairs(options) do
         local error = false
         if k ~= "onStart" and k ~= "onComplete" and k ~= "onTimeout" then
-            if k == "ShowTimer" or k == "ShowProgress" or k == "Async" or k == "MiniGame" or k == "Loop" then
+            if k == "ShowTimer" or k == "ShowProgress" or k == "Async" or k == "MiniGame" or k == "Loop" or k == "canCancel" then
                 if type(v) ~= "boolean" then
                     error = { prop = k, type = "boolean" }
-                end              
+                end
             elseif k == "Label" or k == "Color" or k == "BGColor" or k == "LabelPosition" or k == "Easing" or k == "Cap" or k == "Type" then
                 if type(v) ~= "string" then
                     error = { prop = k, type = "string" }
