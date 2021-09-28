@@ -66,6 +66,7 @@ Config.Width        = 300       -- Width of the linear bar
 Config.Height       = 40        -- Height of the linear bar
 Config.Cap          = 'butt'    -- or 'round'
 Config.Padding      = 0         -- Background bar padding
+Config.CancelKey    = 178       -- Key used for cancelling progress
 
 Config.ShowTimer    = true  -- Shows the timer countdown within the radial dial
 Config.ShowProgress = false -- Shows the progress within the radial dial
@@ -134,6 +135,7 @@ exports.rprogress:Stop()
 ```lua
 exports.rprogress:Custom({
     Async = true,
+    canCancel = true,
     x = 0.5,
     y = 0.5,
     From = 0,
@@ -163,7 +165,9 @@ exports.rprogress:Custom({
     onStart = function()
         -- do something when progress starts
     end	
-    onComplete = function()
+    onComplete = function(cancelled)
+        -- cancelled: boolean - whether player cancelled the progress
+
         -- do something when progress is complete
     end
 })
