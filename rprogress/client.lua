@@ -264,6 +264,9 @@ function PlayAnimation()
                         end
 
                         RequestAnimDict( Animation.animationDictionary )
+                        while not HasAnimDictLoaded( Animation.animationDictionary ) do
+                            Citizen.Wait(1)
+                        end
                         TaskPlayAnim( player, Animation.animationDictionary, Animation.animationName, 3.0, 1.0, -1, Animation.flag, 0, 0, 0, 0 )
                     end
                 end
