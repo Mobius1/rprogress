@@ -106,10 +106,16 @@ function Custom(options, static)
 
     PlayAnimation(options)
 
+    local cancelKey = Config.CancelKey
+
+    if options.cancelKey and tonumber(options.cancelKey) then
+        cancelKey = options.cancelKey
+    end
+
     if options.Async == false then
         while Run do
 
-            if IsControlJustPressed(0, Config.CancelKey) and options.canCancel then
+            if IsControlJustPressed(0, cancelKey) and options.canCancel then
                 OnComplete(true)
                 TriggerEvent("rprogress:stop")
             end
@@ -123,7 +129,7 @@ function Custom(options, static)
         Citizen.CreateThread(function()
             while Run do
 
-                if IsControlJustPressed(0, Config.CancelKey) and options.canCancel then
+                if IsControlJustPressed(0, cancelKey) and options.canCancel then
                     OnComplete(true)
                     TriggerEvent("rprogress:stop")
                 end
