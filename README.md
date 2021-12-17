@@ -131,23 +131,27 @@ exports.rprogress:Start(text, duration)
 exports.rprogress:Stop()
 ```
 
-##### Override `config.lua` values
+##### Create a custom progress instance
 ```lua
 exports.rprogress:Custom({
     Async = true,
-    canCancel = true,   -- allow cancelling
-    cancelKey = 178,    -- custom cancel key
-    x = 0.5,            -- Position on x-axis
-    y = 0.5,            -- Position on y-axis
-    From = 0,           -- Percentage to start from
-    To = 100,           -- Percentage to end
-    Duration = 1000,    -- Duration of the progress
-    Radius = 60,        -- Radius of the dial
-    Stroke = 10,        -- Thickness of the progress dial
-    Cap = 'butt',       -- or 'round'
-    Padding = 0,        -- Padding between the progress dial and the background dial
-    MaxAngle = 360,     -- Maximum sweep angle of the dial in degrees
-    Rotation = 0,       -- 2D rotation of the dial in degrees
+    canCancel = true,       -- Allow cancelling
+    cancelKey = 178,        -- Custom cancel key
+    x = 0.5,                -- Position on x-axis
+    y = 0.5,                -- Position on y-axis
+    From = 0,               -- Percentage to start from
+    To = 100,               -- Percentage to end
+    Duration = 1000,        -- Duration of the progress
+    Radius = 60,            -- Radius of the dial
+    Stroke = 10,            -- Thickness of the progress dial
+    Cap = 'butt',           -- or 'round'
+    Padding = 0,            -- Padding between the progress dial and the background dial
+    MaxAngle = 360,         -- Maximum sweep angle of the dial in degrees
+    Rotation = 0,           -- 2D rotation of the dial in degrees
+    Width = 300,            -- Width of bar in px if Type = 'linear'
+    Height = 40,            -- Height of bar in px if Type = 'linear'
+    ShowTimer = true,       -- Shows the timer countdown within the radial dial
+    ShowProgress = false,   -- Shows the progress % within the radial dial    
     Easing = "easeLinear",
     Label = "My Custom Label",
     LabelPosition = "right",
