@@ -223,7 +223,7 @@ function MiniGame(options)
 
     if options.Timeout ~= nil and options.Timeout > 0 then
         Citizen.SetTimeout(options.Timeout, function()
-            if OnTimeout ~= nil and type(OnTimeout) == 'function' then
+            if OnTimeout ~= nil then
                 if not MiniGameCompleted then
                     Stop()
                     OnTimeout()
