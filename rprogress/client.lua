@@ -51,11 +51,6 @@ function Start(text, duration, linear)
 end
 
 function Custom(options, static)
-    -- ERROR HANDLING --
-    if ErrorCheck(options) then
-        return
-    end
-    
     local Controls = {
         Mouse = Config.DisableControls.Mouse,
         Player = Config.DisableControls.Player,

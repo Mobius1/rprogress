@@ -32,59 +32,6 @@ function MergeConfig(t1, t2)
     return copy
 end
 
-function ErrorCheck(options)
-
-    if type(options) ~= "table" then
-        PrintError("options must be type:table")
-        return true
-    end
-
-    for k, v in pairs(options) do
-        local error = false
-        if k ~= "onStart" and k ~= "onComplete" and k ~= "onTimeout" then
-            if k == "ShowTimer" or k == "ShowProgress" or k == "Async" or k == "MiniGame" or k == "Loop" or k == "canCancel" then
-                if type(v) ~= "boolean" then
-                    error = { prop = k, type = "boolean" }
-                end
-            elseif k == "Label" or k == "Color" or k == "BGColor" or k == "LabelPosition" or k == "Easing" or k == "Cap" or k == "Type" then
-                if type(v) ~= "string" then
-                    error = { prop = k, type = "string" }
-                end
-            elseif k == "DisableControls" then
-                for m, n in pairs(v) do
-                    if type(n) ~= "boolean" then
-                        error = { prop = k .. "." .. m, type = "boolean" }
-                    end
-                end
-            elseif k == "Animation" then
-                for m, n in pairs(v) do
-                    if m == "flag" then
-                        if tonumber(n) == nil then
-                            error = { prop = k, type = "number" }
-                        end
-                    else
-                        if type(n) ~= "string" then
-                            error = { prop = k .. "." .. m, type = "string" }
-                        end
-                    end
-                end                
-            else
-                if tonumber(v) == nil then
-                    error = { prop = k, type = "number" }
-                end
-            end
-    
-            if error ~= false then
-                PrintError("param '" .. error.prop .. "' must be type:" .. error.type)
-                            
-                return true
-            end            
-        end
-    end
-    
-    return false
-end
-
 function PrintError(msg)
     -- ShowNotification("~r~RPROGRESS ERROR: ~w~" .. msg)
 
