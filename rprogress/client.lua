@@ -332,14 +332,13 @@ RegisterNUICallback('progress_stop', function(data, cb)
 end)
 
 RegisterNUICallback('progress_minigame_input', function(data, cb)
-    MiniGameCompleted = true
-
-    if OnComplete ~= nil then
-        OnComplete(data.success == true)
+    if not MiniGameCompleted then
+        if OnComplete ~= nil then
+            OnComplete(data.success == true)
+        end
+        StopAnimation()
+        MiniGameCompleted = true
     end
-
-    StopAnimation()
-
     cb('ok')
 end)
 
