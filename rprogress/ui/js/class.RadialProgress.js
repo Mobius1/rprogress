@@ -192,6 +192,7 @@ class RadialProgress extends RProgress {
             maxAngle: 360,
             rotation: 0,
             color: "rgba(255, 255, 255, 1.0)",
+            zoneColor: "rgba(51, 105, 30, 1)",
             bgColor: "rgba(0, 0, 0, 0.4)",
             easing: "easeLinear",
             onStart: () => {},
@@ -254,9 +255,8 @@ class RadialProgress extends RProgress {
         this.svg.getNode().appendChild(this.dials.fg.getNode());
 
         if ( this.dials.zone ) {
-
             this.svg.getNode().appendChild(this.dials.zone.getNode());
-            this.dials.zone.getNode().setAttributeNS(null, "stroke", "rgba(51, 105, 30, 1)"); 
+            this.dials.zone.getNode().setAttributeNS(null, "stroke", this.config.zoneColor); 
 
             this.dials.zone.getNode().style.transform = `rotate(${
                 this.zonePos

@@ -191,9 +191,7 @@ function Static(config)
 end
 
 function MiniGame(options)
-    if Run then
-        return
-    end
+    if Run then return end
 
     MiniGameCompleted = false
 

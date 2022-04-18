@@ -14,6 +14,7 @@ window.onData = function (data) {
                 y: data.y,
                 color: data.Color,
                 bgColor: data.BGColor,
+                zoneColor: data.ZoneColor,
                 rotation: data.Rotation,
                 maxAngle: data.MaxAngle,
                 progress: data.From,

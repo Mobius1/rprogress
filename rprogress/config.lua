@@ -11,6 +11,7 @@ Config.LabelPosition    = "bottom"
 
 Config.Color            = "rgba(255, 255, 255, 1.0)"    -- Progress bar colour
 Config.BGColor          = "rgba(0, 0, 0, 0.4)"          -- Progress background colour
+Config.ZoneColor        = "rgba(51, 105, 30, 1)"        -- Minigame Zone colour
 
 Config.x            = 0.5 -- Horizontal position
 Config.y            = 0.5 -- Vertical position
