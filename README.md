@@ -54,6 +54,7 @@ Config.LabelPosition    = "bottom"
 
 Config.Color        = "rgba(255, 255, 255, 1.0)"    -- Progress dial colour
 Config.BGColor      = "rgba(0, 0, 0, 0.4)"          -- Progress background colour
+Config.ZoneColor    = "rgba(51, 105, 30, 1)"        -- Minigame Zone colour
 
 Config.x            = 0.5 -- Horizontal position
 Config.y            = 0.5 -- Vertical position
@@ -157,6 +158,7 @@ exports.rprogress:Custom({
     LabelPosition = "right",
     Color = "rgba(255, 255, 255, 1.0)",
     BGColor = "rgba(0, 0, 0, 0.4)",
+    ZoneColor = "rgba(51, 105, 30, 1)",
     Animation = {
         scenario = "WORLD_HUMAN_AA_SMOKE", -- https://pastebin.com/6mrYTdQv
         animationDictionary = "missheistfbisetup1", -- https://alexguirre.github.io/animations-list/
@@ -169,7 +171,7 @@ exports.rprogress:Custom({
     },    
     onStart = function()
         -- do something when progress starts
-    end	
+    end,
     onComplete = function(cancelled)
         -- cancelled: boolean - whether player cancelled the progress
 
@@ -429,12 +431,21 @@ Pull requests welcome.
 
 ### License
 
+```
 rprogress - Customisable radial progress dials for FiveM.
 
 Copyright (C) 2020 Karl Saunders
 
-This program Is free software: you can redistribute it And/Or modify it under the terms Of the GNU General Public License As published by the Free Software Foundation, either version 3 Of the License, Or (at your option) any later version.
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
-This program Is distributed In the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty Of MERCHANTABILITY Or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License For more details.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
-You should have received a copy Of the GNU General Public License along with this program. If Not, see http://www.gnu.org/licenses/.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>
+```
