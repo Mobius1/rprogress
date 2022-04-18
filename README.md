@@ -35,7 +35,8 @@ Customisable radial progress bars for FiveM.
 ## Download & Installation
 
 * Download and extract the package: https://github.com/Mobius1/rprogress/archive/master.zip
-* Drop the `rprogress` directory into you `resources` directory
+* Drop the `rprogress-master` directory into you `resources` directory
+* Rename the directory from `rprogress-master` to `rprogress`
 * Add `ensure rprogress` in your `server.cfg`
 * Edit `config.lua` to your liking
 * Start your server and rejoice!
