@@ -1,9 +1,5 @@
-local OnStart = nil
-local OnComplete = nil
-local OnTimeout = nil
-local Run = false
-local Animation = nil
-local MiniGameCompleted = false
+local OnStart, OnComplete, OnTimeout, Animation = nil, nil, nil, nil
+local Run, MiniGameCompleted = false, false
 
 ------------------------------------------------------------
 --                     MAIN FUNCTIONS                     --
@@ -46,7 +42,7 @@ function Start(text, duration, linear)
 
     while Run do
         DisableControls(options)
-        Citizen.Wait(1)
+        Wait(1)
     end
 end
 
@@ -116,12 +112,12 @@ function Custom(options, static)
             end
 
             DisableControls(options)
-            Citizen.Wait(1)
+            Wait(1)
         end
 
         StopAnimation()
     else
-        Citizen.CreateThread(function()
+        CreateThread(function()
             while Run do
 
                 if IsControlJustPressed(0, cancelKey) and options.canCancel then
@@ -130,7 +126,7 @@ function Custom(options, static)
                 end
 
                 DisableControls(options)
-                Citizen.Wait(0)
+                Wait(0)
             end
         end)
     end   
@@ -251,7 +247,7 @@ end
 function PlayAnimation()
     if Animation ~= nil then
         local player = PlayerPedId()
-        if DoesEntityExist( player ) and not IsEntityDead( player ) then  
+        if DoesEntityExist(player) and not IsEntityDead(player) then  
             Citizen.CreateThread(function()
                 if Animation.scenario ~= nil then
                     TaskStartScenarioInPlace(player, Animation.scenario, 0, true)
@@ -264,7 +260,7 @@ function PlayAnimation()
 
                         RequestAnimDict( Animation.animationDictionary )
                         while not HasAnimDictLoaded( Animation.animationDictionary ) do
-                            Citizen.Wait(1)
+                            Wait(1)
                         end
                         TaskPlayAnim( player, Animation.animationDictionary, Animation.animationName, 3.0, 1.0, -1, Animation.flag, 0, 0, 0, 0 )
                     end
