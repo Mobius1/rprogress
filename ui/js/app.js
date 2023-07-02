@@ -143,8 +143,8 @@ window.onData = function (data) {
                     },                 
                 });
 
-                staticDial.container.classList.add(`label-${data.LabelPosition}`);
-                staticDial.label.textContent = data.Label;            
+                staticDial[data.id].container.classList.add(`label-${data.LabelPosition}`);
+                staticDial[data.id].label.textContent = data.Label;            
             } else {
                 if (data.show) {
                     staticDial[data.id].render(ui);
