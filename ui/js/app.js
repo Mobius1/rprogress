@@ -123,8 +123,8 @@ window.onData = function (data) {
         }
 
         if ( data.static ) {
-            if ( !staticDial ) {
-                staticDial = new RadialProgress({
+            if ( !staticDial[data.id] ) {
+                staticDial[data.id] = new RadialProgress({
                     r: data.Radius,
                     s: data.Stroke,
                     x: data.x,
@@ -147,20 +147,20 @@ window.onData = function (data) {
                 staticDial.label.textContent = data.Label;            
             } else {
                 if (data.show) {
-                    staticDial.render(ui);
+                    staticDial[data.id].render(ui);
                 }
             
                 if (data.hide) {
-                    staticDial.remove();
+                    staticDial[data.id].remove();
                 }               
 
                 if ( data.progress !== false ) {
-                    staticDial.setProgress(data.progress)
+                    staticDial[data.id].setProgress(data.progress)
                 }
 
                 if (data.destroy) {
-                    staticDial.remove();
-                    staticDial = false;
+                    staticDial[data.id].remove();
+                    staticDial[data.id] = false;
                 }             
             }              
         }
