@@ -1,7 +1,7 @@
 const ui = document.getElementById('rprogress');
 let running = false;
 let customDial = false
-let staticDial = false
+let staticDial = [];
 let miniGame = false
 
 window.onData = function (data) {
