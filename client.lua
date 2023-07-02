@@ -1,5 +1,6 @@
 local OnStart, OnComplete, OnTimeout, Animation = nil, nil, nil, nil
 local Run, MiniGameCompleted = false, false
+local idIncrement = 0
 
 ------------------------------------------------------------
 --                     MAIN FUNCTIONS                     --
@@ -147,6 +148,9 @@ function Static(config)
 
     options.display = false
     options.static = true
+
+    idIncrement = idIncrement + 1
+    options.id = idIncrement
 
     SendNUIMessage(options)
 
